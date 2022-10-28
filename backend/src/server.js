@@ -47,6 +47,9 @@ const limiter = rateLimit({
   skipSuccessfulRequests: true, // skip if the request is succesful
 });
 
+// Test connection from the outside
+app.use("/", (req, res) => res.json({ data: "Success" }));
+
 app.use("/api", limiter);
 
 //  Body Parser  => reading data from body into req.body protect from scraping etc
@@ -86,9 +89,7 @@ app.use(globalErrorHandler);
 // running
 // Connect to Mongoose
 mongoose
-  .connect(
-    process.env.DB_URL
-  )
+  .connect(process.env.DB_URL)
   .then(() => {
     console.log(`Connecting to Mongoose successfully`);
   })

@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [backend, setBackend] = useState("No Backend connection");
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
+  console.log(backendURL);
+  useEffect(() => {
+    axios.get(backendURL).then((response) => {
+      console.log(response.data.data);
+      setBackend(
+        response.data.data === "Success"
+          ? "Connected to Backend Successfully"
+          : "Unable to connect to Backend"
+      );
+    });
+  }, []);
+  return <div className="App">{backend}</div>;
 }
 
 export default App;

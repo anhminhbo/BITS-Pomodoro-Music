@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  bits-backend:
+    container_name: bits-backend
+    image: anhminhbo/bits-backend:3
+    ports:
+     - '8080:8080'
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+      - DB_URL=mongodb+srv://anhminhbo:Anhminh1234*@cluster0.djeak2p.mongodb.net/?retryWrites=true&w=majority
+
+  bits-frontend:
+    container_name: bits-frontend
+    image: anhminhbo/bits-frontend:3
+    ports:
+     - '3000:3000'
+    environment:
+      - BACKEND_URL=http://20.189.121.242:8080
