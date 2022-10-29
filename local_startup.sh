@@ -1,6 +1,4 @@
-
-
-# Run parallely backend and frontend local
+# Run parallely backend and frontend locally
 
 cd backend && npm run server  &
 
