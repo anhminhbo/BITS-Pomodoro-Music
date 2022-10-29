@@ -2,9 +2,10 @@ version: '3.8'
 services:
   bits-backend:
     container_name: bits-backend
-    image: anhminhbo/bits-backend:10
+    restart: always
+    image: anhminhbo/bits-backend:11
     ports:
-     - '8080:8080'
+    - '8080:8080'
     environment:
       - NODE_ENV=production
       - PORT=8080
@@ -17,8 +18,9 @@ services:
 
   bits-frontend:
     container_name: bits-frontend
-    image: anhminhbo/bits-frontend:9
+    restart: always
+    image: anhminhbo/bits-frontend:11
     ports:
-     - '3000:3000'
+    - '3000:3000'
     environment:
       - REACT_APP_BACKEND_URL=http://localhost:8080

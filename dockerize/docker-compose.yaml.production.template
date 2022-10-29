@@ -3,7 +3,7 @@ services:
   bits-backend:
     container_name: bits-backend
     restart: always
-    image: anhminhbo/bits-backend:11
+    image: anhminhbo/bits-backend:[[BACKEND_TAG]]
     environment:
       - NODE_ENV=production
       - PORT=8080
@@ -17,13 +17,13 @@ services:
   bits-frontend:
     container_name: bits-frontend
     restart: always
-    image: anhminhbo/bits-frontend:11
+    image: anhminhbo/bits-frontend:[[FRONTEND_TAG]]
     environment:
-      - REACT_APP_BACKEND_URL=http://20.189.121.242
+      - REACT_APP_BACKEND_URL=[[BACKEND_URL]]
   
   bits-proxy:
     container_name: bits-proxy
     restart: always
-    image: anhminhbo/bits-proxy:5
+    image: anhminhbo/bits-proxy:[[PROXY_TAG]]
     ports:
     - '80:80'
