@@ -1,2 +1,2 @@
-# BITS-Backend
+# BITS
 Pomodoro Music player

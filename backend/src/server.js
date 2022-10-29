@@ -1,30 +1,31 @@
-const express = require("express");
 // import express
+const express = require("express");
+const morgan = require("morgan");
+const path = require("path");
+
 const app = express();
+
+// Import env
+if (process.env.NODE_ENV !== "production") {
+  // eslint-disable-next-line global-require
+  require("dotenv").config({ path: path.join(__dirname, "../.env") });
+  app.use(morgan("dev"));
+}
 
 // Import 3rd party libraries
 const cors = require("cors");
-const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
-const path = require("path");
 
+const { PORT } = require("./config/constant/Env");
 const { ResponseService } = require("./services");
 const Error = require("./config/constant/Error");
 const { globalErrorHandler } = require("./middlewares");
 const { UserRouter } = require("./routers");
-
-// Import env
-
-if (process.env.NODE_ENV !== "production") {
-  // eslint-disable-next-line global-require
-  require("dotenv").config({ path: path.join(__dirname, "../.env") });
-  app.use(morgan("dev"));
-}
 
 // set security http headers
 app.use(helmet());
@@ -88,19 +89,15 @@ app.use(globalErrorHandler);
 
 // running
 // Connect to Mongoose
-mongoose
-  .connect(process.env.DB_URL)
-  .then(() => {
-    console.log(`Connecting to Mongoose successfully`);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+require("./config/init.mongo");
 
-const port = process.env.PORT || 8080;
+// Connect to redis and init session
+require("./config/init.session");
+
+const port = PORT || 8080;
 
 app.listen(port, () => {
-  console.log(`HTTP Server listening on port ${port}`);
+  console.log(`Server listening on port ${port}`);
 });
 
 // handle Globaly the unhandle Rejection Error which is  outside the express

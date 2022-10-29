@@ -5,3 +5,5 @@ Dockerfile
 .gitignore
 README.md
 package-lock.json
+.env
+.git

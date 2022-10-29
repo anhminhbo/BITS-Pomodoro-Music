@@ -84,5 +84,4 @@ const Error = {
     errMessage: "Something wrong happened.",
   },
 };
-
 module.exports = Error;
