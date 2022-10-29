@@ -6,12 +6,12 @@ WORKDIR /app
 # Install app dependencies
 # A wildcard * is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
-COPY package.json ./
+COPY package*.json ./
 
-# Fix An unknown git error occured
-RUN apk add git
+# # Fix An unknown git error occured
+# RUN apk add git
 
-RUN npm install
+RUN npm ci --only=production && npm cache clean --force
 # If you are building your code for production
 # RUN npm ci --only=production
 
@@ -19,4 +19,5 @@ RUN npm install
 COPY . .
 
 EXPOSE 8080
-CMD [ "npm","run", "server" ]
+
+CMD [ "npm","run", "start" ]

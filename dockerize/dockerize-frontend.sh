@@ -1,5 +1,4 @@
-backendTag=$(grep "backend" current-tag | cut -d'=' -f2)
-frontendTag=$(grep "frontend" current-tag | cut -d'=' -f2)
+frontendTag=$(cat frontend-tag)
 newFrontendTag=$(($frontendTag + 1 ))
 
 docker rmi -f $(docker images -aq)
@@ -23,9 +22,6 @@ docker tag bits-frontend:$newFrontendTag anhminhbo/bits-frontend:$newFrontendTag
 
 docker push anhminhbo/bits-frontend:$newFrontendTag
 
-cat current-tag.template | \
-    sed "s/\[\[FRONTEND_TAG\]\]/$newFrontendTag/g" | \
-    sed "s/\[\[BACKEND_TAG\]\]/$backendTag/g"  \
-    > current-tag
+echo "$newFrontendTag" > frontend-tag
 
 docker rmi -f $(docker images -aq)
