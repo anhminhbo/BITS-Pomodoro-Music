@@ -48,10 +48,10 @@ const limiter = rateLimit({
   skipSuccessfulRequests: true, // skip if the request is succesful
 });
 
-// Test connection from the outside
-app.use("/", (req, res) => res.json({ data: "Success" }));
-
 app.use("/api", limiter);
+
+// Test connection from the outside
+app.use("/api/test", (req, res) => res.json({ data: "Success" }));
 
 //  Body Parser  => reading data from body into req.body protect from scraping etc
 // parses incoming requests with JSON payloads
