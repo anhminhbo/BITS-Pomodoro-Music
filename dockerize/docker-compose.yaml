@@ -3,7 +3,7 @@ services:
   bits-backend:
     container_name: bits-backend
     restart: always
-    image: anhminhbo/bits-backend:11
+    image: anhminhbo/bits-backend:13
     ports:
     - '8080:8080'
     environment:
@@ -19,7 +19,7 @@ services:
   bits-frontend:
     container_name: bits-frontend
     restart: always
-    image: anhminhbo/bits-frontend:11
+    image: anhminhbo/bits-frontend:13
     ports:
     - '3000:3000'
     environment:
