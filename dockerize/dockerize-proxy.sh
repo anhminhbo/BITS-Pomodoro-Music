@@ -3,7 +3,7 @@ newProxyTag=$(($proxyTag + 1 ))
 
 cd ..
 
-cd nginx
+cd proxy
 
 docker build . -t bits-proxy:$newProxyTag
 
