@@ -15,7 +15,7 @@ function App() {
       );
     });
   }, []);
-  return <div className="App">{backend}, test Jenkins auto deploy</div>;
+  return <div className="App">{backend}</div>;
 }
 
 export default App;
