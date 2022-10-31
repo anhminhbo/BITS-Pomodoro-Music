@@ -9,7 +9,8 @@ COPY package*.json ./
 # Copy app files
 COPY . .
 
-RUN npm ci --only=production && npm cache clean --force
+RUN npm ci --only=production
+# && npm cache clean --force
 
 # # ==== BUILD =====
 # # Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
