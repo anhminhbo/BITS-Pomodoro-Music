@@ -24,7 +24,7 @@ services:
   bits-proxy:
     container_name: bits-proxy
     restart: always
-    image: anhminhbo/bits-proxy:11
+    image: anhminhbo/bits-proxy:12
     depends_on:
       - bits-backend
       - bits-frontend
