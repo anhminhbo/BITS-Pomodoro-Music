@@ -18,13 +18,15 @@ services:
     container_name: bits-frontend
     restart: always
     image: anhminhbo/bits-frontend:14
+    ports:
+    - '3000:3000'
     environment:
       - REACT_APP_BACKEND_URL=http://20.189.121.242
   
   bits-proxy:
     container_name: bits-proxy
     restart: always
-    image: anhminhbo/bits-proxy:12
+    image: anhminhbo/bits-proxy:13
     depends_on:
       - bits-backend
       - bits-frontend

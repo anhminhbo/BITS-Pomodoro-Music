@@ -18,6 +18,8 @@ services:
     container_name: bits-frontend
     restart: always
     image: anhminhbo/bits-frontend:[[FRONTEND_TAG]]
+    ports:
+    - '3000:3000'
     environment:
       - REACT_APP_BACKEND_URL=[[BACKEND_URL]]
   
