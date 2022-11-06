@@ -1,8 +1,10 @@
 # SET-UP-APP
+
 - SSH to App VM
+- Install docker and docker-compose
 - Create deploy.sh script:
+
 ```
-  GNU nano 4.8                                                                                              deploy.sh
 docker rmi -f $(docker images -aq)
 
 PROJ_DIR=projects/bits
@@ -24,7 +26,6 @@ fi
 sudo cat $PROJ_DIR/docker-compose.yaml.template | \
     sed "s/\[\[FRONTEND_TAG\]\]/$gitFrontendTag/g" | \
     sed "s/\[\[BACKEND_TAG\]\]/$gitBackendTag/g" \
-#    sed "s/\[\[PROXY_TAG\]\]/$gitProxyTag/g" \
     > $PROJ_DIR/docker-compose.yaml
 
 cd $PROJ_DIR
@@ -33,18 +34,19 @@ sudo docker-compose up --force-recreate -d
 
 #docker rmi -f $(docker images -aq)
 ```
+
 - Make dirs and cd to projects/bits/
 - Create docker-compose.yaml.template:
+
 ```yaml
-  GNU nano 4.8                                                                                     docker-compose.yaml.template
 version: '3.8'
 services:
   bits-backend:
     container_name: bits-backend
     restart: always
-    image: anhminhbo/bits-backend:[[BACKEND_TAG]]
-#    ports:
-#    - '8080:8080'
+    image: anhminhbo/bits-backend:15
+    ports:
+    - '8080:8080'
     environment:
       - NODE_ENV=production
       - PORT=8080
@@ -58,22 +60,14 @@ services:
   bits-frontend:
     container_name: bits-frontend
     restart: always
-    image: anhminhbo/bits-frontend:[[FRONTEND_TAG]]
-#    ports:
-#    - '3000:3000'
+    image: anhminhbo/bits-frontend:16
+    ports:
+    - '3000:80'
     environment:
-      - REACT_APP_BACKEND_URL=http://20.189.121.242
+      - NODE_ENV=production
+      - BACKEND_URL=https://pumidoro-music.homes
       - WDS_SOCKET_PORT=0
-
-#  bits-proxy:
-#    container_name: bits-proxy
-#    restart: always
-#    image: anhminhbo/bits-proxy:[[PROXY_TAG]]
-#    depends_on:
-#      - bits-backend
-#      - bits-frontend
-#    ports:
-#    - '80:80'
 
 ```
 
+- Now follow to

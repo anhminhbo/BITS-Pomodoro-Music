@@ -1,5 +1,6 @@
 # SET-UP-JENKINS
 - SSH to jenkins VM
+- Install docker and docker-compose
 - Create a script and run jenkins container by running this script
 ```
 docker rm -f $(docker ps -aq)
@@ -14,7 +15,7 @@ docker run -d --name jenkins -p 8080:8080 -p 50000:50000 --restart=always -v jen
 
 - Copy key pem from azureuser from App VM so Jenkins can ssh to azureuser App VM
 
-- Build a job to automate whenever there is new push on main branch github -> trigger job
+- Build a job to automate whenever there is new push on main branch github Poll SCM -> trigger job
 
 - This job automatically ssh to App VM and run scripts to deploy
 ```
