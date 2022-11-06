@@ -1,7 +1,30 @@
 # SET-UP-APP
 
 - SSH to App VM
+
+## Install Docker and Docker-compose
+
+- Uninstall old docker or docker-compose
+
+```
+sudo apt-get remove docker docker-engine docker.io containerd runc
+```
+
 - Install docker and docker-compose
+
+```
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+```
+
+- Checking docker and docker-compose version
+
+```
+docker -v
+docker-compose -v
+```
+
+## Install script to auto deploy using docker and docker-compose
+
 - Create deploy.sh script:
 
 ```
@@ -39,14 +62,14 @@ sudo docker-compose up --force-recreate -d
 - Create docker-compose.yaml.template:
 
 ```yaml
-version: "3.8"
+version: '3.8'
 services:
   bits-backend:
     container_name: bits-backend
     restart: always
-    image: anhminhbo/bits-backend:15
+    image: anhminhbo/bits-backend:[[BACKEND_TAG]]
     ports:
-      - "8080:8080"
+    - '8080:8080'
     environment:
       - NODE_ENV=production
       - PORT=8080
@@ -60,13 +83,30 @@ services:
   bits-frontend:
     container_name: bits-frontend
     restart: always
-    image: anhminhbo/bits-frontend:16
+    image: anhminhbo/bits-frontend:[[FRONTEND_TAG]]
     ports:
-      - "3000:80"
+    - '3000:80'
     environment:
       - NODE_ENV=production
       - BACKEND_URL=https://pumidoro-music.homes
       - WDS_SOCKET_PORT=0
+```
+
+- Remember to grant permission for azureuser to use docker and sudo
+- Grant permission to run docker for azureuser
+
+```
+sudo usermod -aG docker
+```
+
+- Grant permission to run sudo
+
+```
+usermod -aG sudo azureuser
+```
+- Grant permission to read/write/execute on current directory
+```
+sudo chown -R azureuser:azureuser projects/bits
 ```
 
 - Now follow to [Install nginx](https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/app-vm/INSTALL-NGINX.md)

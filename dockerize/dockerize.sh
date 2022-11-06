@@ -11,4 +11,4 @@ bash -x dockerize-frontend.sh &
 bash -x dockerize-backend.sh
 
 wait
-echo "Build and push parallely for frontend, backend and proxy images successfully"
+echo "Build and push parallely for frontend, backend successfully"

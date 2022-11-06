@@ -2,7 +2,7 @@ bash -x clean_up.sh
 
 backendTag=$(cat backend-tag)
 frontendTag=$(cat frontend-tag)
-proxyTag=$(cat proxy-tag)
+#proxyTag=$(cat proxy-tag)
 
 backendLocalUrl="http\:\/\/localhost\:8080"
 backendProdUrl="https\:\/\/pumidoro-music.homes"
