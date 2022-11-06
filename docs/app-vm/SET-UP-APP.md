@@ -39,14 +39,14 @@ sudo docker-compose up --force-recreate -d
 - Create docker-compose.yaml.template:
 
 ```yaml
-version: '3.8'
+version: "3.8"
 services:
   bits-backend:
     container_name: bits-backend
     restart: always
     image: anhminhbo/bits-backend:15
     ports:
-    - '8080:8080'
+      - "8080:8080"
     environment:
       - NODE_ENV=production
       - PORT=8080
@@ -62,12 +62,11 @@ services:
     restart: always
     image: anhminhbo/bits-frontend:16
     ports:
-    - '3000:80'
+      - "3000:80"
     environment:
       - NODE_ENV=production
       - BACKEND_URL=https://pumidoro-music.homes
       - WDS_SOCKET_PORT=0
-
 ```
 
-- Now follow to
+- Now follow to [Install nginx](https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/app-vm/INSTALL-NGINX.md)

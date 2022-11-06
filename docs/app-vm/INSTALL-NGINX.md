@@ -1,4 +1,5 @@
 # INSTALL NGINX
+
 - The architecture is our vm firewall expose port 22(SSH), 80(HTTP), 443(HTTPS) to the outside
 - Therefore, we set up an nginx for our application
 - The proxy will proxy to the frontend and backend containers living inside our VM
@@ -10,16 +11,20 @@ sudo apt install nginx
 ```
 
 - Delete default:
+
 ```
 sudo rm /etc/nginx/sites-available/default
 sudo rm /etc/nginx/sites-enabled/default
 ```
 
 - Create your domain config, here using our domain:
+
 ```
 sudo touch /etc/nginx/sites-available/pumidoro-music.homes
 ```
+
 - The contents inside:
+
 ```
     client_max_body_size 500M;
     server_name pumidoro-music.homes www.pumidoro-music.homes;
@@ -72,18 +77,21 @@ server {
 ```
 
 - We create symbolic links to site-enabled
+
 ```
 sudo ln -s /etc/nginx/sites-available/pumidoro-music.homes /etc/nginx/sites-enabled/pumidoro-music.homes
 ```
 
 - Verified if nginx config corrected
+
 ```
 sudo nginx -t
 ```
 
 - Restart nginx to apply config
+
 ```
 sudo service nginx restart
 ```
 
-
+- Now follow to [Add cert to proxy](https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/app-vm/ADD-CERT.md)
