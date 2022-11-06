@@ -62,14 +62,14 @@ sudo docker-compose up --force-recreate -d
 - Create docker-compose.yaml.template:
 
 ```yaml
-version: '3.8'
+version: "3.8"
 services:
   bits-backend:
     container_name: bits-backend
     restart: always
     image: anhminhbo/bits-backend:[[BACKEND_TAG]]
     ports:
-    - '8080:8080'
+      - "8080:8080"
     environment:
       - NODE_ENV=production
       - PORT=8080
@@ -85,7 +85,7 @@ services:
     restart: always
     image: anhminhbo/bits-frontend:[[FRONTEND_TAG]]
     ports:
-    - '3000:80'
+      - "3000:80"
     environment:
       - NODE_ENV=production
       - BACKEND_URL=https://pumidoro-music.homes
@@ -104,9 +104,11 @@ sudo usermod -aG docker
 ```
 usermod -aG sudo azureuser
 ```
+
 - Grant permission to read/write/execute on current directory
+
 ```
 sudo chown -R azureuser:azureuser projects/bits
 ```
 
-- Now follow to [Install nginx](https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/app-vm/INSTALL-NGINX.md)
+- Now follow to [Install nginx](https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/app-vm/2-INSTALL-NGINX.md)

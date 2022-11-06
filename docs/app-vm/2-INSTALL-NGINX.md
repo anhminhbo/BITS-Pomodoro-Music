@@ -94,4 +94,4 @@ sudo nginx -t
 sudo service nginx restart
 ```
 
-- Now follow to [Add cert to proxy](https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/app-vm/ADD-CERT.md)
+- Now follow to [Add cert to proxy](https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/app-vm/3-ADD-CERT.md)
