@@ -18,5 +18,3 @@ window.__RUNTIME_CONFIG__ = {"NODE_ENV":"development","WDS_SOCKET_PORT":"0","BAC
 ```json
 "start": "NODE_ENV=development runtime-env-cra --config-name=./public/runtime-env.js && react-scripts start"
 ```
-
--
