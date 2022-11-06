@@ -3,7 +3,7 @@ services:
   bits-backend:
     container_name: bits-backend
     restart: always
-    image: anhminhbo/bits-backend:14
+    image: anhminhbo/bits-backend:15
     depends_on:
      - bits-redis
     ports:
