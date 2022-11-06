@@ -1,5 +1,5 @@
 # Run parallely backend and frontend locally
 
-cd backend && npm run server  &
+cd dockerize && bash -x start_containers.sh  &
 
 cd frontend && npm start

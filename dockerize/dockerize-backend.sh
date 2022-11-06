@@ -7,7 +7,7 @@ cd ..
 
 cd backend
 
-docker build . -t bits-backend:$newBackendTag 
+DOCKER_BUILDKIT=1 docker build . -t bits-backend:$newBackendTag 
 
 cd ..
 

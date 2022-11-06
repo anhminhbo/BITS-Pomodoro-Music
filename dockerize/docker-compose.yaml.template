@@ -4,24 +4,35 @@ services:
     container_name: bits-backend
     restart: always
     image: anhminhbo/bits-backend:[[BACKEND_TAG]]
+    depends_on:
+     - bits-redis
     ports:
     - '8080:8080'
     environment:
       - NODE_ENV=production
       - PORT=8080
-      - MONGO_URL=mongodb+srv://anhminhbo:Anhminh1234*@cluster0.djeak2p.mongodb.net/?retryWrites=true&w=majority
-      - REDIS_HOST=redis-12246.c1.ap-southeast-1-1.ec2.cloud.redislabs.com
+      - MONGO_URL=mongodb+srv://anhminhbo:Anhminh1234@bits-local.gvnypfl.mongodb.net/?retryWrites=true&w=majority
+      - REDIS_HOST=bits-redis
       - REDIS_USERNAME=default
-      - REDIS_PASSWORD=nqSWog7udIF3xi6wFWlaRuOntWo1R7CI
-      - REDIS_PORT=12246
+      - REDIS_PASSWORD=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+      - REDIS_PORT=6379
       - SESSION_SECRET=randomsessionsecret
-
-  bits-frontend:
-    container_name: bits-frontend
+    
+  bits-redis:
+    container_name: bits-redis
     restart: always
-    image: anhminhbo/bits-frontend:[[FRONTEND_TAG]]
+    image: redis:6.2-alpine
     ports:
-    - '3000:3000'
-    environment:
-      - REACT_APP_BACKEND_URL=[[BACKEND_URL]]
-      - WDS_SOCKET_PORT=0
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+
+
+#  bits-frontend:
+#    container_name: bits-frontend
+#    restart: always
+#    image: anhminhbo/bits-frontend:[[FRONTEND_TAG]]
+#    ports:
+#    - '3000:3000'
+#    environment:
+#      - REACT_APP_BACKEND_URL=[[BACKEND_URL]]
+#      - WDS_SOCKET_PORT=0

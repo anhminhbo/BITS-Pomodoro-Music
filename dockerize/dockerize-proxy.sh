@@ -5,7 +5,7 @@ cd ..
 
 cd proxy
 
-docker build . -t bits-proxy:$newProxyTag
+DOCKER_BUILDKIT=1 docker build . -t bits-proxy:$newProxyTag
 
 cd ..
 
