@@ -3,7 +3,7 @@ import axios from "axios";
 
 function App() {
   const [backend, setBackend] = useState("No Backend connection");
-  const backendURL = `${process.env.REACT_APP_BACKEND_URL}/api/test`;
+  const backendURL = `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/test`;
   console.log(backendURL);
   useEffect(() => {
     axios.get(backendURL).then((response) => {

@@ -19,9 +19,10 @@ services:
   bits-frontend:
     container_name: bits-frontend
     restart: always
-    image: anhminhbo/bits-frontend:15
+    image: anhminhbo/bits-frontend:16
     ports:
     - '3000:80'
     environment:
-      - REACT_APP_BACKEND_URL=https://pumidoro-music.homes
+      - NODE_ENV=production
+      - BACKEND_URL=https://pumidoro-music.homes
       - WDS_SOCKET_PORT=0
