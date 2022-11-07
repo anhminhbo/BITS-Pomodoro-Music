@@ -15,7 +15,7 @@ git clone https://{{username}}:{{access_token}}@github.com/anhminhbo/BITS-Pomodo
 ```
 
 - Make sure your computer install docker and docker-compose or else:
-## Install Docker and Docker-compose
+## Install Docker and Docker-compose (Linux, MacOs)
 - Uninstall old docker or docker-compose
 ```
 sudo apt-get remove docker docker-engine docker.io containerd runc
@@ -33,6 +33,11 @@ docker-compose -v
 ## Start project by running script
 ```
 bash -x local_startup.sh
+```
+
+## After finish development, clean up everything
+```
+bash -x clean-up.sh
 ```
 
 ## Docs
