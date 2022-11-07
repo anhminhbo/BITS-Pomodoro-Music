@@ -42,38 +42,37 @@ docker run -d --name jenkins -p 8080:8080 -p 50000:50000 --restart=always -v jen
 ```
 
 ## Configure Jenkins UI
+
 - Go to VM public-ip:8080 to see Jenkins
 <p align="center">
-    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/jenkins-vm/jenkins-1.png" width=1000 height=800>
+    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/jenkins-vm/jenkins-1.png" width=1000 height=1000>
     Login page
 </p>
 
-
 - Skip and then go to homepage and install Github and Publish over SSH plugins
 <p align="center">
-    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/jenkins-vm/jenkins-2.png" width=1000 height=800>
+    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/jenkins-vm/jenkins-2.png" width=1000 height=1000>
     Manage Plugins
 </p>
 
 - Under Dashboard > Manage Jenkins >Configure System, went down to Publish over SSH > SSH Servers
 <p align="center">
-    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/jenkins-vm/jenkins-3.png" width=1000 height=800>
+    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/jenkins-vm/jenkins-3.png" width=1000 height=1000>
     Add azure key pem to here so Jenkins can ssh to App VM
 </p>
 
-
 - Build a job to automate whenever there is new push on main branch github Poll SCM <p align="center">
-    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/jenkins-vm/jenkins-4.png" width=1000 height=800>
-    Config Jenkins to listen to our github
+<img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/jenkins-vm/jenkins-4.png" width=1000 height=1000>
+Config Jenkins to listen to our github
 </p>
 
 <p align="center">
-    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/jenkins-vm/jenkins-5.png" width=1000 height=800>
+    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/jenkins-vm/jenkins-5.png" width=1000 height=1000>
     Check every minutes of push event on main branch`
 </p>
 
 <p align="center">
-    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/jenkins-vm/jenkins-6.png" width=1000 height=800>
+    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/jenkins-vm/jenkins-6.png" width=1000 height=1000>
     Config job to ssh to App VM and execute the script to deploy
 </p>
 

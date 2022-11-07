@@ -7,11 +7,11 @@
 - Add payment card and then done
 - Register and login to your namecheap account to managed your newly bought domain
 <p align="center">
-    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/domain/domain-1.png" width=1000 height=800>
+    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/domain/domain-1.png" width=1000 height=1000>
     Domain list just bought
 </p>
 - Go to Advanced DNS and run the config
 <p align="center">
-    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/domain/domain-2.png" width=1000 height=800>
+    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/domain/domain-2.png" width=1000 height=1000>
     @ for your domain name, and www for when type www.domain-name, this will point to App VM public IP
 </p>
