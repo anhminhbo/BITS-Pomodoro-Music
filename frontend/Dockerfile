@@ -1,5 +1,6 @@
 # This is builder stage
 FROM node:16-alpine as builder
+FROM gcc
 
 # Set the working directory to /app inside the container
 WORKDIR /app
