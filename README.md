@@ -53,12 +53,13 @@ docker-compose -v
 ```
 
 ## Start project by running script
-- Make sure you are using a bash terminal
+- Make sure you are using a bash terminal to run the following code
 ```
 bash -x local_startup.sh
 ```
 
 ## After finish development, clean up everything
+- Make sure you are using a bash terminal to run the following code
 ```
 bash -x clean-up.sh
 ```
