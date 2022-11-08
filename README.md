@@ -27,6 +27,7 @@ git clone https://{{username}}:{{access_token}}@github.com/anhminhbo/BITS-Pomodo
  
 - Run Ubuntu installed in previous instruction
     - Make an account (password is invisible so be careful)
+    - Close Ubuntu
  
 - Run code below in terminal to check if Docker install correctly or not
 ```
@@ -34,7 +35,7 @@ docker -v
 docker-compose -v
 ```
  
-- Congrats you are done, if there are any bugs or errors please contact Mr Bug Fix Wanderer
+- Congrats you are done, if there are any bugs or errors please contact Mr Bug Fix Wanderer/anhminhbo <3
 
 ## Install Docker and Docker-compose (Linux, MacOs)
 - Uninstall old docker or docker-compose
