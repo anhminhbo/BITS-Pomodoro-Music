@@ -16,17 +16,17 @@ git clone https://{{username}}:{{access_token}}@github.com/anhminhbo/BITS-Pomodo
 
 - Make sure your computer install docker and docker-compose or else:
 ## Install Docker (Windows)
-- Uninstall old docker or docker-compose
-    -> Go to Control panel
-    -> Choose Uninstall a program
-    -> Select Docker and uninstall
+- Uninstall old docker or docker-compose 
+    - Go to Control panel
+    - Choose Uninstall a program
+    - Select Docker and uninstall
  
 - Install WSL2 Linux kernel update and Ubuntu via https://learn.microsoft.com/en-us/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package
  
 -  Install Docker Desktop(Docker-compose is included in Docker Desktop) via https://docs.docker.com/desktop/install/windows-install/
  
 - Run Ubuntu installed in previous instruction
-    -> Make an account (password is invisible so be careful)
+    - Make an account (password is invisible so be careful)
  
 - Run code below in terminal to check if Docker install correctly or not
 ```
