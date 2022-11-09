@@ -1,4 +1,4 @@
-bash -x clean_up.sh
+bash -x $ROOT_DIR/clean_up.sh
 
 backendTag=$(cat backend-tag)
 frontendTag=$(cat frontend-tag)

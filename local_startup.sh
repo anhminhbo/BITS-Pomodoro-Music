@@ -2,7 +2,7 @@
 export NODE_ENV=development
 
 
-ROOT_DIR=$(pwd)
+export ROOT_DIR=$(pwd)
 
 # Check if node modules existed in frontend
 if [[ -d "$ROOT_DIR/frontend/node_modules" ]]; then
@@ -14,5 +14,9 @@ fi
 # Run backend first and then frontend
 
 cd $ROOT_DIR/dockerize && bash -x start_containers.sh
+
+# Wati for backend to start up 100%
+echo "Wait for backend to start up 100%..."
+sleep 5
 
 cd $ROOT_DIR/frontend && npm start
