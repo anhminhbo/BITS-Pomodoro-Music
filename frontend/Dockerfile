@@ -1,6 +1,5 @@
 # This is builder stage
 FROM node:16-alpine as builder
-FROM gcc
 
 # Set the working directory to /app inside the container
 WORKDIR /app
@@ -33,9 +32,6 @@ RUN apk add --update npm
 RUN npm install -g runtime-env-cra@0.2.2
 
 WORKDIR /usr/share/nginx/html
-
-# Expose port
-EXPOSE 80
 
 # Start nginx
 CMD ["/bin/sh", "-c", "runtime-env-cra && nginx -g \"daemon off;\""]

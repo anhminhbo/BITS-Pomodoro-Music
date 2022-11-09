@@ -3,8 +3,8 @@ Pomodoro Music player
 
 ## Software Architecture
 <p align="center">
-    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/readme-2.png" width=1000 height=1000>
-    Notice only public IP
+    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/readme-1.jpg" width=1000 height=1000>
+    Software architecture
 </p>
 
 
