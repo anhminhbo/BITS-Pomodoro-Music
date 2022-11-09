@@ -3,7 +3,7 @@ Pomodoro Music player
 
 ## Software Architecture
 <p align="center">
-    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/readme-1.jpg" width=1000 height=1000>
+    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/readme-1.jpg" width=2551 height=1427>
     Software architecture
 </p>
 
