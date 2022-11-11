@@ -2,7 +2,7 @@
   "scripts": {
     "debug": "eslint -- -- src",
     "fix": "eslint --fix src",
-    "start": "node src/server.js",
+    "start": "DEBUG=express-session node src/server.js",
     "server": "nodemon src/server.js",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"cd ..\" \"cd frontend\" \"npm run client\"",
