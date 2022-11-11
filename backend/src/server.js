@@ -10,6 +10,7 @@ if (process.env.NODE_ENV !== "production") {
   // eslint-disable-next-line global-require
   require("dotenv").config({ path: path.join(__dirname, "../.env") });
   app.use(morgan("dev"));
+  app.set('trust proxy', 1) // for production to trust the proxy in front of express to use express session
 }
 
 // Import 3rd party libraries
@@ -19,13 +20,18 @@ const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const cookieParser = require("cookie-parser");
-const mongoose = require("mongoose");
 
 const { PORT } = require("./config/constant/Env");
 const { ResponseService } = require("./services");
 const Error = require("./config/constant/Error");
 const { globalErrorHandler } = require("./middlewares");
-const { UserRouter } = require("./routers");
+const { UserRouter, AuthRouter } = require("./routers");
+
+const sessionConfig = require("./config/init.session")
+
+// Connect to express session
+const expressSession = require("express-session");
+app.use(expressSession(sessionConfig));
 
 // set security http headers
 app.use(helmet());
@@ -69,10 +75,10 @@ app.use(mongoSanitize()); // filter out the dollar signs protect from  query inj
 
 // Data sanitization against XSS
 app.use(xss()); // protect from molision code coming from html
-
 // Use specific Router to handle each end point
 
 app.use("/api/user", UserRouter);
+app.use("/api/auth", AuthRouter);
 
 // handling all (get,post,update,delete.....) unhandled routes
 app.use("*", (req, res, next) => {
@@ -91,8 +97,8 @@ app.use(globalErrorHandler);
 // Connect to Mongoose
 require("./config/init.mongo");
 
-// Connect to redis and init session
-require("./config/init.session");
+// Connect to redis
+require("./config/init.redis");
 
 const port = PORT || 8080;
 

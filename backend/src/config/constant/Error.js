@@ -58,6 +58,10 @@ const Error = {
     errCode: 111,
     errMessage: "User already existed",
   },
+  SessionExpired: {
+    errCode: 112,
+    errMessage: "Session expired",
+  },
   // 200++ Error from Db
   CastError: {
     errCode: 201,

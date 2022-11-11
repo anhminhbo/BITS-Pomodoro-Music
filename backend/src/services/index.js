@@ -2,5 +2,6 @@
 // For example query db, handle complex business logic like validation,...
 const ResponseService = require("./response/response.service");
 const UserService = require("./user/user.service");
+const AuthService = require("./auth/auth.service");
 
-module.exports = { ResponseService, UserService };
+module.exports = { ResponseService, UserService, AuthService };

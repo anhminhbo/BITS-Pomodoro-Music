@@ -1,13 +1,10 @@
-const session = require("express-session");
-const RedisStore = require("connect-redis")(session);
-const redisClient = require("./init.redis");
-const { SESSION_SECRET } = require("./constant/Env");
-session({
-  store: new RedisStore({ client: redisClient }),
+const { SESSION_SECRET, NODE_ENV } = require("./constant/Env");
+
+const sessionConfig = {
   secret: SESSION_SECRET,
   cookie: {
     // enable cookies over https
-    secure: false,
+    secure: NODE_ENV === "production" ? true : false,
 
     // enable to save session to Store
     resave: false,
@@ -20,4 +17,6 @@ session({
 
     maxAge: 2 * 60 * 60000, // 2 hours expiration
   },
-});
+};
+
+module.exports = sessionConfig;
