@@ -10,7 +10,6 @@ if (process.env.NODE_ENV !== "production") {
   // eslint-disable-next-line global-require
   require("dotenv").config({ path: path.join(__dirname, "../.env") });
   app.use(morgan("dev"));
-  app.set('trust proxy', 1) // for production to trust the proxy in front of express to use express session
 }
 
 // Import 3rd party libraries
