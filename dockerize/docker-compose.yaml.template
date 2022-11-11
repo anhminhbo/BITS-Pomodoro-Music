@@ -1,22 +1,22 @@
 version: '3.8'
 services:
-  bits-backend:
-    container_name: bits-backend
-    restart: always
-    image: anhminhbo/bits-backend:[[BACKEND_TAG]]
-    depends_on:
-     - bits-redis
-    ports:
-    - '8080:8080'
-    environment:
-      - NODE_ENV=production
-      - PORT=8080
-      - MONGO_URL=mongodb+srv://anhminhbo:Anhminh1234@bits-local.gvnypfl.mongodb.net/?retryWrites=true&w=majority
-      - REDIS_HOST=bits-redis
-      - REDIS_USERNAME=default
-      - REDIS_PASSWORD=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
-      - REDIS_PORT=6379
-      - SESSION_SECRET=randomsessionsecret
+#  bits-backend:
+#    container_name: bits-backend
+#    restart: always
+#    image: anhminhbo/bits-backend:[[BACKEND_TAG]]
+#    depends_on:
+#     - bits-redis
+#    ports:
+#    - '8080:8080'
+#    environment:
+#      - NODE_ENV=production
+#      - PORT=8080
+#      - MONGO_URL=mongodb+srv://anhminhbo:Anhminh1234@bits-local.gvnypfl.mongodb.net/?retryWrites=true&w=majority
+#      - REDIS_HOST=bits-redis
+#      - REDIS_USERNAME=default
+#      - REDIS_PASSWORD=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+#      - REDIS_PORT=6379
+#      - SESSION_SECRET=randomsessionsecret
     
   bits-redis:
     container_name: bits-redis
@@ -24,7 +24,7 @@ services:
     image: redis:6.2-alpine
     ports:
       - '6379:6379'
-    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    command: redis-server --save 20 1 --loglevel warning
 
 
 #  bits-frontend:

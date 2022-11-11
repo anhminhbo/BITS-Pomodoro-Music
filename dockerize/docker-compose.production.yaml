@@ -19,7 +19,7 @@ services:
   bits-frontend:
     container_name: bits-frontend
     restart: always
-    image: anhminhbo/bits-frontend:16
+    image: anhminhbo/bits-frontend:17
     ports:
     - '3000:80'
     environment:

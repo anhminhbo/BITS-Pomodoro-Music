@@ -54,8 +54,15 @@ docker-compose -v
 
 ## Start project by running script
 - Make sure you are using a bash terminal to run the following code
+
+### Start to do frontend part
 ```
 bash -x local_startup.sh
+```
+
+### Start to do backend part
+```
+bash -x local_startup.sh backend
 ```
 
 ## After finish development, clean up everything
