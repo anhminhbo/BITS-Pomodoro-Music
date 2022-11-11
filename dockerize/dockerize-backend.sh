@@ -22,6 +22,6 @@ docker tag bits-backend:$newBackendTag anhminhbo/bits-backend:$newBackendTag
 
 docker push anhminhbo/bits-backend:$newBackendTag
 
-echo "$newBackendTag" > backend-tag
-
 docker rmi -f $(docker images -aq)
+
+echo "$newBackendTag" > backend-tag

@@ -40,7 +40,8 @@ app.use(helmet());
 // CORS for server and client communication
 app.use(
   cors({
-    origin: "*",
+    origin: ["https://www.pumidoro-music.homes", "http://localhost:3000"],
+    credentials: true,
   })
 );
 

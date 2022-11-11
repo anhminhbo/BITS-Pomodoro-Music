@@ -22,6 +22,6 @@ docker tag bits-frontend:$newFrontendTag anhminhbo/bits-frontend:$newFrontendTag
 
 docker push anhminhbo/bits-frontend:$newFrontendTag
 
-echo "$newFrontendTag" > frontend-tag
-
 docker rmi -f $(docker images -aq)
+
+echo "$newFrontendTag" > frontend-tag
