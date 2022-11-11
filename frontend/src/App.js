@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Timer from "./components/Timer";
 
 function App() {
   const [backend, setBackend] = useState("No Backend connection");
@@ -15,7 +16,10 @@ function App() {
       );
     });
   }, []);
-  return <div className="App">{backend}</div>;
+  return <div className="App">
+    {backend}
+    <Timer min={0} sec={5}/>
+  </div>;
 }
 
 export default App;
