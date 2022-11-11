@@ -10,6 +10,8 @@ if (process.env.NODE_ENV !== "production") {
   // eslint-disable-next-line global-require
   require("dotenv").config({ path: path.join(__dirname, "../.env") });
   app.use(morgan("dev"));
+} else {
+  app.set('trust proxy', 1); // to trust nginx and pass cookies
 }
 
 // Import 3rd party libraries
