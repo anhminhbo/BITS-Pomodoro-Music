@@ -7,7 +7,7 @@ cd ..
 
 cd frontend
 
-DOCKER_BUILDKIT=1 docker build . -t bits-frontend:$newFrontendTag 
+DOCKER_BUILDKIT=1 docker build . -t bits-frontend:$newFrontendTag
 
 cd ..
 

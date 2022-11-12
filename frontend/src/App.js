@@ -11,15 +11,17 @@ function App() {
       console.log(response.data.data);
       setBackend(
         response.data.data === "Success"
-          ? "Connected to Backend Successfully"
+          ? "Connected to Backend Successfully, test new Jenkins"
           : "Unable to connect to Backend"
       );
     });
   }, []);
-  return <div className="App">
-    {backend}
-    <Timer min={0} sec={5}/>
-  </div>;
+  return (
+    <div className="App">
+      {backend}
+      <Timer min={0} sec={5} />
+    </div>
+  );
 }
 
 export default App;
