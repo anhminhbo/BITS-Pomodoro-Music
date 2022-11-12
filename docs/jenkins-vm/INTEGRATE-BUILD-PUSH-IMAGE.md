@@ -78,7 +78,7 @@ elif [[ $frontendSrcSize != $prevFrontendSrcSize ]]; then
     
 else
     echo "Nothing new to build"
-    exit 0
+    exit 1
     
 fi
 docker rmi -f $(docker images -aq)
