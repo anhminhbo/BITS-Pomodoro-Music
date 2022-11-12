@@ -37,10 +37,15 @@ elif [[ $backendSrcSize != $prevBackendSrcSize ]]; then
 
     bash -x dockerize-backend.sh
 
-else
+elif [[ $frontendSrcSize != $prevFrontendSrcSize ]]; then
 
     bash -x dockerize-frontend.sh 
     
+else
+
+    echo "Nothing new to build"
+    exit 0
+
 fi
 
 docker rmi -f $(docker images -aq)

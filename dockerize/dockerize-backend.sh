@@ -1,27 +1,16 @@
-backendTag=$(cat backend-tag)
-newBackendTag=$(($backendTag + 1 ))
-
 docker rmi -f $(docker images -aq)
 
 cd ..
 
 cd backend
 
-DOCKER_BUILDKIT=1 docker build . -t bits-backend:$newBackendTag 
+DOCKER_BUILDKIT=1 docker build . -t bits-backend:1
 
 cd ..
 
 cd dockerize
 
-if [[ "$(docker images -q bits-backend:$newBackendTag 2> /dev/null)" == "" ]]; then
+if [[ "$(docker images -q bits-backend:1 2> /dev/null)" == "" ]]; then
     echo "Build failed"
     exit 1
 fi
-
-docker tag bits-backend:$newBackendTag anhminhbo/bits-backend:$newBackendTag
-
-docker push anhminhbo/bits-backend:$newBackendTag
-
-docker rmi -f $(docker images -aq)
-
-echo "$newBackendTag" > backend-tag
