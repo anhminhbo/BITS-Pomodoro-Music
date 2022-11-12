@@ -12,16 +12,16 @@ export newFrontendTag=$(($latestFrontendTag + 1 ))
 cd $PROJ_DIR/BITS-Pomodoro-Music
 
 # Get previous size of backend and frontend size
-prevBackendSrcSize=$(du -s -b $PROJ_DIR/BITS-Pomodoro-Music/backend/src)
-prevFrontendSrcSize=$(du -s -b $PROJ_DIR/BITS-Pomodoro-Music/frontend/src)
+prevBackendSrcSize=$(du -s -b $PROJ_DIR/BITS-Pomodoro-Music/backend/src | cut -d"h" -f1 | cut -d"/" -f1)
+prevFrontendSrcSize=$(du -s -b $PROJ_DIR/BITS-Pomodoro-Music/frontend/src | cut -d"h" -f1 | cut -d"/" -f1)
 
 # Get latest main branch
 
 git pull origin main
 
 # Get current src folder size of backend and frontend
-backendSrcSize=$(du -s -b $PROJ_DIR/BITS-Pomodoro-Music/backend/src)
-frontendSrcSize=$(du -s -b $PROJ_DIR/BITS-Pomodoro-Music/frontend/src)
+backendSrcSize=$(du -s -b $PROJ_DIR/BITS-Pomodoro-Music/backend/src | cut -d"h" -f1 | cut -d"/" -f1)
+frontendSrcSize=$(du -s -b $PROJ_DIR/BITS-Pomodoro-Music/frontend/src | cut -d"h" -f1 | cut -d"/" -f1)
 
 # Go back to project dir
 cd $PROJ_DIR
@@ -42,6 +42,8 @@ else
     bash -x dockerize-frontend.sh 
     
 fi
+
+docker rmi -f $(docker images -aq)
 
 
 

@@ -11,7 +11,7 @@ COPY package*.json ./
 # # Fix An unknown git error occured
 # RUN apk add git
 
-RUN npm ci --only=production
+RUN npm i --only=production
 # If you are building your code for production
 # RUN npm ci --only=production
 
