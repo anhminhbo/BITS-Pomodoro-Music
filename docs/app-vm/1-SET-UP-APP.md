@@ -89,6 +89,8 @@ services:
     image: anhminhbo/bits-frontend:[[FRONTEND_TAG]]
     ports:
       - "3000:80"
+   depends_on:
+    - bits-backend
     environment:
       - NODE_ENV=production
       - BACKEND_URL=https://pumidoro-music.homes
