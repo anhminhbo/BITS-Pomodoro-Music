@@ -112,7 +112,7 @@ docker push anhminhbo/bits-frontend:$newFrontendTag
     Excecute the job
 </p>
 - Remember to put exec time to be 40m
-- Just resize the Jenkins vms to Standard D2as V4 8g Ram and 16 GB storage
+- Just resize the Jenkins vms to Standard D2as V4 4gb Ram and 8 GB storage
 
 - Set up Post Build action
 <p align="center">
