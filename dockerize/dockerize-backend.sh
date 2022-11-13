@@ -6,11 +6,11 @@ cd backend
 
 DOCKER_BUILDKIT=1 docker build . -t bits-backend:1
 
-cd ..
+# cd ..
 
-cd dockerize
+# cd dockerize
 
-if [[ "$(docker images -q bits-backend:1 2> /dev/null)" == "" ]]; then
-    echo "Build failed"
-    exit 1
-fi
+# if [[ "$(docker images -q bits-backend:1 2> /dev/null)" == "" ]]; then
+#     echo "Build failed"
+#     exit 1
+# fi

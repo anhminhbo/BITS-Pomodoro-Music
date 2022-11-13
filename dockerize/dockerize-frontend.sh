@@ -4,13 +4,13 @@ cd ..
 
 cd frontend
 
-DOCKER_BUILDKIT=1 docker build . -t bits-frontend:$newFrontendTag
+DOCKER_BUILDKIT=1 docker build . -t bits-frontend:1
 
-cd ..
+# cd ..
 
-cd dockerize
+# cd dockerize
 
-if [[ "$(docker images -q bits-frontend:$newFrontendTag 2> /dev/null)" == "" ]]; then
-    echo "Build failed"
-    exit 1
-fi
+# if [[ "$(docker images -q bits-frontend:$newFrontendTag 2> /dev/null)" == "" ]]; then
+#     echo "Build failed"
+#     exit 1
+# fi
