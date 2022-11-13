@@ -49,6 +49,7 @@ else
 fi
 
 docker rmi -f $(docker images -aq)
+exit 0
 
 
 
