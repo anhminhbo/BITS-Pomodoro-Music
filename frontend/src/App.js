@@ -11,7 +11,7 @@ function App() {
       console.log(response.data.data);
       setBackend(
         response.data.data === "Success"
-          ? "Connected to Backend Successfully, Test new Jenkins size"
+          ? "Connected to Backend Successfully"
           : "Unable to connect to Backend"
       );
     });
