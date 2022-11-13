@@ -62,7 +62,7 @@ app.use("/api", limiter);
 app.use("/api/test", (req, res) => res.json({ data: "Success" }));
 
 // New Jenkins VM size
-app.use("/api/jenkins", (req, res) => res.json({ data: "new Jenkins v1" }));
+app.use("/api/jenkins", (req, res) => res.json({ data: "new Jenkins v1 1" }));
 
 
 //  Body Parser  => reading data from body into req.body protect from scraping etc

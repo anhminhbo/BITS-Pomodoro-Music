@@ -49,7 +49,7 @@ docker run -d --name jenkins -p 8080:8080 -p 50000:50000 --restart=always -v jen
     Login page
 </p>
 
-- Skip and then go to homepage and install Github, Publish over SSH plugins
+- Skip and then go to homepage and install Github, Publish over SSH and BlueOcean(UI for pipeline) plugins
 <p align="center">
     <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/jenkins-vm/jenkins-2.png" width=1000 height=1000>
     Manage Plugins
