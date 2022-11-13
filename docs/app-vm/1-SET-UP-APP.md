@@ -114,4 +114,6 @@ usermod -aG sudo azureuser
 sudo chown -R azureuser:azureuser projects/bits
 ```
 
+- Now upgrade size to B2s 4gb ram with 8gb storage
+
 - Now follow to [Install nginx](https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/app-vm/2-INSTALL-NGINX.md)
