@@ -1,5 +1,5 @@
 const Error = require("../config/constant/Error");
-const { ResponseService, JwtService } = require("../services");
+const { ResponseService } = require("../services");
 const { catchAsync } = require("../utils");
 
 const isAuthenticated = catchAsync(async (req, res, next) => {

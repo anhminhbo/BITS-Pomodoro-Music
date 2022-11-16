@@ -1,7 +1,8 @@
 // Services layer responsible for business logic of the application
 // For example query db, handle complex business logic like validation,...
 const ResponseService = require("./response/response.service");
+const RedisService = require("./redis/redis.service");
 const UserService = require("./user/user.service");
 const AuthService = require("./auth/auth.service");
 
-module.exports = { ResponseService, UserService, AuthService };
+module.exports = { ResponseService, UserService, AuthService, RedisService };

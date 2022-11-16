@@ -1,4 +1,4 @@
-const { ResponseService, UserService } = require("../services");
+const { ResponseService, UserService, RedisService } = require("../services");
 const Error = require("../config/constant/Error");
 const { catchAsync } = require("../utils");
 
@@ -11,6 +11,7 @@ const getUserById = catchAsync(async (req, res) => {
       Error.UserNotFound.errMessage
     );
   }
+
   res.status(200).json(ResponseService.newSucess(user));
 });
 

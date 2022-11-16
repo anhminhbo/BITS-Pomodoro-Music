@@ -11,7 +11,7 @@ function App() {
       console.log(response.data.data);
       setBackend(
         response.data.data === "Success"
-          ? "Connected to Backend Successfully"
+          ? "Connected to Backend Successfully with Redis"
           : "Unable to connect to Backend"
       );
     });
