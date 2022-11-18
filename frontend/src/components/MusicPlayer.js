@@ -15,7 +15,8 @@ const MusicPlayer = () => {
     // Get data from API 
     const getData = (link) => {
         const id = youtube_parser(link);
-        const url = 'https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id='+id+'&key=AIzaSyAmltDENBZXKAf_pBzRbXZp9mISeRGl52M';
+        const url = 'https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id='+id+`&key=${window.__RUNTIME_CONFIG__.API_KEY}`;
+        console.log(url);
         fetch(url)
         .then(response => response.json())
         .then(response => {
@@ -37,7 +38,7 @@ const MusicPlayer = () => {
                 ? <div />
                 :
                     <div>
-                        <iframe id="ytplayer" type="text/html" width="640" height="360" src={"https://www.youtube.com/embed/"+youtube_parser(youtubeURL.current)+"?autoplay=1"} frameborder="0"></iframe>
+                        <iframe id="ytplayer" type="text/html" width="640" height="360" src={"https://www.youtube.com/embed/"+youtube_parser(youtubeURL.current)+"?autoplay=1"} frameBorder="0"></iframe>
                         <div>{video.title}</div>
                         <div>{video.channelTitle}</div> 
                     </div>
