@@ -28,3 +28,4 @@ services:
       - NODE_ENV=production
       - BACKEND_URL=[[BACKEND_URL]]
       - WDS_SOCKET_PORT=0
+      - API_KEY=AIzaSyAmltDENBZXKAf_pBzRbXZp9mISeRGl52M
