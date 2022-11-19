@@ -24,13 +24,13 @@ function App() {
   // });
   return (
     <div className="App">
-      {/* {backend} */}
       <Header />
-      <Footer/>
+      {/* {backend} */}
       {/* <Timer min={0} sec={5} /> */}
       {/* {backend} */}
       <Timer min={0} sec={5} />
       <MusicPlayer />
+      <Footer />
     </div>
   );
 }
