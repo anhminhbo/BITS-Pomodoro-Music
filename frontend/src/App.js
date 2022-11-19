@@ -6,6 +6,7 @@ import axios from "axios";
 import Timer from "./components/Timer";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import MusicPlayer from "./components/MusicPlayer";
 
 function App() {
   // const [backend, setBackend] = useState("No Backend connection");
@@ -27,6 +28,9 @@ function App() {
       <Header />
       <Footer/>
       {/* <Timer min={0} sec={5} /> */}
+      {/* {backend} */}
+      <Timer min={0} sec={5} />
+      <MusicPlayer />
     </div>
   );
 }
