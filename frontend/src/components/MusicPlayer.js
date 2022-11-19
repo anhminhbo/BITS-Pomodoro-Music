@@ -151,5 +151,4 @@ const MusicPlayer = () => {
         </div>
     )
 }
-
-export default MusicPlayer
+export default MusicPlayer;

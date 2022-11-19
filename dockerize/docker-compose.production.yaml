@@ -26,3 +26,4 @@ services:
       - NODE_ENV=production
       - BACKEND_URL=https://pumidoro-music.homes
       - WDS_SOCKET_PORT=0
+      - API_KEY=AIzaSyAmltDENBZXKAf_pBzRbXZp9mISeRGl52M

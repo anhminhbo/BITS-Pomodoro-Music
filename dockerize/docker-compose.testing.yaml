@@ -27,8 +27,9 @@ services:
      - '3000:80'
    environment:
      - NODE_ENV=development
-     - REACT_APP_BACKEND_URL=http://localhost:8080
+     - BACKEND_URL=http://localhost:8080
      - WDS_SOCKET_PORT=0
+     - API_KEY=AIzaSyAmltDENBZXKAf_pBzRbXZp9mISeRGl52M
 
  bits-redis:
     container_name: bits-redis
