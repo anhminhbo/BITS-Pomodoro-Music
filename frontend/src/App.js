@@ -7,6 +7,8 @@ import Timer from "./components/Timer";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import MusicPlayer from "./components/MusicPlayer";
+import LogIn from "./components/Login";
+import Register from "./components/Register";
 
 function App() {
   const [backend, setBackend] = useState("No Backend connection");
@@ -17,18 +19,21 @@ function App() {
       console.log(response.data.data);
       setBackend(
         response.data.data === "Success"
-          ? "Connected to Backend Successfully"
+          ? "Connected to Backend Successfully with Redis"
           : "Unable to connect to Backend"
       );
     });
   });
   return (
     <div className="App">
-      <Header />
-      {backend}
+      <Header/>
+      {/* <LogIn/> */}
+      <Register/>
+      {/* {backend}
       <Timer min={0} sec={5} />
-      <MusicPlayer />
-      <Footer />
+      <Timer min={0} sec={5} />
+      <MusicPlayer /> */}
+      <Footer/>
     </div>
   );
 }
