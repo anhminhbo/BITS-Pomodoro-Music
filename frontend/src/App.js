@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
+import React from "react";
+//import { Route, Link } from "react-route-dom"
+
 import axios from "axios";
 import Timer from "./components/Timer";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 import MusicPlayer from "./components/MusicPlayer";
 
 function App() {
@@ -12,16 +17,18 @@ function App() {
       console.log(response.data.data);
       setBackend(
         response.data.data === "Success"
-          ? "Connected to Backend Successfully with Redis"
+          ? "Connected to Backend Successfully"
           : "Unable to connect to Backend"
       );
     });
-  }, []);
+  });
   return (
     <div className="App">
+      <Header />
       {backend}
       <Timer min={0} sec={5} />
       <MusicPlayer />
+      <Footer />
     </div>
   );
 }
