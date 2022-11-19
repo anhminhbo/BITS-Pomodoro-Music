@@ -1,0 +1,25 @@
+
+div img {
+    height: 45px;
+    width: auto;
+    
+}
+
+.header-container {
+    background-color: white;
+    height: 66px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+div p {
+    display: flex;
+    justify-content: center;
+}
+
+.footer-container {
+    /* background-color: white; */
+    height: 66px;
+    width: 100%;
+}
