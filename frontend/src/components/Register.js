@@ -30,31 +30,36 @@ const Register = () => {
     //     console.log(username,email,password,confirmPassword);
     // }
   return (
-    <div className="form">
-          <div className="form-body">
-            <form>
-              <div className="username">
-                  <label className="formlabel" for="username">Username </label>
-                  <input className="forminput" type="text" id="username" placeholder="Username"/>
-              </div>
-              <div className="email">
-                  <label className="formlabel" for="email">Email </label>
-                  <input  type="email" id="email" className="forminput" placeholder="Email"/>
-              </div>
-              <div className="password">
-                  <label className="formlabel" for="password">Password </label>
-                  <input className="forminput" type="password"  id="password" placeholder="Password"/>
-              </div>
-              <div className="confirm-password">
-                  <label className="formlabel" for="confirmPassword">Confirm Password </label>
-                  <input className="forminput" type="password" id="confirmPassword" placeholder="Confirm Password"/>
-              </div>
-            </form>
+    <div className="container">
+      <div className="form-body">
+        <h1>Get started in minutes</h1>
+        <p>First let's create your account.</p>
+        <form>
+          <div className="username">
+              <label className="formlabel" for="username">Username </label>
+              <input className="forminput" type="text" id="username" placeholder="Username"/>
+          </div>
+          <div className="email">
+              <label className="formlabel" for="email">Email </label>
+              <input  type="email" id="email" className="forminput" placeholder="Email"/>
+          </div>
+          <div className="password">
+              <label className="formlabel" for="password">Password </label>
+              <input className="forminput" type="password"  id="password" placeholder="Password"/>
+          </div>
+          <div className="confirm-password">
+              <label className="formlabel" for="confirmPassword">Confirm Password </label>
+              <input className="forminput" type="password" id="confirmPassword" placeholder="Confirm Password"/>
           </div>
           <div>
-              <button type="submit" class="btn">Register</button>
+            <input type="checkbox" className="formbox" id="checkbox" name='checkbox'/>
+            <label for="checkbox">I agree to the Terms of Service and Privacy Policy.</label>
           </div>
-      </div>      
+        </form>
+        <button type="submit" class="btn">Register</button>
+        <p>Already have an account? <a>Log in here!</a></p>
+      </div>
+    </div>      
   )
 }
 

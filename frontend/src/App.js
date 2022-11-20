@@ -26,14 +26,14 @@ function App() {
   });
   return (
     <div className="App">
-      <Header/>
+      {/* <Header/> */}
       {/* <LogIn/> */}
       <Register/>
       {/* {backend}
       <Timer min={0} sec={5} />
       <Timer min={0} sec={5} />
       <MusicPlayer /> */}
-      <Footer/>
+      {/* <Footer/> */}
     </div>
   );
 }
