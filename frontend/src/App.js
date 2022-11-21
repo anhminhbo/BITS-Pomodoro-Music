@@ -19,21 +19,20 @@ function App() {
       console.log(response.data.data);
       setBackend(
         response.data.data === "Success"
-          ? "Connected to Backend Successfully with Redis"
+          ? "Connected to Backend Successfully"
           : "Unable to connect to Backend"
       );
     });
   });
   return (
     <div className="App">
-      {/* <Header/> */}
-      {/* <LogIn/> */}
-      <Register/>
-      {/* {backend}
-      <Timer min={0} sec={5} />
-      <Timer min={0} sec={5} />
+      {backend}
+      {/* <Header /> */}
+      {/* <LogIn /> */}
+      <Register />
+      {/* <Timer min={0} sec={5} />
       <MusicPlayer /> */}
-      {/* <Footer/> */}
+      {/* <Footer /> */}
     </div>
   );
 }
