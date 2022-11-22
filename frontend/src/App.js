@@ -27,12 +27,12 @@ function App() {
   return (
     <div className="App">
       {backend}
-      <Header />
-      <LogIn />
+      {/* <Header /> */}
+      {/* <LogIn /> */}
       <Register />
-      <Timer min={0} sec={5} />
-      <MusicPlayer />
-      <Footer />
+      {/* <Timer min={0} sec={5} />
+      <MusicPlayer /> */}
+      {/* <Footer /> */}
     </div>
   );
 }
