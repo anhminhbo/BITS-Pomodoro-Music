@@ -8,7 +8,7 @@ const LogIn = () => {
   return (
     <div className='container'>
         <div className='form-body'>
-            <div className='form-head'>
+            <div className='form-head login-head'>
                 <h1>Login</h1>
             </div>
             <form  method="post" action="login.php">
@@ -21,9 +21,11 @@ const LogIn = () => {
                     <input className='forminput' required id="password" type="text" name="password" maxlength="50"/>
                 </div>
             </form>
-            <button type="submit" className='btn'>Log In</button>
-            <div>
-                <p>Don't have an account? <a href='./Register.js'>Register here.</a> </p>
+            <div className='btn'>
+                <button type="submit" >Log In</button>
+            </div>
+            <div className='form-foot'>
+                <p>Don't have an account? <strong><a href=''> Register here.</a></strong></p>
             </div>
         </div>
     </div>
