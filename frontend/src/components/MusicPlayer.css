@@ -33,7 +33,7 @@
 }
 
 #music-player-close-icon{
-    opacity: 0;
+    opacity: 20;
     transform: translateY(4px);
     transition: ease .3s all;
 }
