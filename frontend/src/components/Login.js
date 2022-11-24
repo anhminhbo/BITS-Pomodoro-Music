@@ -14,11 +14,11 @@ const LogIn = () => {
             <form  method="post" action="login.php">
                 <div className='username'>
                     <label className='formlabel' for="username">Username</label>
-                    <input className='forminput' required id="username" type="text" name="username" maxlength="50"/>
+                    <input className='forminput' required id="username" type="text" name="username" maxlength="150"/>
                 </div>
                 <div className='password'>
                     <label className='formlabel' for="password">Password</label>
-                    <input className='forminput' required id="password" type="text" name="password" maxlength="50"/>
+                    <input className='forminput' required id="password" type="password" name="password" maxlength="150"/>
                 </div>
             </form>
             <button type="submit" className='btn'>Log In</button>
