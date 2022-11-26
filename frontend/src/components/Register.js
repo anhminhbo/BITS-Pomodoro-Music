@@ -30,7 +30,7 @@ const Register = () => {
     //     console.log(username,email,password,confirmPassword);
     // }
   return (
-    <div className="container">
+    <div className="container container-register">
       <div className="form-body">
         <div className='form-head'>
           <h1>Get started in minutes</h1>
@@ -62,8 +62,12 @@ const Register = () => {
             <label for="checkbox">I agree to the <strong>Terms of Service</strong> and <strong>Privacy Policy</strong>.</label>
           </div>
         </form>
-        <button type="submit" className='btn'>Register</button>
-        <p>Already have an account? <a href=''>Log in here!</a></p>
+        <div className='btn'>
+          <button type="submit">Register</button>
+        </div>
+        <div className='form-foot'>
+          <p>Already have an account? <strong><a href=''> Log in here!</a></strong></p>
+        </div>
       </div>
     </div>      
   )
