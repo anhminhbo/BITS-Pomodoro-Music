@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import MusicPlayer from "./components/MusicPlayer";
 import LogIn from "./components/Login";
 import Register from "./components/Register";
+import Setting from "./components/Setting";
 
 function App() {
   const [backend, setBackend] = useState("No Backend connection");
@@ -32,7 +33,7 @@ function App() {
       <Register /> */}
       <Timer min={0} sec={5} />
       <MusicPlayer />
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
