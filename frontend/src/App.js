@@ -26,7 +26,7 @@ function App() {
   });
   return (
     <div className="App">
-      {backend}
+      {/* {backend} */}
       {/* <Header /> */}
       {/* <LogIn />
       <Register /> */}
