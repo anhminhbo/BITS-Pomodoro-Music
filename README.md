@@ -1,5 +1,5 @@
 # Building IT Systems RMIT
-Pomodoro Music player dasdsadas
+Pomodoro Music player
 
 ## Software Architecture
 <p align="center">
