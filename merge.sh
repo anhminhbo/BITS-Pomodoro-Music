@@ -1,7 +1,6 @@
-# haha
 commitMess=$1
 branchName=$2
-
+# 
 git add .
 git commit -m"$commitMess"
 git push
