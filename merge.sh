@@ -1,4 +1,3 @@
-# haha
 commitMess=$1
 branchName=$2
 
