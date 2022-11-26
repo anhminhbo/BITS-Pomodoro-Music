@@ -1,3 +1,35 @@
+#music-player{
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+#music-player-input{
+    display: flex;
+    justify-content: space-between;
+    width: 550px;
+    padding-left: 30px;
+    padding-right: 30px;
+    align-self: center;
+}
+
+#music-player-input-url{
+    height: 25px;
+    line-height: 15px;
+    width: 350px;
+    border-radius: 4px;
+    border: 0px;
+}
+
+#music-player-input-button{
+    border-radius: 4px;
+    border: 0px;
+    cursor: pointer;
+    padding: 8px;
+}
+
 #music-player-display{
     --pd-left-right: 100px;
     display: flex;
@@ -8,7 +40,8 @@
 }
 
 #music-player-track{
-    background-color: rgba(128, 128, 128, 0.7);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
     list-style-type: none;
     width: 600px;
     padding: 10px 20px 10px 20px;
@@ -16,12 +49,21 @@
     margin-bottom: 15px;
 }
 
-#music-player-track-title{
+#music-player-track-active{
+    background-color: rgba(255, 255, 255);
+    color: black;
+    list-style-type: none;
+    width: 600px;
+    padding: 10px 20px 10px 20px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+#music-player-track-flex{
     display: flex;
     justify-content: space-between;
     cursor: pointer;
     font-size: 17px;
-    color: white;
 }
 
 #music-player-info{
@@ -29,15 +71,43 @@
     display: flex;
     justify-content: space-between;
     font-size: 15px;
-    color: white;
 }
 
 #music-player-close-icon{
-    opacity: 20;
     transform: translateY(4px);
-    transition: ease .3s all;
+    transition: ease .15s all;
 }
 
 #music-player-close-icon:hover{
-    opacity: 1;
+    transform: translateY(1px);
+    color: #B7DB25;
+}
+
+#music-player-track-title:hover{
+    text-decoration: underline;
+}
+
+#music-player-playlist{
+    height: 360px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+#music-player-playlist::-webkit-scrollbar {
+    width: 0px;
+}
+
+@media screen and (max-width: 1480px) {
+    #music-player-display{
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    iframe {
+        margin-bottom: 25px;
+    }
+}
+
+iframe {
+    border-radius: 25px;
 }
