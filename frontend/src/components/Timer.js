@@ -1,4 +1,6 @@
 import React, { useRef, useState } from 'react'
+import Setting from "./Setting";
+
 
 const formatTime = (num) => {
     if (num<10) return '0'+num;
@@ -53,10 +55,27 @@ const Timer = ({min, sec}) => {
         }
     }
 
+    //Setting condition
+    const [isSettingOn, setIsSettingOn] = useState(false);
+    const handleSetting = () => {
+      setIsSettingOn(!isSettingOn)
+    }
+  
+  
+  
+  
+
     return (
         <div>
             <div id="Time">{formatTime(TimerMin)}:{formatTime(TimerSec)}</div>
             <input type="button" value={Action} style={{display: "block"}} onClick={startAndStopTimer}/>
+            
+            <button onClick={() => handleSetting()}>
+                        Setting
+            </button>
+             {isSettingOn &&
+        <Setting handleSetting = {handleSetting}/>
+      }
         </div>
     )
 }
