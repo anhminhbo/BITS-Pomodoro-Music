@@ -1,6 +1,5 @@
 # Building IT Systems RMIT
 Pomodoro Music player
-haha
 
 ## Software Architecture
 <p align="center">
