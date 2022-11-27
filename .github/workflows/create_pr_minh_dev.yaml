@@ -6,10 +6,26 @@ on:
       - "main"
       - "minh-dev"
 jobs:
-  create-pull-request:
+  create-pull-request-to-minh-dev:
     runs-on: ubuntu-latest
     steps:
+      - name: Check if PR exists
+        id: check
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          prs=$(gh pr list \
+              --repo "$GITHUB_REPOSITORY" \
+              --json baseRefName,headRefName \
+              --jq '
+                  map(select(.baseRefName == "minh-dev" and .headRefName == "${{ github.ref_name }}"))
+                  | length
+              ')
+          if ((prs > 0)); then
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
       - name: Create Pull Request to minh-dev
+        if: '!steps.check.outputs.skip'
         uses: actions/github-script@v6
         with:
           script: |
