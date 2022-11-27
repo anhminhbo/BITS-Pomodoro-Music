@@ -21,10 +21,19 @@ exitcode=$?
 
 if [ $exitcode -eq 0 ]; then
    echo "Merge success"
-#    git add .
-#    git commit -am"$commitMess"
-#    git push
+   git push
 
 else
-   echo "Merge conflict, fix before push"
+    # Promp for user input
+    echo "Merge conflict, solved? If yes, type 'y' to continue: "
+    while read input; do
+    # Check for user input if they already fixed conflicts
+        if [ "$input" -eq "y" ]; then
+            git commit -am"merge $branchName after fixing conflict"
+            git push
+            exit 0
+        fi
+        echo "Conflicts have not been resolved, abort"
+        git merge --abort
+    done
 fi
