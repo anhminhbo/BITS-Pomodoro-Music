@@ -20,6 +20,7 @@ jobs:
           branch: minh/github-action
           base: minh-dev
           delete-branch: true
+          token: ${{ secrets.GITHUB_TOKEN }}
           title: "Merge to minh-dev"
           body: |
             Update report
