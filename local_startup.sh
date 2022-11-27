@@ -44,5 +44,3 @@ fi
 # Run parallel backend and frontend
 cd $ROOT_DIR/backend && npm run server &
 cd $ROOT_DIR/frontend && npm start 
-
-#test
