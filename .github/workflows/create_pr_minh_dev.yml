@@ -3,8 +3,8 @@ run-name: ${{ github.actor }} is triggering this GitHub Action 🚀
 on:
   push:
     branches-ignore:
-      - 'main'
-      - 'minh-dev'
+      - "main"
+      - "minh-dev"
 jobs:
   createPullRequest:
     runs-on: ubuntu-latest
@@ -19,10 +19,10 @@ jobs:
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
-          branch: ${GITHUB_REF##*/}
+          branch: ${{ github.ref_name }}
           base: minh-dev
           delete-branch: false
-          title: 'Merge to minh-dev'
+          title: "Merge to minh-dev"
           body: |
             Update report
             - Updated with *today's* date
