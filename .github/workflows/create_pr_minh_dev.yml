@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
+        with:
+            ref: minh-dev
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v4
@@ -20,7 +21,6 @@ jobs:
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
           branch: ${{ github.ref_name }}
-          base: minh-dev
           delete-branch: false
           title: "Merge to minh-dev"
           body: |
