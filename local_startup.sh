@@ -45,4 +45,5 @@ fi
 cd $ROOT_DIR/backend && npm run server &
 cd $ROOT_DIR/frontend && npm start 
 
+#hahahaha
 #test
