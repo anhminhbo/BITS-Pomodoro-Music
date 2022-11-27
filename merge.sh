@@ -11,13 +11,12 @@ git pull origin $branchName
 git merge $branchName
 exitcode=$?
 
-... # do something else
 
 if [ $exitcode -eq 0 ]; then
    echo "Merge success"
-   git add .
-   git commit -am"$commitMess"
-   git push
+#    git add .
+#    git commit -am"$commitMess"
+#    git push
 
 else
    echo "Merge conflict, fix before push"
