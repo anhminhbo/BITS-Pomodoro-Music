@@ -1,14 +1,24 @@
-commitMess=$1
-branchName=$2
+# Specify your master branch name that you want to merge to your branch
+branchName=$1
 
-git add .
-git commit -m"$commitMess"
-git push
+# The commit message
+commitMess=$2
 
-git switch minh-dev
 git fetch -p
-git pull
+git pull origin $branchName
 
-git switch $branchName
-git merge minh-dev
-git push
+# Merge and check if there is merge conflict
+git merge $branchName
+exitcode=$?
+
+... # do something else
+
+if [ $exitcode -eq 0 ]; then
+   echo "Merge success"
+   git add .
+   git commit -am"$commitMess"
+   git push
+
+else
+   echo "Merge conflict, fix before push"
+fi
