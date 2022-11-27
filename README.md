@@ -70,13 +70,24 @@ bash -x local_startup.sh backend
 bash -x clean-up.sh
 ```
 
-## How to merge master branch into your development branch
+## How to merge master branch into your development branch for devs
 - Make sure you are using a bash terminal to run the following code
 - First arg is the name of the branch you want to merge, Second arg is your commit message for your current branch
 - Here I want to merge minh-dev to my branch with the message of my new commit
 ```
 bash push_current_and_merge.sh minh-dev ""
 ```
+- There is for the team leader to ready for production on minh-dev
+```
+bash push_current_and_merge.sh main ""
+```
+
+## Integrate Github action for automation to create PR
+- Whenever a dev using the push_current_and_merge.sh script, it will automatically trigger Github action to create a PR to minh-dev
+- Whenever minh-dev has new codes, github action trigger to create a new PR to main for review
+
+## Integrate Jenkins for automation of build, push and deploy
+- After main branch has new codes, it trigger Jenkins pipeline on Jenkins VM to automate build, push and deploy to production.
 
 ## Docs
 - Refers to [here](https://viblo.asia/p/deploy-ung-dung-docker-nodejs-mongo-redis-1VgZvMzYKAw?fbclid=IwAR29RauowCOzyP9PddKFq4TeQb9eFpPa1D2VjWbg0G6MhjAihEwCN78U_H0)
