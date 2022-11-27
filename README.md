@@ -75,7 +75,7 @@ bash -x clean-up.sh
 - First arg is the name of the branch you want to merge, Second arg is your commit message for your current branch
 - Here I want to merge minh-dev to my branch with the message of my new commit
 ```
-bash merge.sh minh-dev ""
+bash push_current_and_merge.sh minh-dev ""
 ```
 
 ## Docs
