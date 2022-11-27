@@ -21,7 +21,7 @@ jobs:
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
-          branch: minh/github-action
+          branch: ${{ github.ref_name }}
           base: minh-dev
           delete-branch: false
           token: ${{ secrets.GITHUB_TOKEN }}
