@@ -13,7 +13,6 @@ jobs:
         with:
             ref: minh-dev
       - name: Create Pull Request
-        id: cpr
         uses: peter-evans/create-pull-request@v4
         with:
           commit-message: Merge to minh-dev
