@@ -70,6 +70,13 @@ bash -x local_startup.sh backend
 bash -x clean-up.sh
 ```
 
+## How to merge master branch into your development branch
+- Make sure you are using a bash terminal to run the following code
+- First arg is the name of the branch you want to merge, Second arg is your commit message for your current branch
+- Here I want to merge minh-dev to my branch with the message of my new commit
+```
+bash merge.sh minh-dev ""
+```
+
 ## Docs
 - Refers to [here](https://viblo.asia/p/deploy-ung-dung-docker-nodejs-mongo-redis-1VgZvMzYKAw?fbclid=IwAR29RauowCOzyP9PddKFq4TeQb9eFpPa1D2VjWbg0G6MhjAihEwCN78U_H0)
-- Testing
