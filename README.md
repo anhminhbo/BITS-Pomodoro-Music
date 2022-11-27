@@ -8,7 +8,7 @@ Pomodoro Music player
 
 ## Local Development pipeline
 <p align="center">
-    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/readme-2.png" width=900 height=900>
+    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/readme-2.png" width=1400 height=900>
     Local Development pipeline
 </p>
 
