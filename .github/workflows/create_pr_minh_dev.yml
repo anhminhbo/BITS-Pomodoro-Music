@@ -9,7 +9,7 @@ jobs:
   createPullRequest:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout minh-dev
+      - name: Checkout ${{ github.ref_name }}
         uses: actions/checkout@v3
         with:
           ref: ${{ github.ref_name }}
