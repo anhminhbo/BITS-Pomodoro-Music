@@ -25,7 +25,7 @@ else
     echo "Merge conflicts, solved? If yes, type 'y' to continue or anything else to abort: "
     while read input; do
     # Check for user input if they already fixed conflicts
-        if [ "$input" -eq "y" ]; then
+        if [ "$input" == "y" ]; then
             git commit -am"merge $mergeBranchName after fixing conflict"
             git push
             exit 0
