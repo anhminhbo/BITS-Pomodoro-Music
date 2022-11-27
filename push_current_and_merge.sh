@@ -26,7 +26,7 @@ else
     while read input; do
     # Check for user input if they already fixed conflicts
         if [ "$input" == "y" ]; then
-            git commit -am"merge $mergeBranchName after fixing conflict"
+            git commit -am"Merge $mergeBranchName after fixing conflict"
             git push
             exit 0
         fi
