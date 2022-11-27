@@ -1,4 +1,4 @@
-# Building IT Systems RMIT
+# Building IT Systems RMIT haha
 Pomodoro Music player
 ## Software Architecture
 <p align="center">
@@ -91,5 +91,3 @@ bash push_current_and_merge.sh main ""
 
 ## Docs
 - Refers to [here](https://viblo.asia/p/deploy-ung-dung-docker-nodejs-mongo-redis-1VgZvMzYKAw?fbclid=IwAR29RauowCOzyP9PddKFq4TeQb9eFpPa1D2VjWbg0G6MhjAihEwCN78U_H0)
-
-## esadasdasdsadasdas
