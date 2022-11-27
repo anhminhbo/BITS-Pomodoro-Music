@@ -1,5 +1,5 @@
 name: Create pull request to minh-dev for members
-run-name: ${{ github.actor }} is triggering this GitHub Action 🚀
+run-name: ${{ github.actor }} is triggering this GitHub Action to Create PR to minh-dev 🚀
 on:
   push:
     branches-ignore:
@@ -15,7 +15,7 @@ jobs:
           script: |
             const { repo, owner } = context.repo;
             const result = await github.rest.pulls.create({
-              title: 'Minh-dev Sync : Auto Generated PR',
+              title: '${{ github.ref_name }} Sync : Auto Generated PR to minh-dev',
               owner,
               repo,
               head: '${{ github.ref_name }}',
@@ -29,5 +29,5 @@ jobs:
               owner,
               repo,
               issue_number: result.data.number,
-              labels: ['feature', 'automated pr to minh-dev']
+              labels: ['feature', 'automated PR to minh-dev']
             });
