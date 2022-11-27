@@ -1,6 +1,5 @@
 # Building IT Systems RMIT
 Pomodoro Music player
-
 ## Software Architecture
 <p align="center">
     <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/readme-2.png" width=900 height=900>
@@ -69,6 +68,14 @@ bash -x local_startup.sh backend
 - Make sure you are using a bash terminal to run the following code
 ```
 bash -x clean-up.sh
+```
+
+## How to merge master branch into your development branch
+- Make sure you are using a bash terminal to run the following code
+- First arg is the name of the branch you want to merge, Second arg is your commit message for your current branch
+- Here I want to merge minh-dev to my branch with the message of my new commit
+```
+bash push_current_and_merge.sh minh-dev ""
 ```
 
 ## Docs
