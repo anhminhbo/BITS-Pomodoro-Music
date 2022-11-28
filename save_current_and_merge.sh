@@ -22,7 +22,7 @@ git stash apply
 exitcode=$?
 
 if [ $exitcode -eq 0 ]; then
-   echo "Merge $mergeBranchName successfully without conflict"
+   echo "Merge $mergeBranchName successfully without conflict, $commitMess"
    git push
 else
     # Promp for user input
@@ -30,7 +30,7 @@ else
     while read input; do
     # Check for user input if they already fixed conflicts
         if [ "$input" == "y" ]; then
-            git commit -am"Merge branch $mergeBranchName after fixing conflict"
+            git commit -am"Merge branch $mergeBranchName after fixing conflict, $commitMess"
             git push
             # Clear all stashes
             git stash clear 
