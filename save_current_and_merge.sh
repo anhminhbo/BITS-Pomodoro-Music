@@ -18,7 +18,7 @@ git pull origin $mergeBranchName
 
 # Merge and check if there is merge conflict
 git merge --no-edit --no-ff $mergeBranchName
-git stash apply
+git stash pop
 exitcode=$?
 
 if [ $exitcode -eq 0 ]; then
