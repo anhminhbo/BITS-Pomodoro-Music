@@ -25,6 +25,23 @@ function App() {
       );
     });
   });
+
+  // // Sample
+  // const register = async (username, password) => {
+  //   try {
+  //     const response = await axios.post(
+  //       `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/auth/register`,
+  //       {
+  //         username,
+  //         password,
+  //       }
+  //     );
+  //     console.log(response);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
   return (
     <div className="App">
       {backend}
