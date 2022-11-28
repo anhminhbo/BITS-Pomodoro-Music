@@ -21,6 +21,10 @@ git pull origin $mergeBranchName
 git merge --no-edit --no-ff $mergeBranchName
 exitcode=$?
 
+# Wait for the github action to trigger
+echo "Waiting to merge $mergeBranchName to current branch..."
+sleep 2
+
 if [ $exitcode -eq 0 ]; then
    git add .
    git commit -am "Merge $mergeBranchName successfully without conflict, $commitMess"
