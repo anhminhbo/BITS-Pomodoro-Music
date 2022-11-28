@@ -30,6 +30,7 @@ else
     while read input; do
     # Check for user input if they already fixed conflicts
         if [ "$input" == "y" ]; then
+            git stash pop
             git commit -am"Merge branch $mergeBranchName after fixing conflict, $commitMess"
             git push
             # Clear all stashes
