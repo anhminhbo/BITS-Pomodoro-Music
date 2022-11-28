@@ -9,6 +9,10 @@ git add .
 git commit -am "$commitMess"
 git push
 
+# Wait for the github action to trigger
+echo "Waiting for github action to trigger..."
+sleep 3
+
 # Get new code from master branch
 git fetch origin $mergeBranchName:$mergeBranchName
 git pull origin $mergeBranchName
@@ -17,8 +21,14 @@ git pull origin $mergeBranchName
 git merge --no-edit --no-ff $mergeBranchName
 exitcode=$?
 
+# Wait for the github action to trigger
+echo "Waiting to merge $mergeBranchName to current branch..."
+sleep 2
+
 if [ $exitcode -eq 0 ]; then
-   echo "Merge $mergeBranchName successfully without conflict"
+   git add .
+   git commit -am "Merge $mergeBranchName successfully without conflict, $commitMess"
+   echo "Merge $mergeBranchName successfully without conflict, $commitMess"
    git push
 else
     # Promp for user input
@@ -26,8 +36,10 @@ else
     while read input; do
     # Check for user input if they already fixed conflicts
         if [ "$input" == "y" ]; then
-            git commit -am"Merge branch $mergeBranchName after fixing conflict"
+            git add .
+            git commit -am"Merge branch $mergeBranchName after fixing conflict, $commitMess"
             git push
+            echo "Merge branch $mergeBranchName after fixing conflict, $commitMess" 
             exit 0
         fi
         echo "Conflicts have not been resolved, abort"
