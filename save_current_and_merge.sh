@@ -32,10 +32,14 @@ else
         if [ "$input" == "y" ]; then
             git commit -am"Merge branch $mergeBranchName after fixing conflict"
             git push
+            # Clear all stashes
+            git stash clear 
             exit 0
         fi
         echo "Conflicts have not been resolved, abort"
         git merge --abort
+        # Clear all stashes
+        git stash clear 
         exit 1
     done
 fi
