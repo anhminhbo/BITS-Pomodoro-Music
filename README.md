@@ -1,5 +1,5 @@
 # Building IT Systems RMIT
-Pomodoro Music player huhu
+Pomodoro Music player hihi
 ## Software Architecture
 <p align="center">
     <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/readme-1.png" width=900 height=900>
