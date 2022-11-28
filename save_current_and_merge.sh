@@ -12,6 +12,10 @@ commitMess=$2
 # Save current working dir
 git stash
 
+# Wait for the github action to trigger
+echo "Waiting for github action to trigger..."
+sleep 3
+
 # Get new code from master branch
 git fetch origin $mergeBranchName:$mergeBranchName
 git pull origin $mergeBranchName
@@ -22,8 +26,9 @@ git stash pop
 exitcode=$?
 
 if [ $exitcode -eq 0 ]; then
-    git add .
-   git commit -am"Merge $mergeBranchName successfully without conflict, $commitMess"
+   git add .
+   git commit -am "Merge $mergeBranchName successfully without conflict, $commitMess"
+   echo "Merge $mergeBranchName successfully without conflict, $commitMess"
    git push
 else
     # Promp for user input
@@ -31,12 +36,10 @@ else
     while read input; do
     # Check for user input if they already fixed conflicts
         if [ "$input" == "y" ]; then
-            git stash pop
             git add .
             git commit -am"Merge branch $mergeBranchName after fixing conflict, $commitMess"
             git push
-            # Clear all stashes
-            git stash clear 
+            echo "Merge branch $mergeBranchName after fixing conflict, $commitMess" 
             exit 0
         fi
         echo "Conflicts have not been resolved, abort"
