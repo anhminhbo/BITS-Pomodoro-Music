@@ -19,7 +19,7 @@ function App() {
     axios.get(backendURL).then((response) => {
       console.log(response.data.data);
       setBackend(
-        response.data.data === "Success"
+        response.data.data === "Test Success"
           ? "Connected to Backend Successfully"
           : "Unable to connect to Backend"
       );

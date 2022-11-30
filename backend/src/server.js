@@ -59,7 +59,7 @@ const limiter = rateLimit({
 app.use("/api", limiter);
 
 // Test connection from the outside
-app.use("/api/test", (req, res) => res.json({ data: "Success" }));
+app.use("/api/test", (req, res) => res.json({ data: "Test Success" }));
 
 //  Body Parser  => reading data from body into req.body protect from scraping etc
 // parses incoming requests with JSON payloads

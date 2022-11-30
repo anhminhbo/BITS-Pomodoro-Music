@@ -1,24 +1,35 @@
 # INTEGRATE-BUILD-PUSH-IMAGE
+
 - Be root user:
+
 ```
 sudo su
 ```
+
 - Add docker group to azureuser
+
 ```
 usermod -aG docker azureuser
 ```
+
 - Go back to azureuser
+
 ```
 su azureuser
 ```
+
 - Make a dir:
+
 ```
 mkdir -p projects/bits
 ```
+
 - Clone the source code of the main branch of bits pomodoro music
+
 ```
 git clone https://github.com/anhminhbo/BITS-Pomodoro-Music.git
 ```
+
 - Config in Jenkins add ssh configuration Jenkins VM to Jenkins containers
 <p align="center">
     <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/jenkins-vm/jenkins-10.png" width=1000 height=1000>
@@ -26,12 +37,14 @@ git clone https://github.com/anhminhbo/BITS-Pomodoro-Music.git
 </p>
 
 - Login to your docker hub
+
 ```
 docker login
 ```
 
 - Inside projects/bits create 3 files:
-    - buildAndPushImageOnJenkinsVm.sh
+  - buildAndPushImageOnJenkinsVm.sh
+
 ```
 export PROJ_DIR=$(pwd)
 
@@ -62,30 +75,30 @@ frontendSrcSize=$(du -s -b $PROJ_DIR/BITS-Pomodoro-Music/frontend/src | cut -d"h
 cd $PROJ_DIR
 
 # Build and push new image based on differences
-if [[ $backendSrcSize != $prevBackendSrcSize ]] && [[ $frontendSrcSize != $prevFrontendSrcSize ]]; then
+if [[ $backendSrcSize -ne $prevBackendSrcSize ]] && [[ $frontendSrcSize -ne $prevFrontendSrcSize ]]; then
 
     bash -x dockerize-backend.sh &
 
-    bash -x dockerize-frontend.sh 
+    bash -x dockerize-frontend.sh
 
-elif [[ $backendSrcSize != $prevBackendSrcSize ]]; then
+elif [[ $backendSrcSize -ne $prevBackendSrcSize ]]; then
 
     bash -x dockerize-backend.sh
 
-elif [[ $frontendSrcSize != $prevFrontendSrcSize ]]; then
+elif [[ $frontendSrcSize -ne $prevFrontendSrcSize ]]; then
 
-    bash -x dockerize-frontend.sh 
-    
+    bash -x dockerize-frontend.sh
+
 else
     echo "Nothing new to build"
     exit 1
-    
 fi
+
+echo "Build successfully"
 docker rmi -f $(docker images -aq)
 exit 0
 ```
-    - dockerize-backend.sh
-```
+
 cd $PROJ_DIR/BITS-Pomodoro-Music/backend
 
 DOCKER_BUILDKIT=1 docker build . -t bits-backend:$newBackendTag
@@ -93,9 +106,11 @@ DOCKER_BUILDKIT=1 docker build . -t bits-backend:$newBackendTag
 docker tag bits-backend:$newBackendTag anhminhbo/bits-backend:$newBackendTag
 
 docker push anhminhbo/bits-backend:$newBackendTag
+
 ```
     - dockerize-frontend.sh
 ```
+
 cd $PROJ_DIR/BITS-Pomodoro-Music/frontend
 
 DOCKER_BUILDKIT=1 docker build . -t bits-frontend:$newFrontendTag
@@ -121,3 +136,4 @@ docker push anhminhbo/bits-frontend:$newFrontendTag
 </p>
 
 
+```
