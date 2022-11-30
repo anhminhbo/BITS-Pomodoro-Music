@@ -132,7 +132,7 @@ services:
 
 - For production:
 
-```
+```yaml
 version: '3.8'
 services:
   bits-backend:
