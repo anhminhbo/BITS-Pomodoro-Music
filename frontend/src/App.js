@@ -20,8 +20,8 @@ function App() {
       console.log(response.data.data);
       setBackend(
         response.data.data === "Test Success"
-          ? "Connected to Backend Successfully"
-          : "Unable to connect to Backend"
+          ? "Connected to Backend Successfully."
+          : "Unable to connect to Backend."
       );
     });
   });
