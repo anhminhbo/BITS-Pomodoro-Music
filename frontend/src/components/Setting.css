@@ -1,22 +1,33 @@
 .h1-setting{
     text-align: center;
-    color: blue;
+    color: #B7DB25;
 }
 
 .container-setting {
-    width: 100%;
-    height: 100%;
-    background-color: rgb(255, 255, 255);
-    display: left;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100%;
-    border-radius: 50px;
-    box-shadow: 0 0 5px rgb(0 0 0 / 30%);
-    padding: 40px 30px;
-    width: 400px;
-    min-height: 250px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 100%;
+  height: max-content !important;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+  border-radius: 50px;
+  box-shadow: 0 0 5px rgb(0 0 0 / 30%);
+  padding: 40px 30px;
+  width: 400px;
+  min-height: 250px;
+  z-index: 100;
+}
+
+ul{
+  list-style-type: none;
+  padding: 0;
 }
 
 .items-setting{
@@ -26,6 +37,16 @@
     justify-content: space-between;
 }
 
+#setting-outer{
+    background-color: rgba(128, 128, 128, 0.4);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+}
 
 
 .li-setting{
@@ -80,11 +101,11 @@
   }
 
   input:checked + .slider {
-    background-color: #2196F3;
+    background-color: #7dbd07;
   }
 
   input:focus + .slider{
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px #7dbd07;
 
   }
   input:checked + .slider:before {
@@ -104,7 +125,7 @@
   .NumBox{
     width: 65px;
     height: 35px;
-    border-radius: 25%;
+    border-radius: 15px;
     opacity: 50%;
     
   }
