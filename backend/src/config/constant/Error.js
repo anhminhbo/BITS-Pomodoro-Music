@@ -62,6 +62,14 @@ const Error = {
     errCode: 112,
     errMessage: "Session expired",
   },
+  EmptyPlaylist: {
+    errCode: 113,
+    errMessage: "Playlist is empty",
+  },
+  EmptySong: {
+    errCode: 113,
+    errMessage: "Song is empty",
+  },
   // 200++ Error from Db
   CastError: {
     errCode: 201,
@@ -83,9 +91,12 @@ const Error = {
 
   // 400++ Error from Internal Server
   GenericError: {
-    statusCode: httpStatus.INTERNAL_SERVER_ERROR,
     errCode: 400,
     errMessage: "Something wrong happened.",
+  },
+  RedisNotCached: {
+    errCode: 401,
+    errMessage: "Redis can not cache new data",
   },
 };
 module.exports = Error;

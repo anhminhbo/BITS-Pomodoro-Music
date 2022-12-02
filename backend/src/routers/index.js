@@ -3,5 +3,6 @@
 // also the place where Browser will send request to first
 const UserRouter = require("./user.router");
 const AuthRouter = require("./auth.router");
+const PlaylistRouter = require("./playlist.router");
 
-module.exports = { UserRouter, AuthRouter };
+module.exports = { UserRouter, AuthRouter, PlaylistRouter };

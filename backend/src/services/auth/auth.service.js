@@ -10,7 +10,7 @@ const register = async (username, password) => {
 
   const user = await UserService.createUser(username, hashedPassword);
 
-  return user;
+  return;
 };
 
 const login = async (username, password) => {
@@ -32,7 +32,7 @@ const login = async (username, password) => {
     );
   }
 
-  return;
+  return user;
 };
 
 module.exports = { register, login };

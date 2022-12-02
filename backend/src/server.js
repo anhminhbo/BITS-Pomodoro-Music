@@ -26,7 +26,7 @@ const { PORT } = require("./config/constant/Env");
 const { ResponseService } = require("./services");
 const Error = require("./config/constant/Error");
 const { globalErrorHandler } = require("./middlewares");
-const { UserRouter, AuthRouter } = require("./routers");
+const { UserRouter, AuthRouter, PlaylistRouter } = require("./routers");
 
 const sessionConfig = require("./config/init.session");
 
@@ -81,6 +81,7 @@ app.use(xss()); // protect from molision code coming from html
 
 app.use("/api/user", UserRouter);
 app.use("/api/auth", AuthRouter);
+app.use("/api/playlist", PlaylistRouter);
 
 // handling all (get,post,update,delete.....) unhandled routes
 app.use("*", (req, res, next) => {
