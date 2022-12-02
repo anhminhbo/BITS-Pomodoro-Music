@@ -4,7 +4,8 @@ const sessionConfig = {
   secret: SESSION_SECRET,
   cookie: {
     // enable cookies over https
-    secure: NODE_ENV === "production",
+    // secure: NODE_ENV === "production",
+    secure: false,
 
     // enable to save session to Store
     resave: false,

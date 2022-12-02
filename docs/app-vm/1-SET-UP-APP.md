@@ -65,7 +65,7 @@ fi
 
 cd $PROJ_DIR
 
-sudo docker-compose up --force-recreate -d
+sudo docker-compose up -d
 
 #docker rmi -f $(docker images -aq)
 ```
