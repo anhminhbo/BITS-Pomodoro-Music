@@ -8,16 +8,26 @@ const MusicPlayer = () => {
     const youtubeURL = useRef();
     const [playlist, setPlaylist] = useState([]);
     const [curIndex, setCurIndex] = useState(-1);
+    const [loop, setLoop] = useState(0);
+    const [random, setRandom] = useState(0);
     const cardinalNum = [ "st", "nd", "rd" ];
-    const opts: YouTubeProps['opts'] = {
+    const case1 = {
         height: '360',
         width: '640',
         playerVars: {
           autoplay: 1,
         },
-    };
-
-    console.log(opts);
+    }
+    const case2 = {
+        height: '360',
+        width: '640',
+        playerVars: {
+          autoplay: 1,
+          loop: 1,
+          playlist: (curIndex >= 0 ? playlist[curIndex].id : ''),
+        },
+    }
+    const [opts, setOpts] = useState(case1);
 
     // Function to get ID from a youtube URL
     const youtube_parser = (url) => {
@@ -88,12 +98,40 @@ const MusicPlayer = () => {
         console.log("Playing track " + (curIndex + 1) + curCarNum);
     }, [curIndex]);
 
+
+    // Check the status of loop and random
+    useEffect(() => {
+        console.log(loop + ' ' + random);
+        if (loop === 1){
+            setOpts(case2);
+        } 
+        else {
+            setOpts(case1);
+        }
+        console.log(opts);
+    }, [loop, random])
+
+    // Randomize
+    const getRandomNumber = (end, block) => {
+        var temp = Math.floor(Math.random() * (playlist.length));
+        if (playlist.length === 1) return block;
+        while (temp === block) temp = Math.floor(Math.random() * (playlist.length));;
+        return temp;
+    }
+
+    // Play next
+    const playNext = () => {
+        if (random === 0) return (curIndex + 1 >= playlist.length ? 0 : curIndex + 1);
+        // return getRandomNumber(playlist.length - 1, curIndex);
+        return 0;
+    }
+
     // Delete song from playlist
     const deleteSong = (id, index) => {
         youtubeURL.current = undefined;
-        setPlaylist(playlist => playlist.filter(track => track.id != id));
+        setPlaylist(playlist => playlist.filter(track => track.id !== id));
         if (index < curIndex) setCurIndex(curIndex => curIndex - 1)
-        else if (index == curIndex) setCurIndex(curIndex => (curIndex >= playlist.filter(track => track.id != id).length ? 0 : curIndex));
+        else if (index === curIndex) setCurIndex(curIndex => (curIndex >= playlist.filter(track => track.id !== id).length ? 0 : curIndex));
     }
 
     return (
@@ -110,59 +148,92 @@ const MusicPlayer = () => {
                     : 
                     // else
                     <div id="music-player-current-track">
-                        <YouTube videoId={playlist[curIndex].id} opts={opts} onStateChange={(e) => {if (e.data == 0) setCurIndex(curIndex => (curIndex + 1 >= playlist.length ? 0 : curIndex + 1))}}/>
+                        <YouTube videoId={playlist[curIndex].id} opts={opts} onStateChange={
+                            (e) => {
+                                if (e.data == 0) {
+                                    var nextIndex = playNext()
+                                    setCurIndex(curIndex => nextIndex); 
+                                    var newAdd = document.getElementsByClassName(`track-${nextIndex}`);
+                                    newAdd = newAdd[0].offsetTop - 225;
+                                    console.log(newAdd);
+                                    
+                                    // (document.getElementById("music-player-track-active").offsetHeight / 2); 
+                                    document.getElementById("music-player-playlist").scrollTo({top: newAdd, behavior: 'smooth'});
+                                }
+                            }
+                            }/>
                     </div>
                 }
-                <div id="music-player-playlist">
-                    {playlist.map((track, index) => (
-                        <li id={`music-player-track${playlist.length > 0 ? (index == curIndex ? "-active" : "") : ""}`} key={index}>
-                            <div id="music-player-track-flex">
-                                <div id="music-player-track-title" onClick={() => {setCurIndex(index);}}>{track.title}</div>
-                                <svg id="music-player-close-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-x-square-fill" viewBox="0 0 16 16" onClick={(e) => deleteSong(track.id, index)}>
-                                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z"/>
-                                </svg>
-                            </div>
-                            <div id='music-player-info'>
-                                <div id="music-player-track-channel">{track.channelTitle}</div>
-                                <div id="music-player-duration">
-                                    {
-                                        (track.duration.hour != 0 
-                                            ? 
-                                                track.duration.hour < 10 
-                                                ?
-                                                    "0"+track.duration.hour+":"
-                                                :
-                                                    track.duration.hour+":"
-                                            : 
-                                                ""
-                                        )
-                                        +
-                                        (track.duration.min != 0 || track.duration.hour != 0
-                                            ? 
-                                                track.duration.min < 10 
-                                                ?
-                                                    "0"+track.duration.min+":"
-                                                :
-                                                    track.duration.min+":"
-                                            : 
-                                                ""
-                                        )
-                                        +
-                                        (track.duration.sec != 0 || track.duration.min != 0 || track.duration.hour != 0
-                                            ? 
-                                                track.duration.sec < 10 
-                                                ?
-                                                    "0"+track.duration.sec
-                                                :
-                                                    track.duration.sec
-                                            : 
-                                                ""
-                                        )
-                                    }
+                <div id="music-player-right">
+                    <div id="music-player-button-container">
+                        <div className="music-player-button" onClick={() => {setLoop(1 - loop); setRandom(0)}}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-repeat" viewBox="0 0 16 16">
+                                <path d="M11 5.466V4H5a4 4 0 0 0-3.584 5.777.5.5 0 1 1-.896.446A5 5 0 0 1 5 3h6V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192Zm3.81.086a.5.5 0 0 1 .67.225A5 5 0 0 1 11 13H5v1.466a.25.25 0 0 1-.41.192l-2.36-1.966a.25.25 0 0 1 0-.384l2.36-1.966a.25.25 0 0 1 .41.192V12h6a4 4 0 0 0 3.585-5.777.5.5 0 0 1 .225-.67Z"/>
+                            </svg>
+                        </div>
+                        <div className="music-player-button" onClick={() => {setRandom(1 - random); setLoop(0)}}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shuffle" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5z"/>
+                                <path d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"/>
+                            </svg>
+                        </div>
+                        <div className="music-player-button" onClick={() => {if (curIndex + 1 >= playlist.length) alert("This is the end of the playlist!"); setCurIndex(curIndex => (curIndex + 1 >= playlist.length ? curIndex : curIndex + 1))}}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-skip-forward" viewBox="0 0 16 16">
+                                <path d="M15.5 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V8.752l-6.267 3.636c-.52.302-1.233-.043-1.233-.696v-2.94l-6.267 3.636C.713 12.69 0 12.345 0 11.692V4.308c0-.653.713-.998 1.233-.696L7.5 7.248v-2.94c0-.653.713-.998 1.233-.696L15 7.248V4a.5.5 0 0 1 .5-.5zM1 4.633v6.734L6.804 8 1 4.633zm7.5 0v6.734L14.304 8 8.5 4.633z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div id="music-player-playlist">
+                        {playlist.map((track, index) => (
+                            <li id={`music-player-track${playlist.length > 0 ? (index == curIndex ? "-active" : "") : ""}`} key={index} className={`track-${index}`}>
+                                <div id="music-player-track-flex">
+                                    <div id="music-player-track-title" onClick={() => {setCurIndex(index);}}>{track.title}</div>
+                                    <svg id="music-player-close-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-x-square-fill" viewBox="0 0 16 16" onClick={(e) => deleteSong(track.id, index)}>
+                                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z"/>
+                                    </svg>
                                 </div>
-                            </div>
-                        </li>
-                    ))}
+                                <div id='music-player-info'>
+                                    <div id="music-player-track-channel">{track.channelTitle}</div>
+                                    <div id="music-player-duration">
+                                        {
+                                            (track.duration.hour != 0 
+                                                ? 
+                                                    track.duration.hour < 10 
+                                                    ?
+                                                        "0"+track.duration.hour+":"
+                                                    :
+                                                        track.duration.hour+":"
+                                                : 
+                                                    ""
+                                            )
+                                            +
+                                            (track.duration.min != 0 || track.duration.hour != 0
+                                                ? 
+                                                    track.duration.min < 10 
+                                                    ?
+                                                        "0"+track.duration.min+":"
+                                                    :
+                                                        track.duration.min+":"
+                                                : 
+                                                    ""
+                                            )
+                                            +
+                                            (track.duration.sec != 0 || track.duration.min != 0 || track.duration.hour != 0
+                                                ? 
+                                                    track.duration.sec < 10 
+                                                    ?
+                                                        "0"+track.duration.sec
+                                                    :
+                                                        track.duration.sec
+                                                : 
+                                                    ""
+                                            )
+                                        }
+                                    </div>
+                                </div>
+                            </li>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

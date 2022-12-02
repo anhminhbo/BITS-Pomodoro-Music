@@ -5,12 +5,11 @@ const Spacer = require('react-spacer')
 
 
 
-const Setting = ({handleSetting}) => {
-console.log(handleSetting)
+const Setting = ({handleSetting, style}) => {
+    console.log(handleSetting)
     //prevent user from entering special characters
     useEffect(() => {
         var NumBoxes= document.querySelectorAll(".NumBox");
-            
             var invalidChars = ["+","-","e"];
             for (const NumBox of NumBoxes) {
                  NumBox.addEventListener("input", function(){
@@ -42,7 +41,8 @@ console.log(handleSetting)
     
 
   return (
-    <div className='container-setting'>
+    <div id="setting-outer" style={style}>
+        <div className='container-setting'>
         <div>
                 <h1 className='h1-setting'>Setting</h1>
                 <Spacer height="15px"/> 
@@ -55,8 +55,8 @@ console.log(handleSetting)
                         </span>
                         <Spacer grow='1' />
                         <label className='switch'>
-                           <input type="checkbox"/>
-                           <span className="slider round"></span>
+                        <input type="checkbox"/>
+                        <span className="slider round"></span>
                         </label>
                     </li>
 
@@ -82,8 +82,8 @@ console.log(handleSetting)
                         </span>
                         <Spacer grow='1' />
                         <label className='switch'>
-                           <input type="checkbox"/>
-                           <span className="slider round"></span>
+                        <input type="checkbox"/>
+                        <span className="slider round"></span>
                         </label>
                     </li>
 
@@ -93,20 +93,20 @@ console.log(handleSetting)
                         </span>
                         <Spacer grow='1' />
                         <label className='switch'>
-                           <input type="checkbox"/>
-                           <span className="slider round"></span>
+                        <input type="checkbox"/>
+                        <span className="slider round"></span>
                         </label>
                     </li>
                     
                 </ul>
                 <div className='form-head'>
-                    <button onClick={() => handleSetting()}>
+                    <button className='setting-button' onClick={() => handleSetting()}>
                         Save
                     </button>
                 </div>
             </div>
         </div>
-        
+    </div>  
   )
 }
 
