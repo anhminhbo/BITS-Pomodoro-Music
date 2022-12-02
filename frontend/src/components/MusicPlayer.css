@@ -80,7 +80,7 @@
 
 #music-player-close-icon:hover{
     transform: translateY(1px);
-    color: #B7DB25;
+    color: #7dbd07;
 }
 
 #music-player-track-title:hover{
@@ -88,13 +88,41 @@
 }
 
 #music-player-playlist{
-    height: 360px;
     overflow-x: hidden;
     overflow-y: scroll;
 }
 
 #music-player-playlist::-webkit-scrollbar {
     width: 0px;
+}
+
+#music-player-right{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 640px;
+    height: 360px;
+}
+
+#music-player-button-container{
+    width: 250px;
+    display: flex;
+    flex-direction: row;
+    justify-self: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.music-player-button{
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.music-player-button:hover{
+    transform: translateY(1px);
+    background-color: #7dbd07;
 }
 
 @media screen and (max-width: 1480px) {

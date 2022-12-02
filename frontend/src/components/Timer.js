@@ -56,26 +56,34 @@ const Timer = ({min, sec}) => {
     }
 
     //Setting condition
-    const [isSettingOn, setIsSettingOn] = useState(false);
-    const handleSetting = () => {
-      setIsSettingOn(!isSettingOn)
+    const settingStyle = {
+        "max-height": "0",
+        opacity: "0",
+        transition: "all 0.3s ease",
+        overflow: "hidden",
     }
-  
-  
-  
-  
+
+    const handleSetting = () => {
+        const opacity = document.getElementById("setting-outer").style.opacity;
+        if (opacity === "1"){
+            document.getElementById("setting-outer").style.maxHeight = "0";
+            document.getElementById("setting-outer").style.opacity = "0";
+        }
+        else {
+            document.getElementById("setting-outer").style.maxHeight = "100%";
+            document.getElementById("setting-outer").style.opacity = "1";
+        }
+    }
 
     return (
         <div>
             <div id="Time">{formatTime(TimerMin)}:{formatTime(TimerSec)}</div>
             <input type="button" value={Action} style={{display: "block"}} onClick={startAndStopTimer}/>
-            
+
             <button onClick={() => handleSetting()}>
-                        Setting
+                Setting
             </button>
-             {isSettingOn &&
-        <Setting handleSetting = {handleSetting}/>
-      }
+            <Setting handleSetting = {handleSetting} style={settingStyle}/>
         </div>
     )
 }
