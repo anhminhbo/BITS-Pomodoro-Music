@@ -24,7 +24,7 @@ const MusicPlayer = () => {
         playerVars: {
           autoplay: 1,
           loop: 1,
-          playlist: (curIndex >= 0 ? playlist[curIndex].id : ''),
+          playlist: (curIndex >= 0 && playlist.length > 0 ? playlist[curIndex].id : ''),
         },
     }
     const [opts, setOpts] = useState(case1);
@@ -166,19 +166,19 @@ const MusicPlayer = () => {
                 }
                 <div id="music-player-right">
                     <div id="music-player-button-container">
-                        <div className="music-player-button" onClick={() => {setLoop(1 - loop); setRandom(0)}}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-repeat" viewBox="0 0 16 16">
+                        <div className={`music-player-button${loop === 1 ? "-active" : ""}`} onClick={() => {setLoop(1 - loop); setRandom(0)}}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-repeat" viewBox="0 0 16 16" style={{transform: "translateY(2.5px)"}}>
                                 <path d="M11 5.466V4H5a4 4 0 0 0-3.584 5.777.5.5 0 1 1-.896.446A5 5 0 0 1 5 3h6V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192Zm3.81.086a.5.5 0 0 1 .67.225A5 5 0 0 1 11 13H5v1.466a.25.25 0 0 1-.41.192l-2.36-1.966a.25.25 0 0 1 0-.384l2.36-1.966a.25.25 0 0 1 .41.192V12h6a4 4 0 0 0 3.585-5.777.5.5 0 0 1 .225-.67Z"/>
                             </svg>
                         </div>
-                        <div className="music-player-button" onClick={() => {setRandom(1 - random); setLoop(0)}}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shuffle" viewBox="0 0 16 16">
+                        <div className={`music-player-button${random === 1 ? "-active" : ""}`} onClick={() => {setRandom(1 - random); setLoop(0)}}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-shuffle" viewBox="0 0 16 16" style={{transform: "translateY(2.5px)"}}>
                                 <path fill-rule="evenodd" d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5z"/>
                                 <path d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"/>
                             </svg>
                         </div>
-                        <div className="music-player-button" onClick={() => {if (curIndex + 1 >= playlist.length) alert("This is the end of the playlist!"); setCurIndex(curIndex => (curIndex + 1 >= playlist.length ? curIndex : curIndex + 1))}}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-skip-forward" viewBox="0 0 16 16">
+                        <div className="music-player-button" onClick={() => {if (curIndex + 1 >= playlist.length) alert("ERROR: End of playlist!"); setCurIndex(curIndex => (curIndex + 1 >= playlist.length ? curIndex : curIndex + 1))}}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-skip-forward" viewBox="0 0 16 16" style={{transform: "translateY(2.5px)"}}>
                                 <path d="M15.5 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V8.752l-6.267 3.636c-.52.302-1.233-.043-1.233-.696v-2.94l-6.267 3.636C.713 12.69 0 12.345 0 11.692V4.308c0-.653.713-.998 1.233-.696L7.5 7.248v-2.94c0-.653.713-.998 1.233-.696L15 7.248V4a.5.5 0 0 1 .5-.5zM1 4.633v6.734L6.804 8 1 4.633zm7.5 0v6.734L14.304 8 8.5 4.633z"/>
                             </svg>
                         </div>
