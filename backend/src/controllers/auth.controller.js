@@ -12,18 +12,18 @@ const register = catchAsync(async (req, res) => {
     );
   }
 
-  const user = await AuthService.register(username, password);
+  await AuthService.register(username, password);
 
-  res.status(200).json(ResponseService.newSucess(user));
+  res.status(200).json(ResponseService.newSucess());
 });
 
 const login = catchAsync(async (req, res) => {
   const { username, password } = req.body;
 
-  await AuthService.login(username, password);
+  const user = await AuthService.login(username, password);
   req.session.username = username;
 
-  res.status(200).json(ResponseService.newSucess());
+  res.status(200).json(ResponseService.newSucess(user));
 });
 
 const logout = catchAsync(async (req, res) => {

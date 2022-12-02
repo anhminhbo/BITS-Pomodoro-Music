@@ -1,7 +1,7 @@
 const { RedisService, ResponseService } = require("../services");
 const { catchAsync } = require("../utils");
 
-const isCaching = catchAsync(async (req, res, next) => {
+const useCache = catchAsync(async (req, res, next) => {
   const { username } = req.session;
 
   const data = await RedisService.getValue(username);
@@ -10,7 +10,10 @@ const isCaching = catchAsync(async (req, res, next) => {
     return;
   }
 
+  // If there is not cached data, set default
+  RedisService.setValue(username, { timerSettings: {}, playlist: [] });
+
   next();
 });
 
-module.exports = isCaching;
+module.exports = useCache;

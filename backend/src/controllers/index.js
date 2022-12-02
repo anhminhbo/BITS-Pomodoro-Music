@@ -4,5 +4,6 @@
 
 const UserController = require("./user.controller");
 const AuthController = require("./auth.controller");
+const PlaylistController = require("./playlist.controller");
 
-module.exports = { UserController, AuthController };
+module.exports = { UserController, AuthController, PlaylistController };

@@ -5,12 +5,12 @@ const { catchAsync } = require("../utils");
 const isAuthenticated = catchAsync(async (req, res, next) => {
   if (!req.session.username) {
     throw ResponseService.newError(
-        Error.SessionExpired.errCode,
-        Error.SessionExpired.errMessage
-      );
-  } ;
+      Error.SessionExpired.errCode,
+      Error.SessionExpired.errMessage
+    );
+  }
 
-  next()
+  next();
 });
 
 module.exports = isAuthenticated;
