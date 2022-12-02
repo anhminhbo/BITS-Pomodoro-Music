@@ -17,6 +17,8 @@ const MusicPlayer = () => {
         },
     };
 
+    console.log(opts);
+
     // Function to get ID from a youtube URL
     const youtube_parser = (url) => {
         var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
@@ -90,7 +92,8 @@ const MusicPlayer = () => {
     const deleteSong = (id, index) => {
         youtubeURL.current = undefined;
         setPlaylist(playlist => playlist.filter(track => track.id != id));
-        if (index < curIndex) setCurIndex(curIndex => curIndex - 1);
+        if (index < curIndex) setCurIndex(curIndex => curIndex - 1)
+        else if (index == curIndex) setCurIndex(curIndex => (curIndex >= playlist.filter(track => track.id != id).length ? 0 : curIndex));
     }
 
     return (
@@ -107,7 +110,7 @@ const MusicPlayer = () => {
                     : 
                     // else
                     <div id="music-player-current-track">
-                        <YouTube videoId={playlist[curIndex].id} opts={opts} onStateChange={(e) => {if (e.data == 0) setCurIndex(curIndex => (curIndex + 1 == playlist.length ? 0 : curIndex + 1))}}/>
+                        <YouTube videoId={playlist[curIndex].id} opts={opts} onStateChange={(e) => {if (e.data == 0) setCurIndex(curIndex => (curIndex + 1 >= playlist.length ? 0 : curIndex + 1))}}/>
                     </div>
                 }
                 <div id="music-player-playlist">
