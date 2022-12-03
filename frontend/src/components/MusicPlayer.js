@@ -90,26 +90,39 @@ const MusicPlayer = () => {
         })
         .catch();
     }
+
+    useEffect(() => {
+        if (playlist == 0) {
+            setLoop(0);
+            setRandom(0);
+            setOpts(case1);
+        }
+    }, [playlist])
     
     // Show the index of playing track
     useEffect(() => { 
         if (curIndex < 0) return;
         const curCarNum = (((curIndex % 10) < 3 && (curIndex < 9 || curIndex > 19))? cardinalNum[curIndex % 10] : "th");
         console.log("Playing track " + (curIndex + 1) + curCarNum);
-    }, [curIndex]);
-
-
-    // Check the status of loop and random
-    useEffect(() => {
-        console.log(loop + ' ' + random);
         if (loop === 1){
             setOpts(case2);
         } 
         else {
             setOpts(case1);
         }
-        console.log(opts);
-    }, [loop, random])
+    }, [curIndex]);
+
+
+    // Check the status of loop and random
+    useEffect(() => {
+        console.log(loop);
+        if (loop === 1){
+            setOpts(case2);
+        } 
+        else {
+            setOpts(case1);
+        }
+    }, [loop])
 
     // Randomize
     const getRandomNumber = (end, block) => {
@@ -122,8 +135,7 @@ const MusicPlayer = () => {
     // Play next
     const playNext = () => {
         if (random === 0) return (curIndex + 1 >= playlist.length ? 0 : curIndex + 1);
-        // return getRandomNumber(playlist.length - 1, curIndex);
-        return 0;
+        return getRandomNumber(playlist.length - 1, curIndex);
     }
 
     // Delete song from playlist
@@ -153,11 +165,9 @@ const MusicPlayer = () => {
                                 if (e.data == 0) {
                                     var nextIndex = playNext()
                                     setCurIndex(curIndex => nextIndex); 
+                                    var firstTrackAdd = document.getElementsByClassName(`track-0`);
                                     var newAdd = document.getElementsByClassName(`track-${nextIndex}`);
-                                    newAdd = newAdd[0].offsetTop - 225;
-                                    console.log(newAdd);
-                                    
-                                    // (document.getElementById("music-player-track-active").offsetHeight / 2); 
+                                    newAdd = newAdd[0].offsetTop - firstTrackAdd[0].offsetTop;
                                     document.getElementById("music-player-playlist").scrollTo({top: newAdd, behavior: 'smooth'});
                                 }
                             }
@@ -166,19 +176,19 @@ const MusicPlayer = () => {
                 }
                 <div id="music-player-right">
                     <div id="music-player-button-container">
-                        <div className={`music-player-button${loop === 1 ? "-active" : ""}`} onClick={() => {setLoop(1 - loop); setRandom(0)}}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-repeat" viewBox="0 0 16 16" style={{transform: "translateY(2.5px)"}}>
+                        <div className={`music-player-button${loop === 1 ? "-active" : ""}`} onClick={() => {if (playlist.length === 0) alert("ERROR: Playlist empty. Cannot turn on loop mode."); else setLoop(1 - loop); setRandom(0)}}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-repeat" viewBox="0 0 16 16" style={{transform: "translateY(2.5px)"}}>
                                 <path d="M11 5.466V4H5a4 4 0 0 0-3.584 5.777.5.5 0 1 1-.896.446A5 5 0 0 1 5 3h6V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192Zm3.81.086a.5.5 0 0 1 .67.225A5 5 0 0 1 11 13H5v1.466a.25.25 0 0 1-.41.192l-2.36-1.966a.25.25 0 0 1 0-.384l2.36-1.966a.25.25 0 0 1 .41.192V12h6a4 4 0 0 0 3.585-5.777.5.5 0 0 1 .225-.67Z"/>
                             </svg>
                         </div>
-                        <div className={`music-player-button${random === 1 ? "-active" : ""}`} onClick={() => {setRandom(1 - random); setLoop(0)}}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-shuffle" viewBox="0 0 16 16" style={{transform: "translateY(2.5px)"}}>
+                        <div className={`music-player-button${random === 1 ? "-active" : ""}`} onClick={() => {if (playlist.length === 0) alert("ERROR: Playlist empty. Cannot turn on random mode."); else setRandom(1 - random); setLoop(0)}}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-shuffle" viewBox="0 0 16 16" style={{transform: "translateY(2.5px)"}}>
                                 <path fill-rule="evenodd" d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5z"/>
                                 <path d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"/>
                             </svg>
                         </div>
                         <div className="music-player-button" onClick={() => {if (curIndex + 1 >= playlist.length) alert("ERROR: End of playlist!"); setCurIndex(curIndex => (curIndex + 1 >= playlist.length ? curIndex : curIndex + 1))}}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-skip-forward" viewBox="0 0 16 16" style={{transform: "translateY(2.5px)"}}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-skip-forward" viewBox="0 0 16 16" style={{transform: "translateY(2.5px)"}}>
                                 <path d="M15.5 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V8.752l-6.267 3.636c-.52.302-1.233-.043-1.233-.696v-2.94l-6.267 3.636C.713 12.69 0 12.345 0 11.692V4.308c0-.653.713-.998 1.233-.696L7.5 7.248v-2.94c0-.653.713-.998 1.233-.696L15 7.248V4a.5.5 0 0 1 .5-.5zM1 4.633v6.734L6.804 8 1 4.633zm7.5 0v6.734L14.304 8 8.5 4.633z"/>
                             </svg>
                         </div>
