@@ -41,14 +41,14 @@ const updatePlaylist = async (username, song) => {
   return;
 };
 
-const deleteSong = async (username, deletedSong) => {
+const deleteSong = async (username, songId) => {
   // Get playlist
   const user = await UserService.getUserByUsername(username);
 
   const { playlist } = user;
 
   // Filter playlist to exclude the deletedSong
-  const newPlaylist = playlist.filter((song) => song.songId !== deletedSong.songId);
+  const newPlaylist = playlist.filter((song) => song.songId !== songId);
 
   const filter = { username };
   const update = { playlist: newPlaylist };

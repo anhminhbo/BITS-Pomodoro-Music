@@ -10,10 +10,11 @@ router
 
 router
   .route("/updatePlaylist")
-  .post(isAuthenticated, PlaylistController.updatePlaylist);
+  .put(isAuthenticated, PlaylistController.updatePlaylist);
 
 router
-  .route("/deleteSong")
-  .post(isAuthenticated, PlaylistController.deleteSong);
+  .route("/deleteSong/:songId")
+  .delete(isAuthenticated, PlaylistController.deleteSong);
 
 module.exports = router;
+ 
