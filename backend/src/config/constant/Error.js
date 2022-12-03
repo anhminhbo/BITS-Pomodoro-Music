@@ -66,9 +66,13 @@ const Error = {
     errCode: 113,
     errMessage: "Playlist is empty",
   },
-  EmptySong: {
-    errCode: 113,
-    errMessage: "Song is empty",
+  EmptySongId: {
+    errCode: 114,
+    errMessage: "SongId is empty",
+  },
+  EmptyTimerSettings: {
+    errCode: 115,
+    errMessage: "TimerSettings is empty",
   },
   // 200++ Error from Db
   CastError: {

@@ -12,7 +12,7 @@ const getPlaylist = catchAsync(async (req, res) => {
     );
   }
 
-  res.status(200).json(ResponseService.newSucess(playlist));
+  res.status(200).json(ResponseService.newSucess({ playlist }));
 });
 
 const updatePlaylist = catchAsync(async (req, res) => {
@@ -20,8 +20,8 @@ const updatePlaylist = catchAsync(async (req, res) => {
   const { song } = req.body;
   if (!song) {
     throw ResponseService.newError(
-      Error.EmptySong.errCode,
-      Error.EmptySong.errMessage
+      Error.EmptySongId.errCode,
+      Error.EmptySongId.errMessage
     );
   }
   await PlaylistService.updatePlaylist(username, song);
@@ -31,16 +31,17 @@ const updatePlaylist = catchAsync(async (req, res) => {
 
 const deleteSong = catchAsync(async (req, res) => {
   const { username } = req.session;
-  const { song } = req.body;
 
-  if (!song) {
+  const songId = req.params.songId;
+
+  if (!songId) {
     throw ResponseService.newError(
-      Error.EmptySong.errCode,
-      Error.EmptySong.errMessage
+      Error.EmptySongId.errCode,
+      Error.EmptySongId.errMessage
     );
   }
 
-  await PlaylistService.deleteSong(username, song);
+  await PlaylistService.deleteSong(username, songId);
 
   res.status(200).json(ResponseService.newSucess());
 });

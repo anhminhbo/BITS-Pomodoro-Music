@@ -5,6 +5,7 @@ const RedisService = require("./redis/redis.service");
 const UserService = require("./user/user.service");
 const AuthService = require("./auth/auth.service");
 const PlaylistService = require("./playlist/playlist.service");
+const TimerService = require("./timer/timer.service");
 
 module.exports = {
   ResponseService,
@@ -12,4 +13,5 @@ module.exports = {
   AuthService,
   RedisService,
   PlaylistService,
+  TimerService,
 };
