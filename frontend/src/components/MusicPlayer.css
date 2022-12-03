@@ -123,12 +123,12 @@
 
 .music-player-button:hover{
     transform: translateY(-2px);
-    background-color: #7dbd07;
+    color: #7dbd07;
 }
 
 .music-player-button-active{
-    color: #7dbd07;
-    background-color: white;
+    background-color: #7dbd07;
+    color: white;
     padding: 10px 20px;
     border-radius: 10px;
     cursor: pointer;
