@@ -33,7 +33,7 @@ morgan.token("username", (req, res) => {
 
 app.use(
   morgan(
-    ':date "req-origin:remote-addr" :method :url HTTP/:http-version" :status :response-time ms "username: :username" "req_body: :req_body" "resp_body: :resp_body"\n'
+    ':date "req-origin: :remote-addr" ":method :url" "HTTP/:http-version" ":status" ":response-time ms" "username: :username" "req_body: :req_body" "resp_body: :resp_body"\n'
   )
 );
 
