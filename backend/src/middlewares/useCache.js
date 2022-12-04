@@ -6,7 +6,8 @@ const useCache = catchAsync(async (req, res, next) => {
 
   const cachedData = await RedisService.getValue(username);
   if (cachedData) {
-    res.status(200).json(ResponseService.newSucess(cachedData));
+    res.body = ResponseService.newSucess(cachedData);
+    res.status(200).json(res.body);
     return;
   }
 

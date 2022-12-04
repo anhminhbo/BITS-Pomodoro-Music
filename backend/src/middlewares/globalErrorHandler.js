@@ -28,6 +28,10 @@ const handleDuplicateFieldsDB = () => {
 // };
 const sendErrorDev = (err, res) => {
   console.log(err);
+  res.body = {
+    errCode: err.errCode,
+    errMessage: err.message,
+  };
   res.status(err.statusCode).json({
     code: 1,
     message: "Unsuccessfully",
@@ -39,6 +43,13 @@ const sendErrorDev = (err, res) => {
 };
 
 const sendErrorProd = (err, res) => {
+  // Should not enable logging in Production
+  console.log(err);
+  res.body = {
+    errCode: err.errCode,
+    errMessage: err.message,
+  };
+  //
   res.status(err.statusCode).json({
     code: 1,
     message: "Unsuccessfully",
