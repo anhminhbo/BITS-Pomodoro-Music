@@ -30,7 +30,7 @@ const Register = () => {
     //     console.log(username,email,password,confirmPassword);
     // }
   return (
-    <div className="container container-register">
+    <div className="container register-container">
       <div className="form-body">
         <div className='form-head'>
           <h1>Get started in minutes</h1>
