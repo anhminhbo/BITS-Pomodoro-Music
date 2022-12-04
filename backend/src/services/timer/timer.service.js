@@ -6,11 +6,15 @@ const getSettings = async (username) => {
   // Get playlist
   const user = await UserService.getUserByUsername(username);
 
-  const { timerSettings } = user;
+  const { timerSettings, playlist } = user;
 
-  //  Handle to cached user playlist
+  //  Handle to cached user timer settings and playlist
   const cachedData = await RedisService.getValue(username);
-  await RedisService.setValue(username, { ...cachedData, timerSettings });
+  await RedisService.setValue(username, {
+    ...cachedData,
+    timerSettings,
+    playlist,
+  });
 
   return timerSettings;
 };
@@ -21,12 +25,12 @@ const updateSettings = async (username, newTimerSettings) => {
   const filter = { username };
   const update = { timerSettings: newTimerSettings };
 
-  // Get new playlist after update
+  // Get timer settings after update
   await UserModel.findOneAndUpdate(filter, update, {
     new: true,
   });
 
-  //  Handle to cached user new playlist
+  //  Handle to cached user new timer settings
   const cachedData = await RedisService.getValue(username);
   await RedisService.setValue(username, {
     ...cachedData,
