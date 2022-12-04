@@ -2,8 +2,10 @@
   "scripts": {
     "debug": "eslint -- -- src",
     "fix": "eslint --fix src",
-    "start": "DEBUG=express-session node src/server.js",
-    "server": "DEBUG=express-session nodemon src/server.js",
+    "startDebugSession": "DEBUG=express-session node src/server.js",
+    "serverDebugSession": "DEBUG=express-session nodemon src/server.js",
+    "start":"node src/server.js",
+    "server":"nodemon src/server.js",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"cd ..\" \"cd frontend\" \"npm run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
@@ -20,6 +22,7 @@
     "helmet": "^5.1.0",
     "http-status": "^1.5.2",
     "ioredis": "^5.2.3",
+    "moment-timezone": "^0.5.39",
     "mongoose": "^6.4.3",
     "morgan": "^1.10.0",
     "xss-clean": "^0.1.1"

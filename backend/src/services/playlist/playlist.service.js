@@ -1,6 +1,8 @@
 const { UserModel } = require("../../models");
 const UserService = require("../user/user.service");
 const RedisService = require("../redis/redis.service");
+const ResponseService = require("../response/response.service");
+const Error = require("../../config/constant/Error");
 
 const getPlaylist = async (username) => {
   // Get playlist
@@ -50,6 +52,15 @@ const deleteSong = async (username, songId) => {
   const user = await UserService.getUserByUsername(username);
 
   const { playlist } = user;
+
+  // Check if deletedSong exists
+  const isDeletedSongExists = playlist.some((song) => song.songId === songId);
+  if (!isDeletedSongExists) {
+    throw ResponseService.newError(
+      Error.DeletedSongNotExists.errCode,
+      Error.DeletedSongNotExists.errMessage
+    );
+  }
 
   // Filter playlist to exclude the deletedSong
   const newPlaylist = playlist.filter((song) => song.songId !== songId);

@@ -2,6 +2,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
+const dateMoment = require("moment-timezone");
 
 const app = express();
 
@@ -9,10 +10,32 @@ const app = express();
 if (process.env.NODE_ENV !== "production") {
   // eslint-disable-next-line global-require
   require("dotenv").config({ path: path.join(__dirname, "../.env") });
-  app.use(morgan("dev"));
 } else {
   app.set("trust proxy", 1); // to trust nginx and pass cookies
 }
+
+// Use morgan to debug log
+morgan.token("date", (req, res, tz) => {
+  return dateMoment().tz("Asia/Ho_Chi_Minh").format("DD-MM-YYYY, HH:mm:ss");
+});
+
+morgan.token("req_body", (req, res) => {
+  return JSON.stringify(req.body);
+});
+
+morgan.token("resp_body", (req, res) => {
+  return JSON.stringify(res.body);
+});
+
+morgan.token("username", (req, res) => {
+  return req.session.username;
+});
+
+app.use(
+  morgan(
+    ':date "req-origin:remote-addr" :method :url HTTP/:http-version" :status :response-time ms "username: :username" "req_body: :req_body" "resp_body: :resp_body"\n'
+  )
+);
 
 // Import 3rd party libraries
 const cors = require("cors");

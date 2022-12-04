@@ -74,6 +74,18 @@ const Error = {
     errCode: 115,
     errMessage: "TimerSettings is empty",
   },
+  EmptySong: {
+    errCode: 116,
+    errMessage: "Song is empty",
+  },
+  DeletedSongNotExists: {
+    errCode: 117,
+    errMessage: "Deleted song not existed to delete",
+  },
+  TimerSettingsNotFound: {
+    errCode: 118,
+    errMessage: "Timer Settings not found",
+  },
   // 200++ Error from Db
   CastError: {
     errCode: 201,
