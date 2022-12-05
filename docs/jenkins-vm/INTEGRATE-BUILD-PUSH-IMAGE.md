@@ -111,6 +111,7 @@ echo "Build successfully"
 docker rmi -f $(docker images -aq)
 exit 0
 ```
+
     - dockerize-backend.sh
 ```
 
@@ -123,6 +124,7 @@ docker tag bits-backend:$newBackendTag anhminhbo/bits-backend:$newBackendTag
 docker push anhminhbo/bits-backend:$newBackendTag
 
 ```
+
     - dockerize-frontend.sh
 ```
 
@@ -149,6 +151,3 @@ docker push anhminhbo/bits-frontend:$newFrontendTag
     <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/jenkins-vm/jenkins-12.png" width=1000 height=1000>
     Trigger next job of failed email dev
 </p>
-
-
-```
