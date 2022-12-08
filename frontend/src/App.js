@@ -45,14 +45,15 @@ function App() {
   return (
     <div className="App">
       {backend}
-      {/* <Header /> */}
-      {/* <LogIn />
-      <Register /> */}
-      <Timer min={0} sec={5} />
-      <MusicPlayer />
+      <Header />
+      <LogIn />
+      {/* <Register /> */}
+      {/* <Timer min={0} sec={5} /> */}
+      {/* <MusicPlayer /> */}
       <Footer />
     </div>
   );
 }
 
 export default App;
+

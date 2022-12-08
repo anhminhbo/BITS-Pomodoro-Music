@@ -29,6 +29,48 @@ const Register = () => {
     // const handleSubmit  = () => {
     //     console.log(username,email,password,confirmPassword);
     // }
+    var usernameInput = document.getElementById('username');
+
+  document.querySelector('form.pure-form').addEventListener('submit', function (e) {
+      //prevent the normal submission of the form
+      e.preventDefault();
+      console.log(usernameInput.value);    
+  });
+
+  var emailInput = document.getElementById('email');
+
+  document.querySelector('form.pure-form').addEventListener('submit', function (e) {
+      //prevent the normal submission of the form
+      e.preventDefault();
+      console.log(emailInput.value);    
+  });
+  var passwordInput = document.getElementById('password');
+
+  document.querySelector('form.pure-form').addEventListener('submit', function (e) {
+      //prevent the normal submission of the form
+      e.preventDefault();
+      console.log(passwordInput.value);    
+  });
+  var confirmpasswordInput = document.getElementById('confirmPassword');
+
+  document.querySelector('form.pure-form').addEventListener('submit', function (e) {
+      //prevent the normal submission of the form
+      e.preventDefault();
+      console.log(confirmpasswordInput.value);    
+  });
+
+  // console log if checkbox is checked
+  function checkbox () {
+
+    if (document.getElementsByClassName('formbox')[0].checked == true) {
+        console.log('checked');
+
+        } else {
+            console.log('unchecked');
+        }
+}
+checkbox();
+
   return (
     <div className="container register-container">
       <div className="form-body">
@@ -36,7 +78,7 @@ const Register = () => {
           <h1>Get started in minutes</h1>
           <p>First let's create your account.</p>
         </div>
-        <form>
+        <form className='pure-form'>
           <div className="username">
               <label className="formlabel" for="username">Username </label>
               <br/>
@@ -74,3 +116,4 @@ const Register = () => {
 }
 
 export default Register
+

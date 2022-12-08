@@ -4,13 +4,28 @@ import Footer from "./Footer";
 import "./Form.css";
 
 const LogIn = () => {
+    var usernameInput = document.getElementById('username');
+
+  document.querySelector('form.pure-form').addEventListener('submit', function (e) {
+      //prevent the normal submission of the form
+      e.preventDefault();
+      console.log(usernameInput.value);    
+  });
+  var passwordInput = document.getElementById('password');
+
+  document.querySelector('form.pure-form').addEventListener('submit', function (e) {
+      //prevent the normal submission of the form
+      e.preventDefault();
+      console.log(passwordInput.value);    
+  });
+
   return (
     <div className="container">
       <div className="form-body">
         <div className="form-head login-head">
           <h1>Login</h1>
         </div>
-        <form method="post">
+        <form className="pure-form" method="post">
           <div className="username">
             <label className="formlabel" for="username">
               Username
@@ -22,6 +37,7 @@ const LogIn = () => {
               type="text"
               name="username"
               maxlength="150"
+              placeholder="Enter Username"
             />
           </div>
           <div className="password">
@@ -35,6 +51,7 @@ const LogIn = () => {
               type="password"
               name="password"
               maxlength="150"
+              placeholder="Enter Password"
             />
           </div>
         </form>
