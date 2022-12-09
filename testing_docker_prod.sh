@@ -1,5 +1,6 @@
 # Fix error in Windows when env variable missing
 export NODE_ENV=development
+export DOCKER_BUILDKIT=1
 
 export ROOT_DIR=$(pwd)
 

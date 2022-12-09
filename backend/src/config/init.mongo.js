@@ -12,8 +12,8 @@ mongoose
 // all executed methods log output to console
 mongoose.set("debug", true);
 
-// disable colors in debug mode
-mongoose.set("debug", { color: false });
+// enabled colors in debug mode
+mongoose.set("debug", { color: true });
 
 // get mongodb-shell friendly output (ISODate)
 mongoose.set("debug", { shell: true });

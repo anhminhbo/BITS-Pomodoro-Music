@@ -10,7 +10,7 @@
     min-height: 400px;
 }
 
-.container-register {
+.register-container {
     padding: 40px 30px 0px;
 }
 
@@ -76,7 +76,7 @@ button {
     color: white;
     width: 95%;
     /* height: 88%; */
-    border: 2px solid #7dbd07;
+    border: none;
     padding: 15px 20px;
     font-size: 1rem;
     border-radius: 10px;

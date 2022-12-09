@@ -62,6 +62,30 @@ const Error = {
     errCode: 112,
     errMessage: "Session expired",
   },
+  EmptyPlaylist: {
+    errCode: 113,
+    errMessage: "Playlist is empty",
+  },
+  EmptySongId: {
+    errCode: 114,
+    errMessage: "SongId is empty",
+  },
+  EmptyTimerSettings: {
+    errCode: 115,
+    errMessage: "TimerSettings is empty",
+  },
+  EmptySong: {
+    errCode: 116,
+    errMessage: "Song is empty",
+  },
+  DeletedSongNotExists: {
+    errCode: 117,
+    errMessage: "Deleted song not existed to delete",
+  },
+  TimerSettingsNotFound: {
+    errCode: 118,
+    errMessage: "Timer Settings not found",
+  },
   // 200++ Error from Db
   CastError: {
     errCode: 201,
@@ -83,9 +107,12 @@ const Error = {
 
   // 400++ Error from Internal Server
   GenericError: {
-    statusCode: httpStatus.INTERNAL_SERVER_ERROR,
     errCode: 400,
     errMessage: "Something wrong happened.",
+  },
+  RedisNotCached: {
+    errCode: 401,
+    errMessage: "Redis can not cache new data",
   },
 };
 module.exports = Error;

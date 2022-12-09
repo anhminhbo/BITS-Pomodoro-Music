@@ -22,7 +22,6 @@ const sessionConfig = {
     httpOnly: true,
 
     maxAge: 2 * 60 * 60000, // 2 hours expiration
-    
   },
 };
 

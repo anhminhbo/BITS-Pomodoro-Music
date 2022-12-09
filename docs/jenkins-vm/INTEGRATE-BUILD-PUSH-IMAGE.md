@@ -1,24 +1,35 @@
 # INTEGRATE-BUILD-PUSH-IMAGE
+
 - Be root user:
+
 ```
 sudo su
 ```
+
 - Add docker group to azureuser
+
 ```
 usermod -aG docker azureuser
 ```
+
 - Go back to azureuser
+
 ```
 su azureuser
 ```
+
 - Make a dir:
+
 ```
 mkdir -p projects/bits
 ```
+
 - Clone the source code of the main branch of bits pomodoro music
+
 ```
 git clone https://github.com/anhminhbo/BITS-Pomodoro-Music.git
 ```
+
 - Config in Jenkins add ssh configuration Jenkins VM to Jenkins containers
 <p align="center">
     <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/jenkins-vm/jenkins-10.png" width=1000 height=1000>
@@ -26,12 +37,14 @@ git clone https://github.com/anhminhbo/BITS-Pomodoro-Music.git
 </p>
 
 - Login to your docker hub
+
 ```
 docker login
 ```
 
 - Inside projects/bits create 3 files:
-    - buildAndPushImageOnJenkinsVm.sh
+  - buildAndPushImageOnJenkinsVm.sh
+
 ```
 export PROJ_DIR=$(pwd)
 
@@ -46,46 +59,62 @@ export newFrontendTag=$(($latestFrontendTag + 1 ))
 # Now go to src to get size
 cd $PROJ_DIR/BITS-Pomodoro-Music
 
-# Get previous size of backend and frontend size
-prevBackendSrcSize=$(du -s -b $PROJ_DIR/BITS-Pomodoro-Music/backend/src | cut -d"h" -f1 | cut -d"/" -f1)
-prevFrontendSrcSize=$(du -s -b $PROJ_DIR/BITS-Pomodoro-Music/frontend/src | cut -d"h" -f1 | cut -d"/" -f1)
+# # Get previous size of backend and frontend size
+# prevBackendSrcSize=$(du -s -b $PROJ_DIR/BITS-Pomodoro-Music/backend/src | cut -d"h" -f1 | cut -d"/" -f1)
+# prevFrontendSrcSize=$(du -s -b $PROJ_DIR/BITS-Pomodoro-Music/frontend/src | cut -d"h" -f1 | cut -d"/" -f1)
+
+# Detect if backend src and frontend src has any changes
+prevBackendSrcHash=$(find $PROJ_DIR/BITS-Pomodoro-Music/backend/src/ -type f -exec md5sum {} \; | sort -k 2 | md5sum)
+prevFrontendSrcHash=$(find $PROJ_DIR/BITS-Pomodoro-Music/frontend/src/ -type f -exec md5sum {} \; | sort -k 2 | md5sum)
 
 # Get latest main branch
 
 git pull origin main
 
-# Get current src folder size of backend and frontend
-backendSrcSize=$(du -s -b $PROJ_DIR/BITS-Pomodoro-Music/backend/src | cut -d"h" -f1 | cut -d"/" -f1)
-frontendSrcSize=$(du -s -b $PROJ_DIR/BITS-Pomodoro-Music/frontend/src | cut -d"h" -f1 | cut -d"/" -f1)
+# # Get current src folder size of backend and frontend
+# backendSrcSize=$(du -s -b $PROJ_DIR/BITS-Pomodoro-Music/backend/src | cut -d"h" -f1 | cut -d"/" -f1)
+# frontendSrcSize=$(du -s -b $PROJ_DIR/BITS-Pomodoro-Music/frontend/src | cut -d"h" -f1 | cut -d"/" -f1)
+
+backendSrcHash=$(find $PROJ_DIR/BITS-Pomodoro-Music/backend/src/ -type f -exec md5sum {} \; | sort -k 2 | md5sum)
+frontendSrcHash=$(find $PROJ_DIR/BITS-Pomodoro-Music/frontend/src/ -type f -exec md5sum {} \; | sort -k 2 | md5sum)
+
 
 # Go back to project dir
 cd $PROJ_DIR
 
 # Build and push new image based on differences
-if [[ $backendSrcSize != $prevBackendSrcSize ]] && [[ $frontendSrcSize != $prevFrontendSrcSize ]]; then
+# if [[ $backendSrcSize != $prevBackendSrcSize ]] && [[ $frontendSrcSize != $prevFrontendSrcSize ]]; then
+if [[ $backendSrcHash != $prevBackendSrcHash ]] && [[ $prevFrontendSrcHash != $frontendSrcHash ]]; then
 
     bash -x dockerize-backend.sh &
 
-    bash -x dockerize-frontend.sh 
+    bash -x dockerize-frontend.sh
 
-elif [[ $backendSrcSize != $prevBackendSrcSize ]]; then
+# elif [[ $backendSrcSize != $prevBackendSrcSize ]]; then
+elif [[ $backendSrcHash != $prevBackendSrcHash ]]; then
 
     bash -x dockerize-backend.sh
 
-elif [[ $frontendSrcSize != $prevFrontendSrcSize ]]; then
+# elif [[ $frontendSrcSize != $prevFrontendSrcSize ]]; then
+elif [[ $prevFrontendSrcHash != $frontendSrcHash ]]; then
 
-    bash -x dockerize-frontend.sh 
-    
+    bash -x dockerize-frontend.sh
+
 else
+
     echo "Nothing new to build"
     exit 1
-    
+
 fi
+
+echo "Build successfully"
 docker rmi -f $(docker images -aq)
 exit 0
 ```
+
     - dockerize-backend.sh
 ```
+
 cd $PROJ_DIR/BITS-Pomodoro-Music/backend
 
 DOCKER_BUILDKIT=1 docker build . -t bits-backend:$newBackendTag
@@ -93,9 +122,12 @@ DOCKER_BUILDKIT=1 docker build . -t bits-backend:$newBackendTag
 docker tag bits-backend:$newBackendTag anhminhbo/bits-backend:$newBackendTag
 
 docker push anhminhbo/bits-backend:$newBackendTag
+
 ```
+
     - dockerize-frontend.sh
 ```
+
 cd $PROJ_DIR/BITS-Pomodoro-Music/frontend
 
 DOCKER_BUILDKIT=1 docker build . -t bits-frontend:$newFrontendTag
@@ -119,5 +151,3 @@ docker push anhminhbo/bits-frontend:$newFrontendTag
     <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/docs/jenkins-vm/jenkins-12.png" width=1000 height=1000>
     Trigger next job of failed email dev
 </p>
-
-
