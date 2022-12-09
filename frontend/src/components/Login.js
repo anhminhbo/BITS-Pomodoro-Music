@@ -1,26 +1,14 @@
-import React from "react";
+import React, { useRef } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import "./Form.css";
 
 const LogIn = () => {
-    var usernameInput = document.getElementById('username');
-
-  document.querySelector('form.pure-form').addEventListener('submit', function (e) {
-      //prevent the normal submission of the form
-      e.preventDefault();
-      console.log(usernameInput.value);    
-  });
-  var passwordInput = document.getElementById('password');
-
-  document.querySelector('form.pure-form').addEventListener('submit', function (e) {
-      //prevent the normal submission of the form
-      e.preventDefault();
-      console.log(passwordInput.value);    
-  });
+  const username = useRef();
+  const password = useRef();
 
   return (
-    <div className="container">
+    <div className="login-register-container">
       <div className="form-body">
         <div className="form-head login-head">
           <h1>Login</h1>
@@ -38,6 +26,7 @@ const LogIn = () => {
               name="username"
               maxlength="150"
               placeholder="Enter Username"
+              ref={username}
             />
           </div>
           <div className="password">
@@ -52,11 +41,15 @@ const LogIn = () => {
               name="password"
               maxlength="150"
               placeholder="Enter Password"
+              ref={password}
             />
           </div>
         </form>
         <div className="btn">
-          <button type="submit">Log In</button>
+          <button onClick={() => {
+            console.log(username.current.value);
+            console.log(password.current.value);
+          }}>Log In</button>
         </div>
         <div className="form-foot">
           <p>

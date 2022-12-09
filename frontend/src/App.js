@@ -46,8 +46,8 @@ function App() {
     <div className="App">
       {backend}
       <Header />
-      <LogIn />
-      {/* <Register /> */}
+      {/* <LogIn /> */}
+      <Register />
       {/* <Timer min={0} sec={5} /> */}
       {/* <MusicPlayer /> */}
       <Footer />
