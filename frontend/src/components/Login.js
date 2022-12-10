@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useRef } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import "./Form.css";
 
 const LogIn = () => {
+  const username = useRef();
+  const password = useRef();
+
   return (
-    <div className="container">
+    <div className="login-register-container">
       <div className="form-body">
         <div className="form-head login-head">
           <h1>Login</h1>
         </div>
-        <form method="post">
+        <form className="pure-form" method="post">
           <div className="username">
             <label className="formlabel" for="username">
               Username
@@ -22,6 +25,8 @@ const LogIn = () => {
               type="text"
               name="username"
               maxlength="150"
+              placeholder="Enter Username"
+              ref={username}
             />
           </div>
           <div className="password">
@@ -35,11 +40,16 @@ const LogIn = () => {
               type="password"
               name="password"
               maxlength="150"
+              placeholder="Enter Password"
+              ref={password}
             />
           </div>
         </form>
         <div className="btn">
-          <button type="submit">Log In</button>
+          <button onClick={() => {
+            console.log(username.current.value);
+            console.log(password.current.value);
+          }}>Log In</button>
         </div>
         <div className="form-foot">
           <p>
