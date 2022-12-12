@@ -143,7 +143,7 @@ app.listen(port, () => {
 process.on("unhandledRejection", (error) => {
   // it uses unhandledRejection event
   // using unhandledRejection event
-  console.log(" Unhandled Rejection => shutting down..... ");
+  console.log(" Unhandled Rejection => shutting down...");
   console.log(error.name, error.message);
   app.close(() => {
     process.exit(1); //  emidiatly exists all from all the requests sending OR pending

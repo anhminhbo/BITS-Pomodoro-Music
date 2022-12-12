@@ -62,7 +62,7 @@ jobs:
       - name: Only Frontend has changes
         if: steps.detect-changes.outputs.frontend == 'true'
         run: |
-         bash -x dockerize-backend.sh ${{ steps.frontend-tag.outputs.newFrontendTag }}
+         bash -x dockerize-frontend.sh ${{ steps.frontend-tag.outputs.newFrontendTag }}
          exit 0  
          
          
