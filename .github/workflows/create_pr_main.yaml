@@ -1,5 +1,5 @@
 name: Create pull request to main
-run-name: ${{ github.actor }} is triggering this GitHub Action to Create PR to main🚀
+run-name: ${{ github.actor }} is triggering Create PR to main🚀
 on:
   push:
     branches:
