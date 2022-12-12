@@ -37,9 +37,16 @@ jobs:
          newFrontendTag=`expr $current + 1` 
          echo "::set-output name=newFrontendTag::$(echo $newFrontendTag)"   
 
+      # Login to DockerHub
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
       # If backend and frontend both have changes
       - name: Backend and Frontend both have changes
-        # if: steps.detect-changes.outputs.backend == 'true' && steps.detect-changes.outputs.frontend == 'true'
+        if: steps.detect-changes.outputs.backend == 'true' && steps.detect-changes.outputs.frontend == 'true'
         run: |
          bash -x dockerize.sh ${{ steps.frontend-tag.outputs.newFrontendTag }} ${{ steps.backend-tag.outputs.newBackendTag }}
          exit 0
