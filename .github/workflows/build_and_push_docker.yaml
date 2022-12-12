@@ -1,10 +1,10 @@
 name: Build and Push Docker images
-run-name: ${{ github.actor }} is triggering this GitHub Action to Build and Push Docker images 🚀
+run-name: ${{ github.actor }} is triggering Build and Push Docker images 🚀
 on:
   push:
     branches:
       - main
-      - minh/github-action
+
 jobs:
   build-anh-push-docker:
     runs-on: ubuntu-latest
@@ -46,7 +46,7 @@ jobs:
 
       # If backend and frontend both have changes
       - name: Backend and Frontend both have changes
-        # if: steps.detect-changes.outputs.backend == 'true' && steps.detect-changes.outputs.frontend == 'true'
+        if: steps.detect-changes.outputs.backend == 'true' && steps.detect-changes.outputs.frontend == 'true'
         run: |
          bash -x dockerize.sh ${{ steps.frontend-tag.outputs.newFrontendTag }} ${{ steps.backend-tag.outputs.newBackendTag }}
          exit 0

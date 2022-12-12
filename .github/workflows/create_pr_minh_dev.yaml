@@ -1,5 +1,5 @@
 name: Create pull request to minh-dev for members
-run-name: ${{ github.actor }} is triggering this GitHub Action to Create PR to minh-dev 🚀
+run-name: ${{ github.actor }} is triggering Create PR to minh-dev 🚀
 on:
   push:
     branches-ignore:
