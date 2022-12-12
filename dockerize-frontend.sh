@@ -5,7 +5,9 @@ ROOT_DIR=$(pwd)
 
 cd $ROOT_DIR/frontend
 
-DOCKER_BUILDKIT=1 docker build -f Dockerfile.development -t anhminhbo/bits-frontend:$frontendTag .
+# DOCKER_BUILDKIT=1 docker build -f Dockerfile.development -t anhminhbo/bits-frontend:$frontendTag .
+DOCKER_BUILDKIT=1 docker build . -t anhminhbo/bits-frontend:$frontendTag
+
 
 docker push anhminhbo/bits-frontend:$frontendTag
 
