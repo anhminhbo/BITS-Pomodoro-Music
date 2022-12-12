@@ -25,14 +25,14 @@ jobs:
 
       - id: backend-tag
         run: |
-         current=$(curl -s -S "https://registry.hub.docker.com/v2/repositories/anhminhbo/bits-backend/tags/" | \ 
+         current=$(curl -s -S "https://registry.hub.docker.com/v2/repositories/anhminhbo/bits-backend/tags/" |  
          jq '."results"[]["name"]' | sed -n 1p | cut -d'"' -f2)
          newBackendTag=`expr $current + 1`
          echo "::set-output name=newBackendTag::$(echo $newBackendTag)" 
 
       - id: frontend-tag
         run: |
-         current=$(curl -s -S "https://registry.hub.docker.com/v2/repositories/anhminhbo/bits-frontend/tags/" | \ 
+         current=$(curl -s -S "https://registry.hub.docker.com/v2/repositories/anhminhbo/bits-frontend/tags/" | 
          jq '."results"[]["name"]' | sed -n 1p | cut -d'"' -f2)
          newFrontendTag=`expr $current + 1` 
          echo "::set-output name=newFrontendTag::$(echo $newFrontendTag)"   
