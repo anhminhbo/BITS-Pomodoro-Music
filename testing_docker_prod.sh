@@ -11,6 +11,6 @@ bash -x clean_up.sh
 cd $ROOT_DIR/dockerize
 
 # Start building frontend backend parallel
-bash -x dockerize.sh
+bash -x test-dockerize.sh
 
 docker-compose -f docker-compose.testing.yaml up -d
