@@ -1,7 +1,7 @@
 # docker rmi -f $(docker images -aq)
 frontendTag=$1
 # cd ..
-ROOT_DIR=pwd
+ROOT_DIR=$(pwd)
 
 cd $ROOT_DIR/frontend
 

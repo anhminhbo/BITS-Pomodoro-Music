@@ -1,7 +1,7 @@
 # docker rmi -f $(docker images -aq)
 backendTag=$1
 
-ROOT_DIR=pwd
+ROOT_DIR=$(pwd)
 
 cd $ROOT_DIR/backend
 
