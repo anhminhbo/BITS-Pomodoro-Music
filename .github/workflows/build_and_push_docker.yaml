@@ -37,12 +37,12 @@ jobs:
          newFrontendTag=`expr $current + 1` 
          echo "::set-output name=newFrontendTag::$(echo $newFrontendTag)"   
 
-      # # If backend and frontend both have changes
-      # - name: Backend and Frontend both have changes
-      #   if: steps.detect-changes.outputs.backend == 'true' && steps.detect-changes.outputs.frontend == 'true'
-      #   run: |
-      #    bash -x dockerize.sh ${{ steps.frontend-tag.outputs.newFrontendTag }} ${{ steps.backend-tag.outputs.newBackendTag }}
-      #    exit 0
+      # If backend and frontend both have changes
+      - name: Backend and Frontend both have changes
+        # if: steps.detect-changes.outputs.backend == 'true' && steps.detect-changes.outputs.frontend == 'true'
+        run: |
+         bash -x dockerize.sh ${{ steps.frontend-tag.outputs.newFrontendTag }} ${{ steps.backend-tag.outputs.newBackendTag }}
+         exit 0
 
       # If backend have changes
       - name: Only Backend has changes
