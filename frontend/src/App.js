@@ -49,7 +49,7 @@ function App() {
       <LogIn />
       <Register />
       {/* <Timer min={0} sec={5} /> */}
-      {/* <MusicPlayer /> */}
+      <MusicPlayer />
       <Footer />
     </div>
   );
