@@ -121,6 +121,43 @@
     transition: all .2s ease;
 }
 
+.music-player-button-disabled{
+    background-color: rgba(97, 97, 97);
+    color: black;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.music-player-button-disabled-message-box{
+    visibility: hidden;
+    opacity: 0;
+    cursor: default;
+    width: 421px;
+    transform: translate(20px, -72px);
+    text-align: justify;
+    padding: 7px 10px 10px 10px;
+    border-radius: 10px;
+    background-color: #7dbd07;
+    color: white;
+    position: absolute;
+    transition: all .1s linear;
+}
+
+.music-player-button-disabled-message-box-arrow{
+    width: 0; 
+    height: 0; 
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 10px solid #7dbd07;
+    position: absolute;
+    transform: translate(0px, 7.5px);
+}
+
+.music-player-button-disabled:hover + .music-player-button-disabled-message-box{
+    visibility: visible;
+    opacity: 1;
+}
+
 .music-player-button:hover{
     transform: translateY(-2px);
     color: #7dbd07;
