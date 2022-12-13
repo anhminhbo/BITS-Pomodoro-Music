@@ -3,13 +3,12 @@ import React from "react";
 //import { Route, Link } from "react-route-dom"
 
 import axios from "axios";
-import Timer from "./components/Timer";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import MusicPlayer from "./components/MusicPlayer";
 import LogIn from "./components/Login";
 import Register from "./components/Register";
-import Setting from "./components/Setting";
+import SettingTimer from "./components/SettingTimer";
 
 function App() {
   const [backend, setBackend] = useState("No Backend connection");
@@ -47,8 +46,8 @@ function App() {
       {backend}
       <Header />
       {/* <LogIn /> */}
-      <Register />
-      {/* <Timer min={0} sec={5} /> */}
+      {/* <Register /> */}
+      <SettingTimer />
       <MusicPlayer />
       <Footer />
     </div>
