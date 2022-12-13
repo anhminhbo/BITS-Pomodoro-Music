@@ -88,23 +88,22 @@ ul{
 
 .setting-item-name{
   font-size: 16px;
-  /* transform: translateY(7px); */
 }
 
-.switch{
+.setting-switch{
     position: relative;
     display: inline-block;
     width: 36px;
     height: 19.5px;
     
 }
-.switch input {
+.setting-switch input {
     opacity: 0;
     width: 0;
     height: 0;
 }
 
-.slider {
+.setting-slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -118,7 +117,7 @@ ul{
     height: 19.5px;
   }
   
-  .slider:before {
+  .setting-slider:before {
     position: absolute;
     content: "";
     height: 13px;
@@ -130,25 +129,25 @@ ul{
     transition: .4s;
   }
 
-  input:checked + .slider {
+  .setting-checkbox:checked + .setting-slider {
     background-color: #7dbd07;
   }
 
-  input:focus + .slider{
+  .setting-checkbox:focus + .setting-slider{
     box-shadow: 0 0 1px #7dbd07;
 
   }
-  input:checked + .slider:before {
+  .setting-checkbox:checked + .setting-slider:before {
     -webkit-transform: translateX(15px);
     -ms-transform: translateX(15px);
     transform: translateX(15px);
   }
 
-  .slider.round {
+  .setting-slider.setting-round {
     border-radius: 34px;
   }
   
-  .slider.round:before {
+  .setting-slider.setting-round:before {
     border-radius: 50%;
   }
 
@@ -159,7 +158,7 @@ ul{
     opacity: 50%;
   }
 
-  input[type=number]::-webkit-inner-spin-button {
+  .setting-numbox::-webkit-inner-spin-button {
     opacity: 1;
   }
 
