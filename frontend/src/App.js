@@ -45,10 +45,10 @@ function App() {
     <div className="App">
       {/* {backend} */}
       <Header />
-      <LogIn />
+      {/* <LogIn /> */}
       {/* <Register /> */}
-      {/* <SettingTimer /> */}
-      {/* <MusicPlayer /> */}
+      <SettingTimer />
+      <MusicPlayer />
       <Footer />
     </div>
   );
