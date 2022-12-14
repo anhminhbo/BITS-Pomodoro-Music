@@ -2,7 +2,7 @@
 - Install certbot
 ```
 sudo apt-get update
-sudo apt-get install python-certbot-nginx
+sudo apt-get install python3-certbot-nginx
 ```
 - Get cert https for your domain
 ```
