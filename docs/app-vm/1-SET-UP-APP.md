@@ -35,7 +35,7 @@ timedatectl set-timezone Asia/Ho_Chi_Minh
 ```
 docker rmi -f $(docker images -aq)
 
-PROJ_DIR=projects/bits
+PROJ_DIR=/run_time/projects/bits
 
 currentFrontendTag=$(docker ps -a | grep "frontend" | cut -d" " -f4 | cut -d":" -f2)
 currentBackendTag=$(docker ps -a | grep "backend" | cut -d" " -f4 | cut -d":" -f2)
