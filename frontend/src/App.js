@@ -43,12 +43,12 @@ function App() {
 
   return (
     <div className="App">
-      {backend}
+      {/* {backend} */}
       <Header />
-      {/* <LogIn /> */}
+      <LogIn />
       {/* <Register /> */}
-      <SettingTimer />
-      <MusicPlayer />
+      {/* <SettingTimer /> */}
+      {/* <MusicPlayer /> */}
       <Footer />
     </div>
   );
