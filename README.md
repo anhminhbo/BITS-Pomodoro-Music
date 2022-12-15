@@ -135,5 +135,10 @@ certbot -n --nginx -d pumidoro-music.homes -d www.pumidoro-music.homes -m wormsc
 nginx -s reload
 ```
 
+- To redo just go back to first step, but need to remove everything first
+```
+terraform destroy
+```
+
 ## Docs
 - Refers to [here](https://viblo.asia/p/deploy-ung-dung-docker-nodejs-mongo-redis-1VgZvMzYKAw?fbclid=IwAR29RauowCOzyP9PddKFq4TeQb9eFpPa1D2VjWbg0G6MhjAihEwCN78U_H0)
