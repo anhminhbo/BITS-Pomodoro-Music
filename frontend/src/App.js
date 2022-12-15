@@ -19,7 +19,7 @@ function App() {
       console.log(response.data.data);
       setBackend(
         response.data.data === "Test Success"
-          ? "Connected to Backend Successfully."
+          ? "Connected to Backend Successfully. Github action"
           : "Unable to connect to Backend."
       );
     });
