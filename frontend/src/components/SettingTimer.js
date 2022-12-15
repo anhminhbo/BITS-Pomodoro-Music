@@ -145,7 +145,7 @@ const SettingTimer = () => {
             <div id="timer-time">{formatTime(TimerMin)}:{formatTime(TimerSec)}</div>
             <input id="timer-btn" type="button" value={Action} style={{display: "block"}} onClick={startAndStopTimer}/>
         </div>
-        <button onClick={() => handleCloseAndOpen()}>
+        <button className='setting-button' onClick={() => handleCloseAndOpen()}>
             Setting
         </button>
         <div id="setting-outer" style={style}>

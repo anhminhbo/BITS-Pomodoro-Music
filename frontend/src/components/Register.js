@@ -9,6 +9,7 @@ const Register = () => {
   const password = useRef();
   const confirmPassword = useRef();
   const checkbox = useRef();
+  const email = useRef();
   
 
   const handleSubmit = async() => {
@@ -26,8 +27,9 @@ const Register = () => {
     if (confirmPassword.current.value.match(password.current.value)) console.log("y"); else { console.log("n");};
 
     console.log(checkbox.current.value);
+
     try {
-      const response = await register(username.current.value,password.current.value);
+      const response = await register(username.current.value, password.current.value);
       console.log(response);
       console.log(response.data.code);
       //transition page
@@ -43,15 +45,15 @@ const Register = () => {
   }
 
   const register = async (username, password) => {
-    const response = await axios.post(
-      `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/auth/register`,
-      {
-        username,
-        password,
+    const response = await axios.post({
+      url: `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/auth/register`,
+      data: {
+        username: username,
+        password: password,
       }
+    }
     );
     return response;
-
   };
   
   

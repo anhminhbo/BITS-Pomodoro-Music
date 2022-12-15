@@ -163,11 +163,23 @@ ul{
   }
 
 .setting-button{
-  display: flex;
-  justify-content: center;
   width: 85%;
   margin: auto;
   transition: all .2s ease;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  border: none;
+  font-size: 20px;
+  border-radius: 10px;
+  background: #7dbd07;
+  outline: none;
+  padding: 10px 5px;
+  cursor: pointer;
+  font-family: "Roboto Flex", serif;
+  font-weight: bold;
 }
 
 .setting-button:hover{
