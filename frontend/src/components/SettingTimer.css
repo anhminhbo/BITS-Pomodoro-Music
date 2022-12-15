@@ -2,7 +2,7 @@
 
 .setting-container {
   font-family: 'Roboto Flex', sans-serif;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -178,7 +178,7 @@ ul{
   outline: none;
   padding: 10px 5px;
   cursor: pointer;
-  font-family: "Roboto Flex", serif;
+  font-family: "Roboto Flex", sans-serif;
   font-weight: bold;
 }
 

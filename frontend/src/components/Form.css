@@ -89,14 +89,14 @@ p {
 }
 
 .form-head {
-    font-family: "Quicksand", serif;
+    font-family: "Quicksand", sans-serif;
     font-weight: 500;
     font-size: 30px;
     text-align: center;
 }
 
 .form-foot {
-    font-family: "Quicksand", serif;
+    font-family: "Quicksand", sans-serif;
     text-align: center;
 }
 
