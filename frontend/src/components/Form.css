@@ -1,21 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100;8..144,200;8..144,300;8..144,400;8..144,500;8..144,600;8..144,700;8..144,800;8..144,900;8..144,1000&display=swap');
+
 .login-register-container {
-    
-    width: 100%;
-    height: 100%;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    position: relative;
     background-color: rgb(255, 255, 255);
-    height: 100%;
-    border-radius: 40px;
-    box-shadow: 0 0 5px rgb(0 0 0 / 30%);
-    width: 400px;
+    border-radius: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    padding: 20px 50px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.login-container {
+    margin-top: 7vw;
+    height: 50%;
+    width: 430px;
     min-height: 400px;
 }
 
 .register-container {
-    padding: 40px 30px 0px;
+    height: 90%;
+    width: 430px;
+    padding: 20px 50px 0px 50px;
+    min-height: 672px;
+}
+
+.form-title-bold {
+    font-weight: 700;
+    padding-bottom: 5px;
+}
+
+.form-title-sm {
+    font-weight: 300;
+    font-size: 25px;
 }
 
 body {
-
     width: 100%;
     min-height: 100vh;
     background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../img/BG.jpg');
@@ -27,7 +53,6 @@ body {
 
 .forminput {
     width: 95%;
-    /* height: 88%; */
     border: 2px solid #e7e7e7;
     padding: 15px 20px;
     font-size: 1rem;
@@ -36,6 +61,11 @@ body {
     outline: none;
     transition: 0.3s;
     padding: 10px 5px;
+    font-family: "Roboto Flex", sans-serif;
+}
+
+.forminput:focus {
+    border: 2px solid #7dbd07;
 }
 
 a {
@@ -58,27 +88,35 @@ p {
     font-weight: lighter;
 }
 
-.form-body {
-    font-family: "Roboto", sans-serif;
+.form-head {
+    font-family: "Quicksand", serif;
+    font-weight: 500;
+    font-size: 30px;
+    text-align: center;
 }
 
-.form-body .form-head {
+.form-foot {
     font-family: "Quicksand", serif;
     text-align: center;
 }
 
-.form-body .form-foot {
-    font-family: "Quicksand", serif;
+.formlabel{
+    font-family: 'Roboto Flex', sans-serif;
+    font-size: 20px;
+    font-weight: lighter;
+    padding-bottom: 5px;
 }
 
-button {
+.form-btn {
+    display: flex;
+    align-self: center;
+    justify-content: center;
     text-align: center;
     color: white;
-    width: 95%;
-    /* height: 88%; */
+    width: 90%;
     border: none;
-    padding: 15px 20px;
-    font-size: 1rem;
+    font-size: 20px;
+    font-weight: 700;
     border-radius: 10px;
     background: #7dbd07;
     outline: none;
@@ -86,6 +124,7 @@ button {
     padding: 10px 5px;
     cursor: pointer;
     font-family: "Quicksand", sans-serif;
+    margin: 0 !important;
 }
 
 .username {
@@ -110,21 +149,32 @@ button {
 }
 
 .checkbox {
-    padding: 30px 0px;
+    padding: 20px 0px 25px 0px;
     cursor: pointer;
 }
 
-/* .checkbox input:checked ~ .formbox {
-    background-color: #7dbd07;
-  } */
+#checkbox {
+    display: inline;
+    transform: translateY(4px);
+    width: 20px;
+    aspect-ratio: 1 / 1;
+    margin-right: 10px;
+    accent-color: #7dbd07;
+    background-color: white;
+}
 
-.btn {
-    padding: 0 20px;
+#checkbox-inform{
+    display: inline;
+    font-size: 16px;
 }
 
 .form-foot {
     padding-top: 40px;
     padding-bottom: 5px;
+}
+
+.form-foot-register {
+    padding-top: 30px;
 }
 
 .login-head {
