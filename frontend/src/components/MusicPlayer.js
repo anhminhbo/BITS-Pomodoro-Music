@@ -122,14 +122,13 @@ const MusicPlayer = () => {
     return (
         <div id="music-player">
             {/* Input field */}
-            <div id="music-player-input">
-                <input id="music-player-input-url" type="text" onChange={(e) => youtubeURL.current = e.target.value}/>
-                <input id="music-player-input-button" type="button" value="Add" onClick={() => {document.getElementById("music-player-input-url").value=""; getData(youtubeURL.current)}}/>
-            </div>
             <div id='music-player-display'>
                 {
                     playlist.length == 0 // Check if the playlist empty
-                    ? <div />
+                    ? 
+                    <div id='music-player-current-track-placeholder'>
+                        Pumidoro Music Player
+                    </div>
                     : 
                     // else
                     <div id="music-player-current-track">
@@ -137,6 +136,10 @@ const MusicPlayer = () => {
                     </div>
                 }
                 <div id="music-player-right">
+                    <div id="music-player-input">
+                        <input id="music-player-input-url" type="text" onChange={(e) => youtubeURL.current = e.target.value}/>
+                        <input id="music-player-input-button" type="button" value="Add" onClick={() => {document.getElementById("music-player-input-url").value=""; getData(youtubeURL.current)}}/>
+                    </div>
                     <div id="music-player-button-container">
                         <div className="music-player-button-disabled">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-repeat" viewBox="0 0 16 16" style={{transform: "translateY(2.5px)"}}>
