@@ -1,9 +1,24 @@
 import React, { useRef } from "react";
 import "./Form.css";
+import axios from "axios";
 
 const LogIn = () => {
   const username = useRef();
   const password = useRef();
+  const login = async (username, password) => {
+    try {
+      const response = await axios.post(
+        `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/auth/login`,
+        {
+          username,
+          password,
+        }
+      );
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="login-register-container login-container">

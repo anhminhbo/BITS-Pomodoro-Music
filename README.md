@@ -100,5 +100,45 @@ bash push_current_and_merge.sh main ""
 ## Integrate Jenkins for automation of build, push and deploy(deprecated due to high cost VM)
 - After main branch has new codes, it trigger Jenkins pipeline on Jenkins VM to automate build, push and deploy to production.
 
+## Integrate provisioners to migrate infra or init infra
+- Prerequisites
+    - Install ansible
+    - Install terraform
+- Go to provisioners folder
+```
+cd provisioners
+terraform init
+terraform plan
+terraform apply
+```
+- Wait and then get the IP of our App VM to map with your DNS wait for it to activated globally. Example:
+```
+ec2_elastic_ip = "52.221.48.213"
+```
+- SSH to the VM
+```
+ssh -i "aws-ec2.pem" ubuntu@52.221.48.213
+```
+
+- Went as root
+```
+sudo su
+```
+
+- Install cert for your domain 
+```
+certbot -n --nginx -d pumidoro-music.homes -d www.pumidoro-music.homes -m wormscott12397@gmail.com --agree-tos --redirect
+```
+
+- Reload the nginx
+```
+nginx -s reload
+```
+
+- To redo just go back to first step, but need to remove everything first
+```
+terraform destroy
+```
+
 ## Docs
 - Refers to [here](https://viblo.asia/p/deploy-ung-dung-docker-nodejs-mongo-redis-1VgZvMzYKAw?fbclid=IwAR29RauowCOzyP9PddKFq4TeQb9eFpPa1D2VjWbg0G6MhjAihEwCN78U_H0)

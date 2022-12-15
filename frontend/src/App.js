@@ -19,13 +19,13 @@ function App() {
       console.log(response.data.data);
       setBackend(
         response.data.data === "Test Success"
-          ? "Connected to Backend Successfully."
+          ? "Connected to Backend Successfully. Github action"
           : "Unable to connect to Backend."
       );
     });
   });
 
-  // // Sample
+  // // Sample haha
   // const register = async (username, password) => {
   //   try {
   //     const response = await axios.post(

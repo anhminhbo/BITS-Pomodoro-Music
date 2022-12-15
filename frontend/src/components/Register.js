@@ -2,33 +2,59 @@ import React, { useRef } from 'react';
 import Footer from './Footer'
 import Header from './Header'
 import './Form.css'
+import axios from "axios";
 
 const Register = () => {
   const username = useRef();
   const password = useRef();
   const confirmPassword = useRef();
-  const email = useRef();
   const checkbox = useRef();
+  
 
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
     const usernameRegex = /^[a-zA-Z0-9]+$/;
-    if (username.current.value.match(usernameRegex)) console.log("Matched"); else console.log("Matched... cai qq");
+    if (username.current.value.match(usernameRegex)) console.log("y"); else console.log("n");
 
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
-    if (password.current.value.match(usernameRegex)) console.log("Matched"); else console.log("Matched... cai dau m"); 
+    if (password.current.value.match(passwordRegex)) console.log("y"); else console.log("n"); 
     //Contain at least 8 characters
     // contain at least 1 number
     // contain at least 1 lowercase character (a-z)
     // contain at least 1 uppercase character (A-Z)
     // contains only 0-9a-zA-Z
 
-    if (confirmPassword.current.value.match(usernameRegex)) console.log("Matched"); else console.log("Matched... cai dau m");
-
-    const emailRegex =  /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-    if (email.current.value.match(emailRegex)) console.log("Matched"); else console.log("not matched");
+    if (confirmPassword.current.value.match(password.current.value)) console.log("y"); else { console.log("n");};
 
     console.log(checkbox.current.value);
+    try {
+      const response = await register(username.current.value,password.current.value);
+      console.log(response);
+      console.log(response.data.code);
+      //transition page
+
+    } catch(err) {
+      console.log(err);
+      console.log(err.response.data.errMessage);
+
+      //require re-input
+      alert(err.response.data.errMessage);
+    }
+
   }
+
+  const register = async (username, password) => {
+    const response = await axios.post(
+      `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/auth/register`,
+      {
+        username,
+        password,
+      }
+    );
+    return response;
+
+  };
+  
+  
 
   return (
     <div className="login-register-container register-container">
