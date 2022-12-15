@@ -46,9 +46,9 @@ function App() {
       {/* {backend} */}
       <Header />
       {/* <LogIn /> */}
-      {/* <Register /> */}
-      <SettingTimer />
-      <MusicPlayer />
+      <Register />
+      {/* <SettingTimer /> */}
+      {/* <MusicPlayer /> */}
       <Footer />
     </div>
   );
