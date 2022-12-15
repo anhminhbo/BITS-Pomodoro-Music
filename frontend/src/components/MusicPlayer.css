@@ -4,6 +4,7 @@
     flex-direction: column;
     justify-content: center;
     align-content: center;
+    margin-bottom: 30px;
 }
 
 #music-player-input{
