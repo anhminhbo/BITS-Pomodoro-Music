@@ -180,3 +180,52 @@ p {
 .login-head {
     padding-top: 20px;
 }
+
+#register-username-message {
+    display: none;
+    font-family: 'Roboto Flex', sans-serif;
+    font-size: 15px;
+    font-weight: light;
+    padding-bottom: 5px;
+    color:rgb(255, 54, 54);
+    padding: 0px 0px 28px 0px;
+}
+#register-password-message {
+    display: none;
+    font-family: 'Roboto Flex', sans-serif;
+    font-size: 15px;
+    font-weight: light;
+    padding-bottom: 5px;
+    color:rgb(255, 54, 54);
+    padding: 0px 0px 28px 0px;
+
+}
+#register-confirmpassword-message {
+    display: none;
+    font-family: 'Roboto Flex', sans-serif;
+    font-size: 15px;
+    font-weight: light;
+    padding-bottom: 5px;
+    color:rgb(255, 54, 54);
+    padding: 0px 0px 28px 0px;
+
+}
+#register-checkbox-message {
+    display: none;
+    font-family: 'Roboto Flex', sans-serif;
+    font-size: 15px;
+    font-weight: light;
+    padding-bottom: 5px;
+    color:rgb(255, 54, 54);
+    padding: 0px 0px 28px 0px;
+}
+
+#register-user-message {
+    display: none;
+    font-family: 'Roboto Flex', sans-serif;
+    font-size: 15px;
+    font-weight: light;
+    padding-bottom: 5px;
+    color:rgb(255, 54, 54);
+    padding: 0px 0px 28px 0px;
+}

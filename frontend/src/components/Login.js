@@ -61,8 +61,9 @@ const LogIn = () => {
           <button className="form-btn" onClick={() => {
             console.log(username.current.value);
             console.log(password.current.value);
+            login();
           }}>
-            Log In
+            Login
           </button>
         <div className="form-foot">
             Don't have an account?{` `}
