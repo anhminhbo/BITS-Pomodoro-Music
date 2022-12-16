@@ -14,7 +14,7 @@ const Register = () => {
 
   const handleSubmit = async() => {
     const usernameRegex = /^[a-zA-Z0-9]+$/;
-    if (username.current.value.match(usernameRegex)) console.log("y"); else console.log("n");
+    if (!username.current.value.match(usernameRegex)) console.log("y"); else console.log("n");
 
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
     if (password.current.value.match(passwordRegex)) console.log("y"); else console.log("n"); 

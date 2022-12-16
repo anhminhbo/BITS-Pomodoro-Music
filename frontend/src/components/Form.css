@@ -52,7 +52,7 @@ body {
 }
 
 .forminput {
-    width: 95%;
+    width: 97%;
     border: 2px solid #e7e7e7;
     padding: 15px 20px;
     font-size: 1rem;
@@ -125,6 +125,7 @@ p {
     cursor: pointer;
     font-family: "Quicksand", sans-serif;
     margin: 0 !important;
+    margin-top: 15px !important;
 }
 
 .username {
@@ -149,7 +150,7 @@ p {
 }
 
 .checkbox {
-    padding: 20px 0px 25px 0px;
+    padding: 20px 0px 15px;
     cursor: pointer;
 }
 

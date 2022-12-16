@@ -35,9 +35,12 @@ const Task = () => {
             name: taskname.current.value,
             isDone: false,
         }
-        taskname.current.value = "";
         setTasklist(tasklist => [...tasklist, newTask]);
         handleCloseAndOpen();
+    }
+
+    const handleDeleteTask = (id) => {
+        setTasklist(tasklist.filter((task, index) => index !== id));
     }
 
     return (
@@ -45,25 +48,30 @@ const Task = () => {
             <div id="task-container">
                 <div id="task-header">Task</div>
                 {tasklist.map((task, index) => (
-                    <div className="task" key={index}>
-                        <div className="task-checkbox-round">
-                            <input type="checkbox" name="checkbox" id={`task-checkbox-${index}`} className='task-checkbox' defaultChecked={task.isDone}/>
-                            <label className="task-checkbox-custom" for={`task-checkbox-${index}`} onClick={() => {
-                                let temp = tasklist.map((Task, Index) => {
-                                    if (Index === index) {
-                                        return {
-                                            name: Task.name,
-                                            isDone: (!Task.isDone),
+                    <div className={`task`+ (task.isDone ? "-done" : "")} key={index}>
+                        <div className="task-info">
+                            <div className="task-checkbox-round">
+                                <input type="checkbox" name="checkbox" id={`task-checkbox-${index}`} className='task-checkbox' defaultChecked={task.isDone}/>
+                                <label className="task-checkbox-custom" for={`task-checkbox-${index}`} onClick={() => {
+                                    const temp = tasklist.map((Task, Index) => {
+                                        if (Index === index) {
+                                            return {
+                                                name: Task.name,
+                                                isDone: (!Task.isDone),
+                                            }
                                         }
-                                    }
-                                    else {
-                                        return Task;
-                                    }
-                                })
-                                setTasklist(temp);
-                            }}></label>
-                        </div>
-                        {task.name}
+                                        else {
+                                            return Task;
+                                        }
+                                    });
+                                    setTasklist(temp);
+                                }}></label>
+                            </div>
+                            <div className="task-name" style={{textDecoration: (task.isDone ? "line-through" : "none")}}>{task.name}</div>
+                        </div>    
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16" className='task-close-btn' onClick={() => handleDeleteTask(index)}> 
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
                     </div>
                 ))
                 }
@@ -73,7 +81,11 @@ const Task = () => {
                     </svg>
                 </div>
             </div>
-            <div id="task-setting-outer" style={style}>
+            <div id="task-setting-outer" style={style} onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                    handleAddTask();
+                }
+            }}>
                     <div id="task-setting-container">
                         <div className="task-setting-header">
                             <h1 className='task-setting-title'>Add Task</h1> 
