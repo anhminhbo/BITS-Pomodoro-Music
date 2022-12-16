@@ -19,7 +19,7 @@ sed "s/\[\[DOMAIN\]\]/$domain/g" \
 
 ###  CREATE DOCKER-COMPOSE TEMPLATE
 cat docker-compose.yaml.runtime | \
-sed "s/\[\[BACKEND_URL\]\]/$domain/g" \
+sed "s/\[\[BACKEND_URL\]\]/https\:\/\/$domain/g" \
 > docker-compose.yaml.template
 
 ### CREATE CERT SCRIPT FOR WEBSITE
