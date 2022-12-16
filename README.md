@@ -100,45 +100,32 @@ bash push_current_and_merge.sh main ""
 ## Integrate Jenkins for automation of build, push and deploy(deprecated due to high cost VM)
 - After main branch has new codes, it trigger Jenkins pipeline on Jenkins VM to automate build, push and deploy to production.
 
-## Integrate provisioners to migrate infra or init infra
+## Integrate provisioners to migrate infra or init infra or destroy infra
 - Prerequisites
     - Install ansible
     - Install terraform
-- Go to provisioners folder
+    - MacOs or Linux platform or Window Bash env
+    - Register and buy a domain([Namecheap](https://www.namecheap.com/), [GoDaddy](https://www.godaddy.com/vi-vn), or any domain providers)
+
+# Notes: When you know your App IP, point your domain to the App IP immediately so it saves time
+
+- Execute build infra script to provision AWS infra for the app, remember to get a domain first
 ```
-cd provisioners
-terraform init
-terraform plan
-terraform apply
-```
-- Wait and then get the IP of our App VM to map with your DNS wait for it to activated globally. Example:
-```
-ec2_elastic_ip = "52.221.48.213"
-```
-- SSH to the VM
-```
-ssh -i "aws-ec2.pem" ubuntu@52.221.48.213
+bash provisioners/build_infra.sh your_domain_here
 ```
 
-- Went as root
+- Remember to read and type "yes" ^^!
+
+- There will be an interval of 5s to check if you have point your newly domain to the App VM IP or not, please be patient because it takes 0-72h to change globally even if you do correctly, you can manually check by using this command at the meantime when waiting:
 ```
-sudo su
+nslookup your_domain_here | grep Address | tail -n 1 | cut -d" " -f2
 ```
 
-- Install cert for your domain 
+- If any errors happened, you will be prompt to destroy all the resources to start over, or you can do it manually:
 ```
-certbot -n --nginx -d pumidoro-music.homes -d www.pumidoro-music.homes -m wormscott12397@gmail.com --agree-tos --redirect
-```
-
-- Reload the nginx
-```
-nginx -s reload
-```
-
-- To redo just go back to first step, but need to remove everything first
-```
-terraform destroy
+bash provisioners/destroy_infra.sh
 ```
 
 ## Docs
-- Refers to [here](https://viblo.asia/p/deploy-ung-dung-docker-nodejs-mongo-redis-1VgZvMzYKAw?fbclid=IwAR29RauowCOzyP9PddKFq4TeQb9eFpPa1D2VjWbg0G6MhjAihEwCN78U_H0)
+- Refers to Docker App:[here](https://viblo.asia/p/deploy-ung-dung-docker-nodejs-mongo-redis-1VgZvMzYKAw?fbclid=IwAR29RauowCOzyP9PddKFq4TeQb9eFpPa1D2VjWbg0G6MhjAihEwCN78U_H0)
+- Refers to Terraform & Ansible:[here](https://viblo.asia/p/terraform-series-bai-12-ansible-with-terraform-LzD5dRGzZjY)
