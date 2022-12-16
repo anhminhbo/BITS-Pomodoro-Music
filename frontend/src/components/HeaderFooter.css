@@ -10,7 +10,7 @@ div img {
     width: 100%;
     display: flex;
     justify-content: center;
-    /* margin-bottom: 50px; */
+    overflow: auto;
 }
 
 .footer-container {

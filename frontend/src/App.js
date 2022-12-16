@@ -47,16 +47,16 @@ function App() {
   return (
     <div className="App">
       {/* {backend} */}
-      <Header />
-      <LandingPage/>
+      {/* <Header /> */}
+      {/* <LandingPage/> */}
       {/* <LogIn /> */}
-      <Register />
+      {/* <Register /> */}
       {/* <SettingTimer /> */}
       {/* <MusicPlayer /> */}
       {/* <Task /> */}
       {/* <Footer /> */}
       <Routes>
-      <Route path="/" element={
+        <Route path="/" element={
           <>
             <Header />
             <SettingTimer />

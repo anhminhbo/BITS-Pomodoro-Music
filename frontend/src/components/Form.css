@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100;8..144,200;8..144,300;8..144,400;8..144,500;8..144,600;8..144,700;8..144,800;8..144,900;8..144,1000&display=swap');
 
 .login-register-container {
+    margin: 13vh auto;
     flex-direction: column;
     display: flex;
     justify-content: center;
@@ -14,21 +15,18 @@
     bottom: 0;
     left: 0;
     right: 0;
-    margin: auto;
 }
 
 .login-container {
-    margin-top: 7vw;
     height: 50%;
     width: 430px;
     min-height: 400px;
 }
 
 .register-container {
-    height: 90%;
+    height: max-content;
     width: 430px;
-    padding: 20px 50px 0px 50px;
-    min-height: 672px;
+    padding: 50px 50px 50px 50px;
 }
 
 .form-title-bold {
@@ -41,14 +39,29 @@
     font-size: 25px;
 }
 
-.login-register-background {
+.login-background {
+    padding: 13vh 0 !important;
     width: 100%;
-    min-height: 100vh;
+    min-height: 68vh;
     background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../img/BG.jpg');
-    background-size: 100%;
+    background-size: 150vmax;
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
+    position: absolute;
+}
+
+.register-background {
+    z-index: -1;
+    padding: 13vh 0 !important;
+    width: 100%;
+    min-height: 90vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../img/BG.jpg');
+    background-size: 150vmax;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    position: absolute;
 }
 
 .forminput {
@@ -125,48 +138,29 @@ p {
     cursor: pointer;
     font-family: "Quicksand", sans-serif;
     margin: 0 !important;
-    margin-top: 15px !important;
+    margin-top: 20px !important;
 }
 
 .username {
     padding-top: 32px;
-    padding-bottom: 15px;
 }
 
-.email {
-    padding-bottom: 15px;
-}
-
-.password {
-    padding-bottom: 15px;
-}
-
-.confirm-password {
-    /* padding-bottom: 15px; */
+.login-register-input{
+    padding-top: 15px;
 }
 
 .formbox {
     cursor: pointer;
 }
 
-.checkbox {
-    padding: 20px 0px 15px;
+.tos {
+    padding-top: 15px;
     cursor: pointer;
 }
 
-#checkbox {
+#tos-inform{
     display: inline;
-    transform: translateY(4px);
-    width: 20px;
-    aspect-ratio: 1 / 1;
-    margin-right: 10px;
-    accent-color: #7dbd07;
-    background-color: white;
-}
-
-#checkbox-inform{
-    display: inline;
-    font-size: 16px;
+    font-size: 12px;
 }
 
 .form-foot {
@@ -182,51 +176,17 @@ p {
     padding-top: 20px;
 }
 
-#register-username-message {
+.register-message {
     display: none;
     font-family: 'Roboto Flex', sans-serif;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: light;
-    padding-bottom: 5px;
+    margin-top: 5px;
     color:rgb(255, 54, 54);
-    padding: 0px 0px 28px 0px;
-}
-#register-password-message {
-    display: none;
-    font-family: 'Roboto Flex', sans-serif;
-    font-size: 15px;
-    font-weight: light;
-    padding-bottom: 5px;
-    color:rgb(255, 54, 54);
-    padding: 0px 0px 28px 0px;
-
-}
-#register-confirmpassword-message {
-    display: none;
-    font-family: 'Roboto Flex', sans-serif;
-    font-size: 15px;
-    font-weight: light;
-    padding-bottom: 5px;
-    color:rgb(255, 54, 54);
-    padding: 0px 0px 28px 0px;
-
-}
-#register-checkbox-message {
-    display: none;
-    font-family: 'Roboto Flex', sans-serif;
-    font-size: 15px;
-    font-weight: light;
-    padding-bottom: 5px;
-    color:rgb(255, 54, 54);
-    padding: 0px 0px 28px 0px;
 }
 
-#register-user-message {
-    display: none;
-    font-family: 'Roboto Flex', sans-serif;
-    font-size: 15px;
-    font-weight: light;
-    padding-bottom: 5px;
-    color:rgb(255, 54, 54);
-    padding: 0px 0px 28px 0px;
+.register-message-icon {
+    transform: translateY(1px);
+    margin-left: 1px;
+    margin-right: 5px;
 }
