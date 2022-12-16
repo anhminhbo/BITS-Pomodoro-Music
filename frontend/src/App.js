@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import React from "react";
-//import { Route, Link } from "react-route-dom"
+import { Routes, Route, Link } from "react-router-dom"
 
 import axios from "axios";
 import Header from "./components/Header";
@@ -25,6 +25,7 @@ function App() {
       );
     });
   });
+  console.log(backend);
 
   // // Sample haha
   // const register = async (username, password) => {
@@ -45,13 +46,38 @@ function App() {
   return (
     <div className="App">
       {/* {backend} */}
-      <Header />
+      {/* <Header /> */}
       {/* <LogIn /> */}
       {/* <Register /> */}
       {/* <SettingTimer /> */}
-      <MusicPlayer />
-      <Task />
-      <Footer />
+      {/* <MusicPlayer /> */}
+      {/* <Task /> */}
+      {/* <Footer /> */}
+      <Routes>
+      <Route path="/" element={
+          <>
+            <Header />
+            <SettingTimer />
+            <MusicPlayer />
+            <Task />
+            <Footer />
+          </>
+        } />
+        <Route path="/login" element={
+          <>
+            <Header />
+            <LogIn />
+            <Footer />
+          </>
+        } />
+        <Route path="/register" element={
+          <>
+            <Header />
+            <Register />
+            <Footer />
+          </>
+        } />
+      </Routes>
     </div>
   );
 }
