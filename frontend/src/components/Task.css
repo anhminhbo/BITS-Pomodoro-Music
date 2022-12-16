@@ -31,6 +31,7 @@
 .task{
     display: flex;
     justify-self: center;
+    justify-content: space-between;
     width: 65%;
     background-color: white;
     border-left: 10px solid #7dbd07;
@@ -40,6 +41,22 @@
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     margin-bottom: 15px;
+}
+
+.task-done {
+    display: flex;
+    justify-self: center;
+    justify-content: space-between;
+    width: 65%;
+    background-color: #396F04;
+    border-left: 10px solid #7dbd07;
+    height: max-content;
+    padding: 10px 5px;
+    font-size: 32px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin-bottom: 15px;
+    color: white;
 }
 
 .task-checkbox-round{
@@ -98,6 +115,11 @@
 
 #task-btn:hover{
     transform: translateY(-1px);
+}
+
+.task-name{
+    display: flex;
+    gap: 10px;
 }
 
 #task-setting-outer{
@@ -164,6 +186,12 @@
     margin-bottom: 20px;
 }
 
+#task-setting-input:focus {
+    outline: none !important;
+    border: 1.5px solid #7dbd07;
+    /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.4); */
+  }
+
 #task-setting-btn{
     font-family: 'Quicksand', sans-serif;
     font-size: 16px;
@@ -174,4 +202,14 @@
     border: none;
     cursor: pointer;
     transition: all .2s ease;
+}
+
+.task-info{
+    display: flex;
+}
+
+.task-close-btn{
+    cursor: pointer;
+    transform: translateY(1px);
+    margin-right: 5px;
 }

@@ -26,6 +26,6 @@ services:
       - bits-backend
     environment:
       - NODE_ENV=production
-      - BACKEND_URL=https://pumidoro-music.homes
+      - BACKEND_URL=[[BACKEND_URL]]
       - WDS_SOCKET_PORT=0
       - API_KEY=AIzaSyAmltDENBZXKAf_pBzRbXZp9mISeRGl52M
