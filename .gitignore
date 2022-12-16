@@ -3,9 +3,8 @@ node_modules
 .DS_Store
 
 provisioners/*
-
-!provisioners/main.tf
-!provisioners/playbook.yaml
-!provisioners/deploy.sh
-!provisioners/docker-compose.yaml.template
-!provisioners/default.conf
+!provisioners/*template*
+!provisioners/terraform.tfstate
+!provisioners/*yaml*
+!provisioners/*.sh
+!provisioners/*.pem

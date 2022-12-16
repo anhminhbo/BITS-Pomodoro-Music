@@ -9,13 +9,13 @@ resource "tls_private_key" "key" {
 
 # Create private key for ec2
 resource "local_sensitive_file" "private_key" {
-  filename        = "${path.module}/aws-ec2.pem"
+  filename        = "${path.module}/aws-ec2-private-key.pem"
   content         = tls_private_key.key.private_key_pem
   file_permission = "0400"
 }
 
 resource "aws_key_pair" "key_pair" {
-  key_name   = "aws-ec2"
+  key_name   = "aws-ec2-private-key"
   public_key = tls_private_key.key.public_key_openssh
 }
 
@@ -106,10 +106,10 @@ resource "aws_instance" "app-vm" {
     }
   }
 
-# Execute ansible from local to do config for new vm
-  provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu --key-file aws-ec2.pem -T 300 -i '${self.public_ip},', playbook.yaml"
-  }
+  #   # Execute ansible from local to do config for new vm
+  #   provisioner "local-exec" {
+  #     command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu --key-file aws-ec2-private-key.pem -T 300 -i '${self.public_ip},', ansible.config_vm.yaml"
+  #   }
 
   tags = {
     Name = "App Server"
@@ -128,10 +128,12 @@ resource "aws_eip" "ec2-eip" {
 resource "aws_eip_association" "ec2-eip-association" {
   instance_id   = aws_instance.app-vm.id
   allocation_id = aws_eip.ec2-eip.id
+
+  #   provisioner "local-exec" {
+  #     command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu --key-file aws-ec2-private-key.pem -T 300 -i '${aws_eip.ec2-eip.public_ip},', ansible.apply_cert.yaml"
+  #   }
 }
 
 output "ec2_elastic_ip" {
   value = aws_eip.ec2-eip.public_ip
 }
-
-
