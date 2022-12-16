@@ -1,45 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
 #music-player{
-    padding-top: 50px;
+    position: relative;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 95%;
+    padding: 50px 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-content: center;
+    justify-self: center;
+    margin-bottom: 30px;
+    background-color: rgba(128, 128, 128, 0.7);
+    border-radius: 15px;
+    height: max-content;
 }
 
 #music-player-input{
     display: flex;
     justify-content: space-between;
-    width: 550px;
-    padding-left: 30px;
-    padding-right: 30px;
+    width: 100%;
     align-self: center;
+    margin-bottom: 25px;
 }
 
 #music-player-input-url{
-    height: 25px;
-    line-height: 15px;
-    width: 350px;
-    border-radius: 4px;
+    font-family: 'Quicksand', sans-serif;
+    padding: 5px 5px;
+    font-size: larger;
+    height: 39px;
+    width: 530px;
+    border-radius: 10px;
     border: 0px;
 }
 
 #music-player-input-button{
-    border-radius: 4px;
-    border: 0px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px;
+    border: none;
+    background-color: white;
+    padding: 10px 10px;
+    border-radius: 10px;
     cursor: pointer;
-    padding: 8px;
+    transition: all .2s ease;
+    width: 65px;
+    height: 49px;
 }
 
 #music-player-display{
-    --pd-left-right: 100px;
+    --pd-left-right: 50px;
     display: flex;
     justify-content: space-between;
-    padding-top: 35px;
     padding-left: var(--pd-left-right);
     padding-right: var(--pd-left-right);
 }
 
 #music-player-track{
+    font-family: 'Quicksand', sans-serif;
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
     list-style-type: none;
@@ -50,6 +68,7 @@
 }
 
 #music-player-track-active{
+    font-family: 'Quicksand', sans-serif;
     background-color: rgba(255, 255, 255);
     color: black;
     list-style-type: none;
@@ -64,6 +83,24 @@
     justify-content: space-between;
     cursor: pointer;
     font-size: 17px;
+}
+
+#music-player-current-track{
+    display: flex;
+    align-items: flex-end;
+}
+
+#music-player-current-track-placeholder{
+    font-family: 'Quicksand', sans-serif;
+    color: white;
+    font-size: 25px;
+    width: 640px;
+    height: 360px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 25px;
 }
 
 #music-player-info{
@@ -119,6 +156,43 @@
     border-radius: 10px;
     cursor: pointer;
     transition: all .2s ease;
+}
+
+.music-player-button-disabled{
+    background-color: rgba(97, 97, 97);
+    color: black;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.music-player-button-disabled-message-box{
+    visibility: hidden;
+    opacity: 0;
+    cursor: default;
+    width: 421px;
+    transform: translate(20px, -72px);
+    text-align: justify;
+    padding: 7px 10px 10px 10px;
+    border-radius: 10px;
+    background-color: #7dbd07;
+    color: white;
+    position: absolute;
+    transition: all .1s linear;
+}
+
+.music-player-button-disabled-message-box-arrow{
+    width: 0; 
+    height: 0; 
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 10px solid #7dbd07;
+    position: absolute;
+    transform: translate(0px, 7.5px);
+}
+
+.music-player-button-disabled:hover + .music-player-button-disabled-message-box{
+    visibility: visible;
+    opacity: 1;
 }
 
 .music-player-button:hover{

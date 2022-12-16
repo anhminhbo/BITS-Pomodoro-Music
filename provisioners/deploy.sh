@@ -1,6 +1,6 @@
 docker rmi -f $(docker images -aq)
 
-PROJ_DIR=projects/bits
+PROJ_DIR=$(pwd)
 
 currentFrontendTag=$(docker ps -a | grep "frontend" | cut -d" " -f4 | cut -d":" -f2)
 currentBackendTag=$(docker ps -a | grep "backend" | cut -d" " -f4 | cut -d":" -f2)
@@ -20,7 +20,7 @@ if [ "$currentFrontendTag" == "$dockerHubFrontendTag" ] && [ "$currentBackendTag
 fi
     # Backup files before new deploy
     timeSuffix=$(date +%d-%m-%Y-time-%H-%M-%S)
-    cp $PROJ_DIR/docker-compose.yaml $PROJ_DIR/backups/docker-compose.backup-${timeSuffix}.yaml 
+    cp $PROJ_DIR/docker-compose.yaml $PROJ_DIR/backups/docker-compose.backup-${timeSuffix}.yaml
 
     # Make a new docker compose file based on new tag
     cat $PROJ_DIR/docker-compose.yaml.template | \
@@ -30,6 +30,6 @@ fi
 
 cd $PROJ_DIR
 
-sudo docker-compose up --force-recreate -d
+sudo docker-compose up -d
 
 #docker rmi -f $(docker images -aq)

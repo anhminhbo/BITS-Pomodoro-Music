@@ -69,13 +69,17 @@ bash -x local_startup.sh
 ```
 bash -x local_startup.sh backend
 ```
-
 ## After finish development, clean up everything
 - Make sure you are using a bash terminal to run the following code
 ```
 bash -x clean-up.sh
 ```
 
+### Start
+- Testing docker local env on your local machine
+```
+bash -x testing_docker_prod.sh
+```
 ## How to merge master branch into your development branch for devs
 - Make sure you are using a bash terminal to run the following code
 - First arg is the name of the branch you want to merge, Second arg is your commit message for your current branch
@@ -91,9 +95,50 @@ bash push_current_and_merge.sh main ""
 ## Integrate Github action for automation to create PR
 - Whenever a dev using the push_current_and_merge.sh script, it will automatically trigger Github action to create a PR to minh-dev
 - Whenever minh-dev has new codes, github action trigger to create a new PR to main for review
+- (New) Add new github action to automated build and push Docker image instead of old costly Jenkins
 
-## Integrate Jenkins for automation of build, push and deploy
+## Integrate Jenkins for automation of build, push and deploy(deprecated due to high cost VM)
 - After main branch has new codes, it trigger Jenkins pipeline on Jenkins VM to automate build, push and deploy to production.
+
+## Integrate provisioners to migrate infra or init infra
+- Prerequisites
+    - Install ansible
+    - Install terraform
+- Go to provisioners folder
+```
+cd provisioners
+terraform init
+terraform plan
+terraform apply
+```
+- Wait and then get the IP of our App VM to map with your DNS wait for it to activated globally. Example:
+```
+ec2_elastic_ip = "52.221.48.213"
+```
+- SSH to the VM
+```
+ssh -i "aws-ec2.pem" ubuntu@52.221.48.213
+```
+
+- Went as root
+```
+sudo su
+```
+
+- Install cert for your domain 
+```
+certbot -n --nginx -d pumidoro-music.homes -d www.pumidoro-music.homes -m wormscott12397@gmail.com --agree-tos --redirect
+```
+
+- Reload the nginx
+```
+nginx -s reload
+```
+
+- To redo just go back to first step, but need to remove everything first
+```
+terraform destroy
+```
 
 ## Docs
 - Refers to [here](https://viblo.asia/p/deploy-ung-dung-docker-nodejs-mongo-redis-1VgZvMzYKAw?fbclid=IwAR29RauowCOzyP9PddKFq4TeQb9eFpPa1D2VjWbg0G6MhjAihEwCN78U_H0)

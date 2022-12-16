@@ -1,0 +1,21 @@
+
+name: Deploy Production
+run-name: ${{ github.actor }} is triggering Deploy Production🚀
+on:
+  workflow_run:
+    workflows: ["Build and Push Docker images"]
+    types:
+      - completed
+jobs:
+  deploy-production:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Execute deploy script on App VM
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.REMOTE_HOST_IP }}
+        username: ${{ secrets.REMOTE_HOST_USERNAME }}
+        key: ${{ secrets.REMOTE_HOST_PRIVATE_KEY }}
+        port: ${{ secrets.REMOTE_HOST_PORT }}
+        script: |
+          cd projects/bits && bash -x deploy.sh

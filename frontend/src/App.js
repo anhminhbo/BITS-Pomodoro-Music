@@ -3,13 +3,13 @@ import React from "react";
 //import { Route, Link } from "react-route-dom"
 
 import axios from "axios";
-import Timer from "./components/Timer";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import MusicPlayer from "./components/MusicPlayer";
 import LogIn from "./components/Login";
 import Register from "./components/Register";
-import Setting from "./components/Setting";
+import SettingTimer from "./components/SettingTimer";
+import Task from "./components/Task";
 
 function App() {
   const [backend, setBackend] = useState("No Backend connection");
@@ -20,13 +20,13 @@ function App() {
       console.log(response.data.data);
       setBackend(
         response.data.data === "Test Success"
-          ? "Connected to Backend Successfully."
+          ? "Connected to Backend Successfully. Github action"
           : "Unable to connect to Backend."
       );
     });
   });
 
-  // // Sample
+  // // Sample haha
   // const register = async (username, password) => {
   //   try {
   //     const response = await axios.post(
@@ -44,15 +44,17 @@ function App() {
 
   return (
     <div className="App">
-      {backend}
-      {/* <Header /> */}
-      {/* <LogIn />
-      <Register /> */}
-      <Timer min={0} sec={5} />
+      {/* {backend} */}
+      <Header />
+      {/* <LogIn /> */}
+      {/* <Register /> */}
+      {/* <SettingTimer /> */}
       <MusicPlayer />
+      <Task />
       <Footer />
     </div>
   );
 }
 
 export default App;
+
