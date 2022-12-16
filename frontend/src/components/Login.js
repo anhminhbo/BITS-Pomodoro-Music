@@ -11,7 +11,7 @@ const LogIn = () => {
             <div className='form-head login-head'>
                 <h1>Login</h1>
             </div>
-            <form  method="post" action="login.php">
+            <form method="post" action="login.php">
                 <div className='username'>
                     <label className='formlabel' for="username">Username</label>
                     <input className='forminput' required id="username" type="text" name="username" maxlength="150"/>
