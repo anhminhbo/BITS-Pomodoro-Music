@@ -17,8 +17,6 @@ const Register = () => {
   
 
   const handleSubmit = async () => {
-   
-
     const usernameRegex = /^[a-zA-Z0-9]+$/;
     if (!username.current.value.match(usernameRegex)) {
       document.getElementById("register-username-message").style.display = "block";
@@ -26,7 +24,6 @@ const Register = () => {
       usernameIsValid = true;
       document.getElementById("register-username-message").style.display = "none";
     }
-
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
     if (!password.current.value.match(passwordRegex)) {
         document.getElementById("register-password-message").style.display = "block";
