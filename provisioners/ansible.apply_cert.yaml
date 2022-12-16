@@ -1,0 +1,14 @@
+- name: Create cert for App VM
+  hosts: all
+  become: true
+  tasks:
+    - name: Run create cert script
+      ansible.builtin.shell: bash -x projects/bits/create_cert_domain.sh
+
+    # Init the app
+    - name: Init the app
+      become_user: ubuntu
+      ansible.builtin.shell: cd projects/bits && bash -x deploy.sh
+
+    - name: Restart Nginx
+      ansible.builtin.shell: nginx -s reload
