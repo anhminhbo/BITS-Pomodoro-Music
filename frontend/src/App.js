@@ -10,6 +10,7 @@ import LogIn from "./components/Login";
 import Register from "./components/Register";
 import SettingTimer from "./components/SettingTimer";
 import Task from "./components/Task";
+import LandingPage from "./components/LandingPage";
 
 function App() {
   const [backend, setBackend] = useState("No Backend connection");
@@ -46,6 +47,7 @@ function App() {
     <div className="App">
       {/* {backend} */}
       <Header />
+      <LandingPage/>
       {/* <LogIn /> */}
       <Register />
       {/* <SettingTimer /> */}
