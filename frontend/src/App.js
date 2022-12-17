@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import React from "react";
-import { Routes, Route, Link } from "react-router-dom"
+import { Routes, Route, Link } from "react-router-dom";
 
 import axios from "axios";
 import Header from "./components/Header";
@@ -11,6 +11,8 @@ import Register from "./components/Register";
 import SettingTimer from "./components/SettingTimer";
 import Task from "./components/Task";
 import LandingPage from "./components/LandingPage";
+
+axios.defaults.withCredentials = true;
 
 function App() {
   const [backend, setBackend] = useState("No Backend connection");
@@ -56,33 +58,41 @@ function App() {
       {/* <Task /> */}
       {/* <Footer /> */}
       <Routes>
-        <Route path="/" element={
-          <>
-            <Header />
-            <SettingTimer />
-            <MusicPlayer />
-            <Task />
-            <Footer />
-          </>
-        } />
-        <Route path="/login" element={
-          <>
-            <Header />
-            <LogIn />
-            <Footer />
-          </>
-        } />
-        <Route path="/register" element={
-          <>
-            <Header />
-            <Register />
-            <Footer />
-          </>
-        } />
+        <Route
+          path="/"
+          element={
+            <>
+              <Header />
+              <SettingTimer />
+              <MusicPlayer />
+              <Task />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <>
+              <Header />
+              <LogIn />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <>
+              <Header />
+              <Register />
+              <Footer />
+            </>
+          }
+        />
       </Routes>
     </div>
   );
 }
 
 export default App;
-
