@@ -35,6 +35,13 @@ const userSchema = new mongoose.Schema(
         songUrl: { type: String },
       },
     ],
+    tasks: [
+      {
+        index: { type: String, required: true, unique: true },
+        name: { type: String, required: true },
+        isDone: { type: Boolean },
+      },
+    ],
   },
   { minimize: false }
 );

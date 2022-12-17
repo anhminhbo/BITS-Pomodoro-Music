@@ -6,7 +6,7 @@ const getSettings = async (username) => {
   // Get playlist
   const user = await UserService.getUserByUsername(username);
 
-  const { timerSettings, playlist } = user;
+  const { timerSettings, playlist, tasks } = user;
 
   //  Handle to cached user timer settings and playlist
   const cachedData = await RedisService.getValue(username);
@@ -14,6 +14,7 @@ const getSettings = async (username) => {
     ...cachedData,
     timerSettings,
     playlist,
+    tasks,
   });
 
   return timerSettings;

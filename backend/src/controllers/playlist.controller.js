@@ -5,16 +5,16 @@ const { catchAsync } = require("../utils");
 const getPlaylist = catchAsync(async (req, res) => {
   const { username } = req.session;
   const playlist = await PlaylistService.getPlaylist(username);
-  if (playlist.length === 0) {
-    res.body = {
-      errCode: Error.EmptyPlaylist.errCode,
-      errMessage: Error.EmptyPlaylist.errMessage,
-    };
-    throw ResponseService.newError(
-      Error.EmptyPlaylist.errCode,
-      Error.EmptyPlaylist.errMessage
-    );
-  }
+  // if (playlist.length === 0) {
+  //   res.body = {
+  //     errCode: Error.EmptyPlaylist.errCode,
+  //     errMessage: Error.EmptyPlaylist.errMessage,
+  //   };
+  //   throw ResponseService.newError(
+  //     Error.EmptyPlaylist.errCode,
+  //     Error.EmptyPlaylist.errMessage
+  //   );
+  // }
 
   res.body = ResponseService.newSucess({ playlist });
   res.status(200).json(res.body);

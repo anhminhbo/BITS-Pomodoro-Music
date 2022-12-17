@@ -83,11 +83,16 @@ bash -x testing_docker_prod.sh
 ## How to merge master branch into your development branch for devs
 - Make sure you are using a bash terminal to run the following code
 - First arg is the name of the branch you want to merge, Second arg is your commit message for your current branch
-- Here I want to merge minh-dev to my branch with the message of my new commit
+- For all team members
+```
+bash push_current_and_merge.sh mirror ""
+```
+- Only frontend team
 ```
 bash push_current_and_merge.sh minh-dev ""
 ```
-- There is for the team leader to ready for production on minh-dev
+
+- Only project leader
 ```
 bash push_current_and_merge.sh main ""
 ```

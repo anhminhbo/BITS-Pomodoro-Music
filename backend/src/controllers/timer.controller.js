@@ -5,16 +5,16 @@ const { catchAsync } = require("../utils");
 const getSettings = catchAsync(async (req, res) => {
   const { username } = req.session;
   const timerSettings = await TimerService.getSettings(username);
-  if (!timerSettings) {
-    res.body = ResponseService.newError(
-      Error.TimerSettingsNotFound.errCode,
-      Error.TimerSettingsNotFound.errMessage
-    );
-    throw ResponseService.newError(
-      Error.TimerSettingsNotFound.errCode,
-      Error.TimerSettingsNotFound.errMessage
-    );
-  }
+  // if (!timerSettings) {
+  //   res.body = ResponseService.newError(
+  //     Error.TimerSettingsNotFound.errCode,
+  //     Error.TimerSettingsNotFound.errMessage
+  //   );
+  //   throw ResponseService.newError(
+  //     Error.TimerSettingsNotFound.errCode,
+  //     Error.TimerSettingsNotFound.errMessage
+  //   );
+  // }
   res.body = ResponseService.newSucess({ timerSettings });
   res.status(200).json(res.body);
 });

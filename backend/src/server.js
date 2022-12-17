@@ -54,6 +54,7 @@ const {
   AuthRouter,
   PlaylistRouter,
   TimerRouter,
+  TaskRouter
 } = require("./routers");
 
 const sessionConfig = require("./config/init.session");
@@ -112,6 +113,8 @@ app.use("/api/user", UserRouter);
 app.use("/api/auth", AuthRouter);
 app.use("/api/playlist", PlaylistRouter);
 app.use("/api/timer", TimerRouter);
+app.use("/api/task", TaskRouter);
+
 
 // handling all (get,post,update,delete.....) unhandled routes
 app.use("*", (req, res, next) => {
