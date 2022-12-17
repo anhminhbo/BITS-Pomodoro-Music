@@ -86,6 +86,19 @@ const Error = {
     errCode: 118,
     errMessage: "Timer Settings not found",
   },
+  EmptyTask: {
+    errCode: 119,
+    errMessage: "Task is empty",
+  },
+  EmptyTaskIndex: {
+    errCode: 120,
+    errMessage: "Task index empty",
+  },
+  DeletedTaskNotExists: {
+    errCode: 121,
+    errMessage: "Deleted tasks not existed to delete",
+  },
+
   // 200++ Error from Db
   CastError: {
     errCode: 201,
