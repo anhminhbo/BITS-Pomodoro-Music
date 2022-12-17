@@ -50,47 +50,38 @@ function App() {
     <div className="App">
       {/* {backend} */}
       {/* <Header /> */}
-      {/* <LandingPage/> */}
+      <LandingPage/>
       {/* <LogIn /> */}
       {/* <Register /> */}
       {/* <SettingTimer /> */}
       {/* <MusicPlayer /> */}
       {/* <Task /> */}
       {/* <Footer /> */}
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Header />
-              <SettingTimer />
-              <MusicPlayer />
-              <Task />
-              <Footer />
-            </>
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <>
-              <Header />
-              <LogIn />
-              <Footer />
-            </>
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <>
-              <Header />
-              <Register />
-              <Footer />
-            </>
-          }
-        />
-      </Routes>
+      {/* <Routes>
+        <Route path="/" element={
+          <>
+            <Header />
+            <SettingTimer />
+            <MusicPlayer />
+            <Task />
+            <Footer />
+          </>
+        } />
+        <Route path="/login" element={
+          <>
+            <Header />
+            <LogIn />
+            <Footer />
+          </>
+        } />
+        <Route path="/register" element={
+          <>
+            <Header />
+            <Register />
+            <Footer />
+          </>
+        } />
+      </Routes> */}
     </div>
   );
 }
