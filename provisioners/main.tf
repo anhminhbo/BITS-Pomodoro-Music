@@ -80,11 +80,27 @@ data "aws_ami" "ec2-ami" {
 }
 
 ###
+# Create EBS size for App VM storage default is 30
+###
+
+resource "aws_volume_attachment" "ebs_att" {
+  device_name = "/dev/sdh"
+  volume_id   = aws_ebs_volume.storage.id
+  instance_id = aws_instance.app-vm.id
+}
+
+resource "aws_ebs_volume" "storage" {
+  availability_zone = "ap-southeast-1c"
+  size              = 30
+}
+
+###
 # Create EC2
 ###
 resource "aws_instance" "app-vm" {
   ami                    = data.aws_ami.ec2-ami.id
-  instance_type          = "t2.large"
+  availability_zone      = "ap-southeast-1c"
+  instance_type          = "t2.micro" # Remember to change this for low price
   vpc_security_group_ids = [aws_security_group.allow_ports.id]
   key_name               = aws_key_pair.key_pair.key_name
 
