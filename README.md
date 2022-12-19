@@ -116,7 +116,7 @@ bash push_current_and_merge.sh main ""
 
 - Execute build infra script to provision AWS infra for the app, remember to get a domain first
 ```
-bash provisioners/build_infra.sh your_domain_here your_frontend_port your_backend_port
+bash -x provisioners/build_infra.sh your_domain_here your_frontend_port your_backend_port
 ```
 
 - Remember to read and type "yes" ^^!
