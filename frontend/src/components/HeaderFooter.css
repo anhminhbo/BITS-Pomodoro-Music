@@ -11,12 +11,17 @@ div img {
     display: flex;
     justify-content: center;
     overflow: auto;
+    /* position: absolute; */
+    top: 0;
+    z-index: 9;
+    height: 66px;
+    align-items: center;
 }
 
 .footer-container {
-    position: absolute;
+    /* position: absolute; */
+    margin-top: auto;
     bottom: 0;
-    overflow: auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,4 +32,5 @@ div img {
     font-weight: 700;
     font-size: 20px;
     line-height: 150%;
+    z-index: 9;
 }
