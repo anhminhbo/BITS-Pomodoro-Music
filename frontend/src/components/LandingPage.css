@@ -1,3 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100;8..144,200;8..144,300;8..144,400;8..144,500;8..144,600;8..144,700;8..144,800;8..144,900;8..144,1000&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    line-height: 1.254;
+}
+
 .landing-page-container {
     display: flex;
     flex-direction: column;
@@ -5,10 +20,72 @@
     align-items: center;
     height: 100vh;
     width: 100vw;
-    background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.4)), url('../img/BG.jpg');
+    background-image: linear-gradient(rgba(255, 255, 255, 0.272), rgba(163, 163, 163, 0.229)), url('../img/BG.jpg');
     background-size: 150vmax;
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
     position: absolute;
 }
+
+.landing-page-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 60%;
+    width: 60%;
+    border-radius: 20px;
+    background-color: rgb(238, 238, 238);
+    position: absolute;
+}
+
+.landing-page-title {
+    width: 50%;
+    
+    padding: 10px 30px;
+    margin: 50px 20px;
+}
+
+.landing-page-title h1 {
+    margin: 0;
+    padding: 0;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 100px;
+    
+}
+
+.landing-page-title h3 {
+    margin: 0;
+    padding: 0;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 300;
+    font-size: 22px;
+    text-align: center;
+}
+
+.landing-page-button {
+    width: 40%;
+}
+
+.landing-page-button .started-btn {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    width: 100%;
+    border: none;
+    font-size: 27px;
+    font-weight: 700;
+    border-radius: 10px;
+    background: #FF6E6E;
+    outline: none;
+    transition: 0.3s;
+    padding: 9px 15px;
+    cursor: pointer;
+    font-family: "Quicksand", sans-serif;
+    margin: 0 !important;
+}
+

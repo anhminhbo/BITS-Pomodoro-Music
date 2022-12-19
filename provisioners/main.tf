@@ -91,7 +91,9 @@ resource "aws_volume_attachment" "ebs_att" {
 
 resource "aws_ebs_volume" "storage" {
   availability_zone = "ap-southeast-1c"
-  size              = 30
+  size              = 100  # Remember to change this for low price
+# size              = 30  # Remember to change this for low price
+
 }
 
 ###
@@ -100,7 +102,8 @@ resource "aws_ebs_volume" "storage" {
 resource "aws_instance" "app-vm" {
   ami                    = data.aws_ami.ec2-ami.id
   availability_zone      = "ap-southeast-1c"
-  instance_type          = "t2.micro" # Remember to change this for low price
+  instance_type          = "t3.2xlarge" # Remember to change this for low price, t2.micro is free tier
+# instance_type          = "t2.micro" # Remember to change this for low price, t2.micro is free tier
   vpc_security_group_ids = [aws_security_group.allow_ports.id]
   key_name               = aws_key_pair.key_pair.key_name
 
