@@ -17,6 +17,7 @@
     border-radius: 15px;
     align-items: center;
     height: max-content;
+    margin-bottom: 5vh;
 }
 
 #task-header{
