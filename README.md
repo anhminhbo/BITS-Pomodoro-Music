@@ -2,13 +2,18 @@
 Pomodoro Music player
 ## Software Architecture
 <p align="center">
+    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/readme-3.png" width=900 height=900>
+    Software architecture(new)
+</p>
+
+<p align="center">
     <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/readme-1.png" width=900 height=900>
-    Software architecture
+    Software architecture(old)
 </p>
 
 ## Local Development pipeline
 <p align="center">
-    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/readme-2.png" width=1600 height=900>
+    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/readme-4.png" width=1600 height=900>
     Local Development pipeline
 </p>
 
@@ -111,13 +116,18 @@ bash push_current_and_merge.sh main ""
     - Install terraform
     - MacOs or Linux platform or Window Bash env
     - Register and buy a domain([Namecheap](https://www.namecheap.com/), [GoDaddy](https://www.godaddy.com/vi-vn), or any domain providers)
-
+    - Install AWS CLI and configure AWS CLI using 
+    ```
+    aws configure
+    ```
 # Notes: When you know your App IP, point your domain to the App IP immediately so it saves time
 
 - Execute build infra script to provision AWS infra for the app, remember to get a domain first
 ```
 bash provisioners/build_infra.sh your_domain_here your_frontend_port your_backend_port
 ```
+
+# Notes: Sometimes the script
 
 - Remember to read and type "yes" ^^!
 
