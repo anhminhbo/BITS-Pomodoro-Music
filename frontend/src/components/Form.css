@@ -81,26 +81,6 @@
     border: 2px solid #7dbd07;
 }
 
-a {
-    color: #7dbd07;
-}
-
-strong {
-    color: #7dbd07;
-}
-
-h1 {
-    font-weight: lighter;
-}
-
-h2 {
-    font-weight: bold;
-}
-
-p {
-    font-weight: lighter;
-}
-
 .form-head {
     font-family: "Quicksand", sans-serif;
     font-weight: 500;
@@ -139,6 +119,11 @@ p {
     font-family: "Quicksand", sans-serif;
     margin: 0 !important;
     margin-top: 20px !important;
+    transition: all 0.1s ease;
+}
+
+.form-btn:hover{
+    transform: translateY(-1px);
 }
 
 .username {
@@ -189,4 +174,13 @@ p {
     transform: translateY(1px);
     margin-left: 1px;
     margin-right: 5px;
+}
+
+a{
+    font-weight: 500;
+    color: #7dbd07;
+}
+
+a:hover{
+    font-weight: 700;
 }
