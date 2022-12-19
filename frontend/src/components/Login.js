@@ -72,7 +72,7 @@ const LogIn = () => {
         <div className="form-foot">
             Don't have an account?{` `}
             <strong>
-              <a href=""> Register here!</a>
+              <a href="/register"> Register here!</a>
             </strong>
         </div>
       </div>
