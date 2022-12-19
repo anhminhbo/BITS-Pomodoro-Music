@@ -96,10 +96,9 @@ const Register = () => {
       );
       return response;
     }
-
   };
   
-  
+  console.log(window.__RUNTIME_CONFIG__.FRONTEND_URL);
 
   return (
       <>
@@ -149,7 +148,7 @@ const Register = () => {
           <div className='register-user-message'>
           </div>
           <div className='form-foot form-foot-register'>
-            Already have an account?{` `} <strong><a href=''> Log in here!</a></strong>
+            Already have an account?{` `} <strong><a href="/login"> Log in here!</a></strong>
           </div>
         </div>
       </>     
