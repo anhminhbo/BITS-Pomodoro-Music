@@ -33,18 +33,18 @@ html, body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 60%;
-    width: 60%;
+    height: calc(70px + 55vh);
+    min-height: 1px;
+    width: calc(12px + 55vw);
     border-radius: 20px;
     background-color: rgb(238, 238, 238);
     position: absolute;
 }
 
 .landing-page-title {
-    width: 50%;
-    
-    padding: 10px 30px;
-    margin: 50px 20px;
+    width: 100%;
+    margin-bottom: calc(15px + 1.4vh);
+    text-align: center;
 }
 
 .landing-page-title h1 {
@@ -52,8 +52,7 @@ html, body {
     padding: 0;
     font-family: 'Quicksand', sans-serif;
     font-weight: 700;
-    font-size: 100px;
-    
+    font-size: calc(20px + 6vw);
 }
 
 .landing-page-title h3 {
@@ -61,12 +60,15 @@ html, body {
     padding: 0;
     font-family: 'Quicksand', sans-serif;
     font-weight: 300;
-    font-size: 22px;
+    font-size: calc(12px + 2.1vw);
     text-align: center;
 }
 
 .landing-page-button {
-    width: 40%;
+    width: 55%;
+    height: max-content;
+    display: flex;
+    justify-content: center;
 }
 
 .landing-page-button .started-btn {
@@ -75,17 +77,21 @@ html, body {
     justify-content: center;
     text-align: center;
     color: white;
-    width: 100%;
+    width: 90%;
     border: none;
-    font-size: 27px;
+    font-size: calc(13px + 1vmax);
     font-weight: 700;
     border-radius: 10px;
-    background: #FF6E6E;
+    background: #7dbd07;
     outline: none;
     transition: 0.3s;
-    padding: 9px 15px;
+    padding: calc(8px + 0.5vw) calc(3px + 1.1vh);
     cursor: pointer;
     font-family: "Quicksand", sans-serif;
     margin: 0 !important;
+}
+
+.landing-page-btn-label{
+    font-size: calc(13px + 0.7vw);
 }
 
