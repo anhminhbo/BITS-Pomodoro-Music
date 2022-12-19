@@ -25,7 +25,7 @@
 
 .register-container {
     height: max-content;
-    width: 430px;
+    width: 455px;
     padding: 50px 50px 50px 50px;
 }
 
@@ -42,7 +42,7 @@
 .login-background {
     padding: 13vh 0 !important;
     width: 100%;
-    min-height: 68vh;
+    min-height: 100vh;
     background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../img/BG.jpg');
     background-size: 150vmax;
     background-position: center;
@@ -55,7 +55,7 @@
     z-index: -1;
     padding: 13vh 0 !important;
     width: 100%;
-    min-height: 90vh;
+    min-height: 120vh;
     background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../img/BG.jpg');
     background-size: 150vmax;
     background-position: center;

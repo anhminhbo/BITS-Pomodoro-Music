@@ -50,15 +50,15 @@ function App() {
     <div className="App">
       {/* {backend} */}
       {/* <Header /> */}
-      <LandingPage/>
+      {/* <LandingPage/> */}
       {/* <LogIn /> */}
       {/* <Register /> */}
       {/* <SettingTimer /> */}
       {/* <MusicPlayer /> */}
       {/* <Task /> */}
       {/* <Footer /> */}
-      {/* <Routes>
-        <Route path="/" element={
+      <Routes>
+        <Route path="/main" element={
           <>
             <Header />
             <SettingTimer />
@@ -81,7 +81,12 @@ function App() {
             <Footer />
           </>
         } />
-      </Routes> */}
+        <Route path="/" element={
+          <>
+            <LandingPage/>
+          </>
+        } />
+      </Routes>
     </div>
   );
 }
