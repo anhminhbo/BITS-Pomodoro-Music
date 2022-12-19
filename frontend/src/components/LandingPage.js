@@ -15,7 +15,7 @@ function LandingPage() {
               </div>
 
               <div className = "landing-page-btn-label">
-                  <p>Already have an account? <a href=''>Log in here!</a></p>
+                  <p>Already have an account? <strong><a href=''>Log in here!</a></strong></p>
               </div>
           </div>
       </div>

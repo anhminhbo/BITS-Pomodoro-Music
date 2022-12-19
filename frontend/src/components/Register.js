@@ -55,10 +55,10 @@ const Register = () => {
     }
 
     if (!usernameIsValid && !passwordIsValid && !confirmpasswordIsValid){
-      document.getElementsByClassName("register-background")[0].style.minHeight = "93vh";
+      document.getElementsByClassName("register-background")[0].style.minHeight = "130vh";
     }
     else {
-      document.getElementsByClassName("register-background")[0].style.minHeight = "90vh";
+      document.getElementsByClassName("register-background")[0].style.minHeight = "120vh";
     }
   
     // end handle submit 
