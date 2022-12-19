@@ -107,13 +107,8 @@ html, body {
 .landing-page-btn-label a {
     font-family: 'Quicksand', sans-serif;
     font-weight: 500;
-    text-decoration: none;
-    color: #FF6E6E;
 }
 
 .landing-page-btn-label a:hover {
-    color: #7dbd07;
-    transition: 0.3s;
-    text-decoration: underline;
-    font-weight: 800;
+    font-weight: 700;
 }
