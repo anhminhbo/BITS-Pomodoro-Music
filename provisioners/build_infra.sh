@@ -90,6 +90,7 @@ while [ "$currentIP" != "$IP" ]; do
     ### APPLY CERT FOR YOUR WEB APP IF MATCHED
     if [ "$currentIP" == "$IP" ]; then
         ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu --key-file aws-ec2-private-key.pem -T 1000 -i ansible_hosts ansible.apply_cert.yaml
+        break
         ### If any errors happend --> destroy everything
         if [ $exitcode -ne 0 ]; then
             bash destroy_infra.sh
@@ -107,3 +108,6 @@ fi
 
 ### DELETE RUNTIME FILES WHEN SUCCESS
 find . -type f -not \( -name 'ansible_hosts.template' -or -name 'ansible.apply_cert.yaml' -or -name 'ansible.config_vm.yaml.template' -or -name 'build_infra.sh' -or -name 'create_cert_domain.template.sh' -or -name 'default.conf' -or -name 'deploy.sh' -or -name 'destroy_infra.sh' -or -name 'docker-compose.yaml.runtime' -or -name 'main.tf' -or -name 'terraform.tfstate' -or -name 'aws-ec2-private-key.pem' \) -delete
+
+### DONE
+echo "Done building infrastructure of your web app. Ref: BugFixWanderer"
