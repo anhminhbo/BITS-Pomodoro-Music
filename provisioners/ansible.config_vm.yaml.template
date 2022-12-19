@@ -1,0 +1,133 @@
+- name: Init Configure for App VM
+  hosts: all
+  become: true
+  tasks:
+    # Install docker and docker compose
+    - name: Install docker packages
+      apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+      with_items:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common
+      tags:
+        - docker
+    - name: Add Docker s official GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+      tags:
+        - docker
+    - name: Verify that we have the key with the fingerprint
+      apt_key:
+        id: 0EBFCD88
+        state: present
+      tags:
+        - docker
+    - name: Set up the stable repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
+        state: present
+        update_cache: yes
+      tags:
+        - docker
+    - name: Update apt packages
+      apt:
+        update_cache: yes
+      tags:
+        - docker
+    - name: Install docker
+      apt:
+        name: docker-ce
+        state: present
+        update_cache: yes
+      #notify: Start docker on boot
+      tags:
+        - docker
+    - name: Add remote "ubuntu" user to "docker" group
+      user:
+        name: "ubuntu"
+        groups: "docker"
+        append: yes
+      tags:
+        - docker
+    - name: Install docker-compose
+      get_url:
+        url: https://github.com/docker/compose/releases/download/1.25.1-rc1/docker-compose-Linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: "u+x,g+x"
+
+    # Install Nginx
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+    - name: Add site config for nginx
+      template:
+        src: [[DOMAIN]]
+        dest: /etc/nginx/sites-available/[[DOMAIN]]
+    - name: Create symbolic link to sites-enabled
+      ansible.builtin.shell: ln -s /etc/nginx/sites-available/[[DOMAIN]] /etc/nginx/sites-enabled/[[DOMAIN]]
+    - name: Delete nginx default config
+      ansible.builtin.shell: rm -rf /etc/nginx/sites-enabled/default
+
+    # Install certbot
+    - name: Install python3-cerbot-nginx for cert
+      ansible.builtin.shell: apt-get install python3-certbot-nginx -y
+    # # SSL for the domain (Need to point domain from Namecheap first before doing this)
+    # - name: Add cert for the domain
+    #   ansible.builtin.shell: certbot -n --nginx -d pumidoro-music.homes -d www.pumidoro-music.homes -m wormscott12397@gmail.com --agree-tos --redirect
+
+    # Change timezone to HoChiMinh
+    - name: Change timezone to HCM
+      ansible.builtin.shell: timedatectl set-timezone Asia/Ho_Chi_Minh
+
+    # Make app dir
+    - name: Make app dir
+      become_user: ubuntu
+      ansible.builtin.shell: mkdir -p projects/bits
+
+    # Add cert script
+    - name: Add create cert script
+      become_user: ubuntu
+      template:
+        src: create_cert_domain.sh
+        dest: projects/bits/create_cert_domain.sh   
+
+    # Make app backup dir
+    - name: Make app backup dir
+      become_user: ubuntu
+      ansible.builtin.shell: mkdir -p projects/bits/backups
+
+    - name: Install jq for script
+      ansible.builtin.shell: sudo apt install -y jq
+
+    # Give permission to execute in folder runtime
+    - name: Give ubuntu permissions to an existing file
+      ansible.builtin.shell: sudo chown ubuntu:ubuntu projects
+
+    # Add deploy script to folder
+    - name: Add deploy script to folder
+      become_user: ubuntu
+      template:
+        src: deploy.sh
+        dest: projects/bits/deploy.sh
+
+    # Add docker-compose template to app folder
+    - name: Add docker-compose template to app folder
+      become_user: ubuntu
+      template:
+        src: docker-compose.yaml.template
+        dest: projects/bits/docker-compose.yaml.template
+
+    # # Init the app
+    # - name: Init the app
+    #   become_user: ubuntu
+    #   ansible.builtin.shell: cd projects/bits && bash -x deploy.sh
+
+    # # Start nginx to serve traffic
+    # - name: Start Nginx
+    #   ansible.builtin.shell: nginx -s reload

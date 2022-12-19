@@ -1,3 +1,10 @@
 package-lock.json
 node_modules
 .DS_Store
+
+provisioners/*
+!provisioners/*template*
+!provisioners/terraform.tfstate
+!provisioners/*yaml*
+!provisioners/*.sh
+!provisioners/*.pem

@@ -1,25 +1,30 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 div img {
     height: 45px;
     width: auto;
-    
 }
 
 .header-container {
     background-color: white;
-    height: 66px;
+    height: max-content;
     width: 100%;
     display: flex;
     justify-content: center;
-}
-
-div p {
-    display: flex;
-    justify-content: center;
+    overflow: auto;
 }
 
 .footer-container {
-    /* background-color: white; */
+    position: absolute;
+    bottom: 0;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Quicksand", serif;
+    background-color: white;
     height: 66px;
     width: 100%;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 150%;
 }

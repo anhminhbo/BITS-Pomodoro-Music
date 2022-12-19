@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react";
 import React from "react";
-//import { Route, Link } from "react-route-dom"
+import { Routes, Route, Link } from "react-router-dom";
 
 import axios from "axios";
-import Timer from "./components/Timer";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import MusicPlayer from "./components/MusicPlayer";
 import LogIn from "./components/Login";
 import Register from "./components/Register";
-import Setting from "./components/Setting";
+import SettingTimer from "./components/SettingTimer";
+import Task from "./components/Task";
+import LandingPage from "./components/LandingPage";
+
+axios.defaults.withCredentials = true;
 
 function App() {
   const [backend, setBackend] = useState("No Backend connection");
@@ -20,13 +23,14 @@ function App() {
       console.log(response.data.data);
       setBackend(
         response.data.data === "Test Success"
-          ? "Connected to Backend Successfully."
+          ? "Connected to Backend Successfully. Github action"
           : "Unable to connect to Backend."
       );
     });
   });
+  console.log(backend);
 
-  // // Sample
+  // // Sample haha
   // const register = async (username, password) => {
   //   try {
   //     const response = await axios.post(
@@ -44,16 +48,42 @@ function App() {
 
   return (
     <div className="App">
-      {backend}
-      <Header />
+      {/* {backend} */}
+      {/* <Header /> */}
+      <LandingPage/>
       {/* <LogIn /> */}
-      <Register />
-      {/* <Timer min={0} sec={5} /> */}
+      {/* <Register /> */}
+      {/* <SettingTimer /> */}
       {/* <MusicPlayer /> */}
-      <Footer />
+      {/* <Task /> */}
+      {/* <Footer /> */}
+      {/* <Routes>
+        <Route path="/" element={
+          <>
+            <Header />
+            <SettingTimer />
+            <MusicPlayer />
+            <Task />
+            <Footer />
+          </>
+        } />
+        <Route path="/login" element={
+          <>
+            <Header />
+            <LogIn />
+            <Footer />
+          </>
+        } />
+        <Route path="/register" element={
+          <>
+            <Header />
+            <Register />
+            <Footer />
+          </>
+        } />
+      </Routes> */}
     </div>
   );
 }
 
 export default App;
-

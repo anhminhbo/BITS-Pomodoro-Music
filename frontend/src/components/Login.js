@@ -1,23 +1,40 @@
 import React, { useRef } from "react";
-import Header from "./Header";
-import Footer from "./Footer";
 import "./Form.css";
+import axios from "axios";
+
+const background = require('../img/BG.jpg');
 
 const LogIn = () => {
   const username = useRef();
   const password = useRef();
+  const login = async (username, password) => {
+    try {
+      const response = await axios.post(
+        `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/auth/login`,
+        {
+          username,
+          password,
+        }
+      );
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
-    <div className="login-register-container">
-      <div className="form-body">
+    <>
+      <div className="login-background">
+      </div>
+      <div className="login-register-container login-container">
         <div className="form-head login-head">
-          <h1>Login</h1>
+          Login
         </div>
         <form className="pure-form" method="post">
-          <div className="username">
-            <label className="formlabel" for="username">
+          <div className="username login-register-input">
+            <div className="formlabel" for="username">
               Username
-            </label>
+            </div>
             <input
               className="forminput"
               required
@@ -29,10 +46,10 @@ const LogIn = () => {
               ref={username}
             />
           </div>
-          <div className="password">
-            <label className="formlabel" for="password">
+          <div className="password login-register-input">
+            <div className="formlabel" for="password">
               Password
-            </label>
+            </div>
             <input
               className="forminput"
               required
@@ -45,22 +62,21 @@ const LogIn = () => {
             />
           </div>
         </form>
-        <div className="btn">
-          <button onClick={() => {
+          <button className="form-btn" onClick={() => {
             console.log(username.current.value);
             console.log(password.current.value);
-          }}>Log In</button>
-        </div>
+            login();
+          }}>
+            Login
+          </button>
         <div className="form-foot">
-          <p>
-            Don't have an account?{" "}
+            Don't have an account?{` `}
             <strong>
-              <a href=""> Register here.</a>
+              <a href=""> Register here!</a>
             </strong>
-          </p>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

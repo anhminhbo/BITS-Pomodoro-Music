@@ -86,9 +86,6 @@ const limiter = rateLimit({
 
 app.use("/api", limiter);
 
-// Test connection from the outside
-app.use("/api/test", (req, res) => res.json({ data: "Test Success" }));
-
 //  Body Parser  => reading data from body into req.body protect from scraping etc
 // parses incoming requests with JSON payloads
 // content-type: application/json
@@ -105,6 +102,10 @@ app.use(mongoSanitize()); // filter out the dollar signs protect from  query inj
 
 // Data sanitization against XSS
 app.use(xss()); // protect from molision code coming from html
+
+// Test connection from the outside
+app.use("/api/test", (req, res) => res.json({ data: "Test Success" }));
+
 // Use specific Router to handle each end point
 
 app.use("/api/user", UserRouter);
@@ -143,7 +144,7 @@ app.listen(port, () => {
 process.on("unhandledRejection", (error) => {
   // it uses unhandledRejection event
   // using unhandledRejection event
-  console.log(" Unhandled Rejection => shutting down..... ");
+  console.log(" Unhandled Rejection => shutting down now...");
   console.log(error.name, error.message);
   app.close(() => {
     process.exit(1); //  emidiatly exists all from all the requests sending OR pending
