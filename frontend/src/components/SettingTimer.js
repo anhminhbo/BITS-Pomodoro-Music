@@ -151,7 +151,7 @@ useEffect(()=>{
 
   return (
     <div>
-        <div>
+        <div className=''>
             <div id="timer-time">{formatTime(TimerMin)}:{formatTime(TimerSec)}</div>
             <input id="timer-btn" type="button" value={Action} style={{display: "block"}} onClick={startAndStopTimer}/>
         </div>
@@ -172,7 +172,7 @@ useEffect(()=>{
                             Focus length
                         </span>
                         <hstack>
-                            <input id='setting-focus-length'   placeholder="Minutes" type="number" maxLength='4'  min="1" max="60" className="setting-numbox" defaultValue={focusLength} />
+                            <input id='setting-focus-length' placeholder="Minutes" type="number" maxLength='4'  min="1" max="60" className="setting-numbox" defaultValue={focusLength} />
 
                             <input id='setting-focus-length-seconds' placeholder="Seconds" type="number" min="0" max="60" className="setting-numbox" defaultValue={focusLength}/>
                         </hstack>
