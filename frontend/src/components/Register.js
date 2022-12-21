@@ -103,7 +103,6 @@ const Register = () => {
   return (
       <>
         <div className="register-background">
-        </div>
         <div className="login-register-container register-container">
           <div className='form-head'>
             <div className='form-title-bold'>Get started in minutes</div>
@@ -150,6 +149,7 @@ const Register = () => {
           <div className='form-foot form-foot-register'>
             Already have an account?{` `} <strong><a href="/login"> Log in here!</a></strong>
           </div>
+        </div>
         </div>
       </>     
   );

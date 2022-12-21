@@ -185,3 +185,16 @@ ul{
 .setting-button:hover{
   transform: translateY(-2px);
 }
+
+/* disable arrow for number type input */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
