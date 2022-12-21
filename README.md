@@ -127,7 +127,7 @@ bash push_current_and_merge.sh main ""
 bash provisioners/build_infra.sh your_domain_here your_frontend_port your_backend_port
 ```
 
-# Notes: Sometimes the script will stop at Config the VM and not proceed to Apply cert for the web app step. Here how to solve it, type in console in provisioners: ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu --key-file aws-ec2-private-key.pem -T 1000 -i ansible_hosts ansible.apply_cert.yaml
+# Notes: Sometimes the script will stop at Config the VM and not proceed to Apply cert for the web app step. Here how to solve it, type in console in provisioners: ```ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu --key-file aws-ec2-private-key.pem -T 1000 -i ansible_hosts ansible.apply_cert.yaml```
 
 - Remember to read and type "yes" ^^!
 
