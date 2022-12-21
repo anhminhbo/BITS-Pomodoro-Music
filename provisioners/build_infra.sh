@@ -13,7 +13,6 @@ trap handle_control_c INT
 
 function handle_control_c() {
     echo "Handling destroy all resources before ending the script..."
-    sleep 5s
     bash destroy_infra.sh
     exit 1
 }
