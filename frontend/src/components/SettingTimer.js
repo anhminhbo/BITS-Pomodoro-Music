@@ -138,10 +138,20 @@ const SettingTimer = () => {
     // },[])
     
     
+useEffect(()=>{
+
+
+        // setFocusLength(60)
+        // console.log(focusLength)
+    
+})
+  
+        
+    
 
   return (
     <div>
-        <div>
+        <div className=''>
             <div id="timer-time">{formatTime(TimerMin)}:{formatTime(TimerSec)}</div>
             <input id="timer-btn" type="button" value={Action} style={{display: "block"}} onClick={startAndStopTimer}/>
         </div>
@@ -158,42 +168,31 @@ const SettingTimer = () => {
                 </div>
                 <ul>
                     <li className='setting-li'>
-                        <span className='setting-item-name'>
-                            Dark mode
-                        </span>
-                        <label className='setting-switch'>
-                        <input type="checkbox"/>
-                        <span className="setting-slider setting-round"></span>
-                        </label>
-                    </li>
-
-                    <li className='setting-li'>
-                        <span className='setting-item-name' style={{transform: "translateY(5px)"}} >
+                        <span className='setting-item-name'  style={{transform: "translateY(5px)"}} >
                             Focus length
                         </span>
-                        <input id='setting-focus-length' type="number" min="1" className="setting-numbox" defaultValue={focusLength}/>
+                        <hstack>
+                            <input id='setting-focus-length' placeholder="Minutes" type="number" maxLength='4'  min="1" max="60" className="setting-numbox" defaultValue={focusLength} />
+
+                            <input id='setting-focus-length-seconds' placeholder="Seconds" type="number" min="0" max="60" className="setting-numbox" defaultValue={focusLength}/>
+                        </hstack>
+                        
                     </li>
 
                     <li className='setting-li'>
                         <span className='setting-item-name' style={{transform: "translateY(5px)"}} >
                             Break length
                         </span>
-                        <input id='setting-break-length' type="number" min="1" className="setting-numbox" defaultValue={breakLength}/>
+                        <hstack>
+                            <input id='setting-break-length' placeholder="Minutes" type="number" step="1"  min="1" className="setting-numbox" />
+                            <input id='setting-break-length' placeholder="Seconds" type="number" step="1"  min="1" className="setting-numbox" defaultValue={breakLength}/>
+                        </hstack>
+                        
                     </li>
 
                     <li className='setting-li'>
                         <span className='setting-item-name'>
-                            Sound
-                        </span>
-                        <label className='setting-switch'>
-                        <input type="checkbox"/>
-                        <span className="setting-slider setting-round"></span>
-                        </label>
-                    </li>
-
-                    <li className='setting-li'>
-                        <span className='setting-item-name'>
-                            Notifications
+                            Notifications Sound
                         </span>
                         <label className='setting-switch'>
                         <input id='setting-noti' className='setting-checkbox' type="checkbox" defaultChecked={noti}/>
@@ -201,6 +200,8 @@ const SettingTimer = () => {
                         </label>
                     </li>
                 </ul>
+
+                
                 <div className='form-head'>
                     <button className='setting-button' onClick={() => handleSave()}>
                         Save
