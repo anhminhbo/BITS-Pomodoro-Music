@@ -27,7 +27,7 @@ sed "s/\[\[BACKEND_PORT\]\]/$backendPort/g" \
 
 ###  CREATE DOCKER-COMPOSE TEMPLATE
 cat docker-compose.yaml.runtime | \
-sed "s/\[\[BACKEND_URL\]\]/https\:\/\/$domain/g" | \
+sed "s/\[\[WEBSITE_URL\]\]/https\:\/\/$domain/g" | \
 sed "s/\[\[FRONTEND_PORT\]\]/$frontendPort/g" | \
 sed "s/\[\[BACKEND_PORT\]\]/$backendPort/g" \
 > docker-compose.yaml.template
