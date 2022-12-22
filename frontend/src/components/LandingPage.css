@@ -20,7 +20,7 @@ html, body {
     align-items: center;
     height: 100vh;
     width: 100vw;
-    background-image: linear-gradient(rgba(255, 255, 255, 0.272), rgba(163, 163, 163, 0.229)), url('../img/BG.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../img/BG.jpg');
     background-size: 150vmax;
     background-position: center;
     background-attachment: fixed;
