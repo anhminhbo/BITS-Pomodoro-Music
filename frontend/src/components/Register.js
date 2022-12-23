@@ -37,7 +37,7 @@ const Register = () => {
     // Contains only alphabet letters and numbers
     if (!password.current.value.match(passwordRegex)) {
       passwordIsValid = false;
-        document.getElementById("register-password-message").style.display = "block";
+      document.getElementById("register-password-message").style.display = "block";
     } 
     else {
       passwordIsValid = true;
@@ -60,25 +60,29 @@ const Register = () => {
     else {
       document.getElementsByClassName("register-background")[0].style.minHeight = "120vh";
     }
-  
+    
+    if (usernameIsValid && passwordIsValid && confirmpasswordIsValid){
+      const status = await sendData(username.current.value, password.current.value);
+      console.log(status);
+    }
     // end handle submit 
   };
   
   const sendData = async (username, password) => {
+    let status;
     try {
-      const response = await postData(username.current.value, password.current.value);
+      const response = await postData(username, password);
       console.log(response);
       console.log(response.data.code);
       //transition page
+      status = response.status;
 
-    } catch(err) {
+    } 
+    catch(err) {
       console.log(err);
       console.log(err.response.data.errMessage);
-
-      //require re-input
-      document.getElementById("register-user-message").textContent=err.response.data.errMessage;
-      document.getElementById("register-user-message").style.display = "none";
     }
+    return status;
   }
 
     
@@ -86,19 +90,20 @@ const Register = () => {
 
   const postData = async (username, password) => {
     if (usernameIsValid === true && passwordIsValid === true && confirmpasswordIsValid === true) {
-      const response = await axios.post({
+      const response = await axios({
+        method: 'post',
         url: `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/auth/register`,
         data: {
           username: username,
           password: password,
-        }
-      }
-      );
+        },
+        credential: 'include',
+      });
       return response;
     }
   };
   
-  console.log(window.__RUNTIME_CONFIG__.FRONTEND_URL);
+  console.log(window.__RUNTIME_CONFIG__.BACKEND_URL);
 
   return (
       <>
@@ -144,7 +149,7 @@ const Register = () => {
             </div>
           </form>
           <button className='form-btn' type="submit" onClick={() => handleSubmit()}>Register</button>
-          <div className='register-user-message'>
+          <div id='register-user-message'>
           </div>
           <div className='form-foot form-foot-register'>
             Already have an account?{` `} <strong><a href="/login"> Log in here!</a></strong>
