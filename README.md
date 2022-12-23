@@ -2,13 +2,18 @@
 Pomodoro Music player
 ## Software Architecture
 <p align="center">
+    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/readme-3.png" width=900 height=900>
+    Software architecture(new)
+</p>
+
+<p align="center">
     <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/readme-1.png" width=900 height=900>
-    Software architecture
+    Software architecture(old)
 </p>
 
 ## Local Development pipeline
 <p align="center">
-    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/readme-2.png" width=1600 height=900>
+    <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/readme-4.png" width=1600 height=900>
     Local Development pipeline
 </p>
 
@@ -83,11 +88,16 @@ bash -x testing_docker_prod.sh
 ## How to merge master branch into your development branch for devs
 - Make sure you are using a bash terminal to run the following code
 - First arg is the name of the branch you want to merge, Second arg is your commit message for your current branch
-- Here I want to merge minh-dev to my branch with the message of my new commit
+- For all frontend members
+```
+bash push_current_and_merge.sh mirror ""
+```
+- Only frontend teamleader
 ```
 bash push_current_and_merge.sh minh-dev ""
 ```
-- There is for the team leader to ready for production on minh-dev
+
+- Only project leader
 ```
 bash push_current_and_merge.sh main ""
 ```
@@ -106,13 +116,18 @@ bash push_current_and_merge.sh main ""
     - Install terraform
     - MacOs or Linux platform or Window Bash env
     - Register and buy a domain([Namecheap](https://www.namecheap.com/), [GoDaddy](https://www.godaddy.com/vi-vn), or any domain providers)
-
+    - Install AWS CLI and configure AWS CLI using 
+    ```
+    aws configure
+    ```
 # Notes: When you know your App IP, point your domain to the App IP immediately so it saves time
 
 - Execute build infra script to provision AWS infra for the app, remember to get a domain first
 ```
-bash provisioners/build_infra.sh your_domain_here
+bash provisioners/build_infra.sh your_domain_here your_frontend_port your_backend_port
 ```
+
+# Notes: Sometimes the script will stop at Config the VM and not proceed to Apply cert for the web app step. IF you do not see "Done building infrastructure of your web app. Ref: BugFixWanderer", Here how to solve it, type in console in provisioners folder: ```ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu --key-file aws-ec2-private-key.pem -T 1000 -i ansible_hosts ansible.apply_cert.yaml```
 
 - Remember to read and type "yes" ^^!
 
@@ -121,11 +136,15 @@ bash provisioners/build_infra.sh your_domain_here
 nslookup your_domain_here | grep Address | tail -n 1 | cut -d" " -f2
 ```
 
-- If any errors happened, you will be prompt to destroy all the resources to start over, or you can do it manually:
+- If any errors happened, script automatically destroys all the resources to start over, or you can do it manually:
 ```
 bash provisioners/destroy_infra.sh
 ```
 
+- For troubleshooting produciton env, here how to ssh to production:
+```
+ssh -vv ubuntu@your_ec2_ip -i provisioners/aws-ec2-private-key.pem 
+```
 ## Docs
 - Refers to Docker App:[here](https://viblo.asia/p/deploy-ung-dung-docker-nodejs-mongo-redis-1VgZvMzYKAw?fbclid=IwAR29RauowCOzyP9PddKFq4TeQb9eFpPa1D2VjWbg0G6MhjAihEwCN78U_H0)
 - Refers to Terraform & Ansible:[here](https://viblo.asia/p/terraform-series-bai-12-ansible-with-terraform-LzD5dRGzZjY)

@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - "minh-dev"
+concurrency: create_pr_to_main
 jobs:
   create-pull-request-to-main:
     runs-on: ubuntu-latest
@@ -24,7 +25,7 @@ jobs:
               echo "skip=true" >> "$GITHUB_OUTPUT"
           fi
       - name: Create Pull Request to main
-        if: '!steps.check.outputs.skip'
+        if: "!steps.check.outputs.skip"
         uses: actions/github-script@v6
         with:
           script: |
