@@ -159,7 +159,7 @@
 }
 
 .music-player-button-disabled{
-    background-color: rgba(97, 97, 97);
+    background-color: rgb(156 156 156);
     color: black;
     padding: 10px 20px;
     border-radius: 10px;
@@ -170,7 +170,7 @@
     opacity: 0;
     cursor: default;
     width: 421px;
-    transform: translate(20px, -72px);
+    transform: translate(20px, -87px);
     text-align: justify;
     padding: 7px 10px 10px 10px;
     border-radius: 10px;
