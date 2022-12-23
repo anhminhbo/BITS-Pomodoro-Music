@@ -10,17 +10,8 @@
   margin: auto;
   width: 90%;
   height: max-content !important;
-  /* background-color: rgb(255, 255, 255); */
-  background-color: #396F04; 
-  /* 1st green*/
-  /* background-color: #B7DB25;  */
-  /* 2ND green*/
-  /* background-color: #589507;  */
-  /* 3rd green*/
-  /* background-color: #0A2004;  */
-  /* 4TH green*/
-  /* background-color: #7dbd07;  */
-  /* 5TH green*/
+  background-color: rgb(255, 255, 255);
+
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -32,6 +23,19 @@
   min-height: 250px;
   z-index: 100;
 }
+
+  /* background-color: #396F04;  */
+  /* position: absolute;
+  min-height: 100vh; */
+  /* 1st green*/
+  /* background-color: #B7DB25;  */
+  /* 2ND green*/
+  /* background-color: #589507;  */
+  /* 3rd green*/
+  /* background-color: #0A2004;  */
+  /* 4TH green*/
+  /* background-color: #7dbd07;  */
+  /* 5TH green*/
 
 .setting-header{
   display: flex;
