@@ -4,13 +4,13 @@ const RedisService = require("../redis/redis.service");
 const ResponseService = require("../response/response.service");
 const Error = require("../../config/constant/Error");
 
-const getPlaylist = async (username) => {
+const getTasks = async (username) => {
   // Get playlist
   const user = await UserService.getUserByUsername(username);
 
   const { playlist, timerSettings, tasks } = user;
 
-  //  Handle to cached user playlist and timerSettings
+  //  Handle to cached user playlist and timerSettings and tasks
   const cachedData = await RedisService.getValue(username);
   await RedisService.setValue(username, {
     ...cachedData,
@@ -19,19 +19,19 @@ const getPlaylist = async (username) => {
     tasks,
   });
 
-  return playlist;
+  return tasks;
 };
 
-const updatePlaylist = async (username, song) => {
+const updateTask = async (username, task) => {
   // Get playlist
   const user = await UserService.getUserByUsername(username);
 
-  const { playlist } = user;
+  const { tasks } = user;
 
-  const newPlaylist = playlist.length === 0 ? [song] : [...playlist, song];
+  const newTasks = tasks.length === 0 ? [task] : [...tasks, task];
 
   const filter = { username };
-  const update = { playlist: newPlaylist };
+  const update = { tasks: newTasks };
 
   // Get new playlist after update
   await UserModel.findOneAndUpdate(filter, update, {
@@ -42,32 +42,32 @@ const updatePlaylist = async (username, song) => {
   const cachedData = await RedisService.getValue(username);
   await RedisService.setValue(username, {
     ...cachedData,
-    playlist: newPlaylist,
+    tasks: newTasks,
   });
 
   return;
 };
 
-const deleteSong = async (username, songId) => {
+const deleteTask = async (username, taskIndex) => {
   // Get playlist
   const user = await UserService.getUserByUsername(username);
 
-  const { playlist } = user;
+  const { tasks } = user;
 
   // Check if deletedSong exists
-  const isDeletedSongExists = playlist.some((song) => song.songId === songId);
-  if (!isDeletedSongExists) {
+  const isDeletedTaskExists = tasks.some((task) => task.index === taskIndex);
+  if (!isDeletedTaskExists) {
     throw ResponseService.newError(
-      Error.DeletedSongNotExists.errCode,
-      Error.DeletedSongNotExists.errMessage
+      Error.DeletedTaskNotExists.errCode,
+      Error.DeletedTaskNotExists.errMessage
     );
   }
 
   // Filter playlist to exclude the deletedSong
-  const newPlaylist = playlist.filter((song) => song.songId !== songId);
+  const newTasks = tasks.filter((task) => task.index !== taskIndex);
 
   const filter = { username };
-  const update = { playlist: newPlaylist };
+  const update = { tasks: newTasks };
 
   // Get new playlist after update
   await UserModel.findOneAndUpdate(filter, update, {
@@ -78,10 +78,10 @@ const deleteSong = async (username, songId) => {
   const cachedData = await RedisService.getValue(username);
   await RedisService.setValue(username, {
     ...cachedData,
-    playlist: newPlaylist,
+    tasks: newTasks,
   });
 
   return;
 };
 
-module.exports = { getPlaylist, updatePlaylist, deleteSong };
+module.exports = { getTasks, updateTask, deleteTask };

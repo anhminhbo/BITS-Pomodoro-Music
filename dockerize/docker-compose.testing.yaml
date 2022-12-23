@@ -28,6 +28,7 @@ services:
    environment:
      - NODE_ENV=development
      - BACKEND_URL=http://localhost:8080
+     - FRONTEND_URL=http://localhost:3000
      - WDS_SOCKET_PORT=0
      - API_KEY=AIzaSyAmltDENBZXKAf_pBzRbXZp9mISeRGl52M
 

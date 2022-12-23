@@ -5,10 +5,10 @@ services:
     restart: always
     image: anhminhbo/bits-backend:[[BACKEND_TAG]]
     ports:
-     - '8080:8080'
+     - '[[BACKEND_PORT]]:[[BACKEND_PORT]]'
     environment:
       - NODE_ENV=production
-      - PORT=8080
+      - PORT=[[BACKEND_PORT]]
       - MONGO_URL=mongodb+srv://anhminhbo:Anhminh1234*@bits-production.ezlsoag.mongodb.net/?retryWrites=true&w=majority
       - REDIS_HOST=redis-12246.c1.ap-southeast-1-1.ec2.cloud.redislabs.com
       - REDIS_USERNAME=default
@@ -21,11 +21,12 @@ services:
     restart: always
     image: anhminhbo/bits-frontend:[[FRONTEND_TAG]]
     ports:
-    - '3000:80'
+    - '[[FRONTEND_PORT]]:80'
     depends_on:
       - bits-backend
     environment:
       - NODE_ENV=production
-      - BACKEND_URL=[[BACKEND_URL]]
+      - BACKEND_URL=[[WEBSITE_URL]]
+      - FRONTEND_URL=[[WEBSITE_URL]]
       - WDS_SOCKET_PORT=0
       - API_KEY=AIzaSyAmltDENBZXKAf_pBzRbXZp9mISeRGl52M

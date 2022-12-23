@@ -5,5 +5,12 @@ const UserRouter = require("./user.router");
 const AuthRouter = require("./auth.router");
 const PlaylistRouter = require("./playlist.router");
 const TimerRouter = require("./timer.router");
+const TaskRouter = require("./task.router");
 
-module.exports = { UserRouter, AuthRouter, PlaylistRouter, TimerRouter };
+module.exports = {
+  UserRouter,
+  AuthRouter,
+  PlaylistRouter,
+  TimerRouter,
+  TaskRouter,
+};
