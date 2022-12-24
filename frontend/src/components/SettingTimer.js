@@ -138,22 +138,31 @@ const SettingTimer = () => {
     // },[])
     
     
-useEffect(()=>{
 
 
-        // setFocusLength(60)
-        // console.log(focusLength)
-    
-})
-  
-        
-    
 
   return (
     <div>
-        <div className=''>
-            <div id="timer-time">{formatTime(TimerMin)}:{formatTime(TimerSec)}</div>
-            <input id="timer-btn" type="button" value={Action} style={{display: "block"}} onClick={startAndStopTimer}/>
+        <div className='timer-base'>
+            <svg className="timer-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <g className="timer-circle">
+                <circle className="timer-path_elapsed" cx="50" cy="50" r="45" />
+                <path
+                id='timer-path_left'
+                strokeDasharray="283 283"
+                className="timer-path_remaining "
+                d='
+                M 50, 50
+                m -45, 0
+                a 45,45 0 1,0 90,0
+                a 45,45 0 1,0 -90,0
+                ' />
+                </g>
+            </svg>
+            <div className='timer-label'>
+                <div id="timer-time">{formatTime(TimerMin)}:{formatTime(TimerSec)}</div>
+            </div>
+                <input id="timer-btn" type="button" value={Action} style={{display: "block"}} onClick={startAndStopTimer}/>
         </div>
         <button className='setting-button' onClick={() => handleCloseAndOpen()}>
             Setting
