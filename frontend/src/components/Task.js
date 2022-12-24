@@ -40,7 +40,8 @@ const Task = () => {
     }
 
     const handleDeleteTask = (id) => {
-        setTasklist(tasklist.filter((index) => index !== id));
+        console.log(tasklist.filter((task, index) => index !== id));
+        setTasklist(tasklist.filter((task, index) => index !== id));
     }
 
     return (
