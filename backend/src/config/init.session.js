@@ -4,9 +4,6 @@ const sessionConfig = {
   secret: SESSION_SECRET,
   store: MongoStore.create({
     mongoUrl: MONGO_URL,
-    ttl: 4 * 60 * 60, // = 4 hours. Default, s
-    autoRemove: 'interval', // TO check and remove expired sessions
-    autoRemoveInterval: 1 // In minutes. Default
   }),
   cookie: {
     // enable cookies over https
