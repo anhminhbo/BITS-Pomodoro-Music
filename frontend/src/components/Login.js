@@ -14,14 +14,12 @@ const LogIn = () => {
         password,
       };
 
-      const response = await axios.post(
+      await axios.post(
         `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/auth/login`,
         payload
       );
 
-      setTimeout(() => {
-        window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + "/main";
-      }, 1500); // Wait 1,5s before change to main to wait for backend to generate session
+      window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + "/main";
     } catch (err) {
       if (err.response.data.errCode === 103) {
         // Handle when user not found
