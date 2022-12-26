@@ -24,7 +24,7 @@ function App() {
       setBackend(
         response.data.data === "Test Success"
           ? "Connected to Backend Successfully."
-          : "Unable to connect to Backend."
+          : "Unable to connect to Backend. Check now!"
       );
     });
   });

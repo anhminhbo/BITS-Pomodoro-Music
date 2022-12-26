@@ -139,7 +139,7 @@ require("./config/init.redis");
 const port = PORT || 8080;
 
 app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+  console.log(`Server listening on port ${port}.`);
 });
 
 // handle Globaly the unhandle Rejection Error which is  outside the express

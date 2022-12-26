@@ -1,11 +1,5 @@
 # Install dependencies only when needed - Dependencies installation stage
 FROM node:16-alpine as deps-installer
-# Creator
-LABEL author="Minh Nguyen"
-LABEL alias="BugFixWanderer"
-LABEL email="nca.minh8897@gmail.com"
-LABEL linkedln="https://www.linkedin.com/in/cuong-anh-minh-nguyen/"
-LABEL youtube="https://www.youtube.com/channel/UCRUJYpLa_nQrR6NY5Uy6egQ"
 
 WORKDIR /app
 COPY package* ./
@@ -28,6 +22,14 @@ RUN npm run build
 # This is runner stage
 # Bundle static assets with nginx
 FROM nginx:stable-alpine as runner
+# Creator
+LABEL author="Minh Nguyen"
+LABEL maintainer="Minh Nguyen"
+LABEL alias="BugFixWanderer"
+LABEL email="nca.minh8897@gmail.com"
+LABEL linkedln="https://www.linkedin.com/in/cuong-anh-minh-nguyen/"
+LABEL youtube="https://www.youtube.com/channel/UCRUJYpLa_nQrR6NY5Uy6egQ"
+
 # Copy built assets from `builder` image
 COPY --from=builder /app/build /usr/share/nginx/html
 
