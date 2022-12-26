@@ -5,7 +5,7 @@ div img {
 }
 
 .header-container {
-    background-color: white;
+    background-color: rgba(0, 15, 0, 0.998);
     height: max-content;
     width: 100%;
     display: flex;
@@ -24,10 +24,11 @@ div img {
     justify-content: center;
     align-items: center;
     font-family: "Quicksand", serif;
-    background-color: white;
+    background-color: rgb(0, 15, 0);
     height: 66px;
     width: 100%;
     font-weight: 700;
+    color: rgb(158, 158, 158);
     font-size: calc(13px + 1vw);
     line-height: 150%;
     z-index: 9;
