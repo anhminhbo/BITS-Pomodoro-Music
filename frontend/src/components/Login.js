@@ -19,7 +19,9 @@ const LogIn = () => {
         payload
       );
 
-      window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + "/main";
+      setTimeout(() => {
+        window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + "/main";
+      }, 1500); // Wait 1,5s before change to main to wait for backend to generate session
     } catch (err) {
       if (err.response.data.errCode === 103) {
         // Handle when user not found
@@ -35,7 +37,8 @@ const LogIn = () => {
   return (
     <>
       <div className="login-background">
-        <div className="login-register-container login-container"
+        <div
+          className="login-register-container login-container"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               login(username.current.value, password.current.value);
@@ -57,7 +60,11 @@ const LogIn = () => {
                 maxlength="150"
                 placeholder="Enter Username"
                 ref={username}
-                defaultValue={(sessionStorage.getItem("username") ? sessionStorage.getItem("username") : "")}
+                defaultValue={
+                  sessionStorage.getItem("username")
+                    ? sessionStorage.getItem("username")
+                    : ""
+                }
               />
             </div>
             <div className="password login-register-input">
