@@ -2,23 +2,30 @@ import React, { useRef } from "react";
 import "./Form.css";
 import axios from "axios";
 
-const background = require('../img/BG.jpg');
+const background = require("../img/BG.jpg");
 
 const LogIn = () => {
   const username = useRef();
   const password = useRef();
   const login = async (username, password) => {
     try {
+      const payload = {
+        username,
+        password,
+      };
       const response = await axios.post(
         `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/auth/login`,
-        {
-          username,
-          password,
-        }
+        payload
       );
       console.log(response);
     } catch (err) {
-      console.log(err);
+      if (err.response.data.errCode === 103) {
+        // Handle when user not found
+        console.log("Handle when user not found");
+      } else if (err.response.data.errCode === 102) {
+        // Handle when Password is invalid
+        console.log("Handle when Password is invalid");
+      }
     }
   };
 
@@ -26,9 +33,7 @@ const LogIn = () => {
     <>
       <div className="login-background">
         <div className="login-register-container login-container">
-          <div className="form-head login-head">
-            Login
-          </div>
+          <div className="form-head login-head">Login</div>
           <form className="pure-form" method="post">
             <div className="username login-register-input">
               <div className="formlabel" for="username">
@@ -61,18 +66,21 @@ const LogIn = () => {
               />
             </div>
           </form>
-            <button className="form-btn" onClick={() => {
+          <button
+            className="form-btn"
+            onClick={() => {
               console.log(username.current.value);
               console.log(password.current.value);
               login();
-            }}>
-              Login
-            </button>
+            }}
+          >
+            Login
+          </button>
           <div className="form-foot">
-              Don't have an account?{` `}
-              <strong>
-                <a href="/register"> Register here!</a>
-              </strong>
+            Don't have an account?{` `}
+            <strong>
+              <a href="/register"> Register here!</a>
+            </strong>
           </div>
         </div>
       </div>

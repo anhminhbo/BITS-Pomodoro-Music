@@ -23,7 +23,7 @@ const getTasks = catchAsync(async (req, res) => {
 const updateTask = catchAsync(async (req, res) => {
   const { username } = req.session;
   const { task } = req.body;
-  if (!task) {
+  if (!task.name) {
     res.body = {
       errCode: Error.EmptyTask.errCode,
       errMessage: Error.EmptyTask.errMessage,

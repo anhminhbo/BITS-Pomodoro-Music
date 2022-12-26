@@ -28,7 +28,7 @@ morgan.token("resp_body", (req, res) => {
 });
 
 morgan.token("username", (req, res) => {
-  return req.session.username;
+  return req.session?.username ? req.session.username : "no session username";
 });
 
 app.use(
