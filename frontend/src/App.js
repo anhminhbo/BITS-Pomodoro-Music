@@ -30,7 +30,7 @@ function App() {
   });
   console.log(backend);
 
-  // // Sample haha
+  // //Sample haha
   // const register = async (username, password) => {
     // try {
     //   const response = await axios.post(

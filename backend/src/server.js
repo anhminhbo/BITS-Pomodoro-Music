@@ -129,7 +129,7 @@ app.use("*", (req, res, next) => {
 // error handling middleware
 app.use(globalErrorHandler);
 
-// running
+// Init db
 // Connect to Mongoose
 require("./config/init.mongo");
 
