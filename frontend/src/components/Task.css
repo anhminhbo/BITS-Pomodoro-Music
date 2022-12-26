@@ -13,7 +13,7 @@
     flex-direction: column;
     justify-content: center;
     justify-self: center;
-    background-color: rgba(128, 128, 128, 0.7);
+    background-color: rgba(25, 31, 25, 0.7);
     border-radius: 15px;
     align-items: center;
     height: max-content;
@@ -25,7 +25,7 @@
     justify-content: center;
     font-size: 35px;
     font-weight: 700;
-    color: white;
+    color: rgb(143, 143, 143);
     margin-bottom: 25px;
 }
 

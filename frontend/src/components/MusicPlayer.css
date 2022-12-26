@@ -12,7 +12,7 @@
     justify-content: center;
     justify-self: center;
     margin-bottom: 30px;
-    background-color: rgba(128, 128, 128, 0.7);
+    background-color: rgba(0, 0, 0, 0.7);
     border-radius: 10px;
     height: max-content;
 }
@@ -33,13 +33,15 @@
     width: 530px;
     border-radius: 10px;
     border: 0px;
+    background-color: rgb(32, 137, 36);
+    color: rgb(255, 255, 255);
 }
 
 #music-player-input-button{
     font-family: 'Quicksand', sans-serif;
     font-size: 20px;
     border: none;
-    background-color: white;
+    background-color: rgb(37, 161, 9);
     padding: 10px 10px;
     border-radius: 10px;
     cursor: pointer;
@@ -69,8 +71,8 @@
 
 #music-player-track-active{
     font-family: 'Quicksand', sans-serif;
-    background-color: rgba(255, 255, 255);
-    color: black;
+    background-color: rgb(0, 31, 4);
+    color: rgb(142, 142, 142);
     list-style-type: none;
     width: 600px;
     padding: 10px 20px 10px 20px;
@@ -151,7 +153,7 @@
 }
 
 .music-player-button{
-    background-color: white;
+    background-color: rgb(0, 133, 11);
     padding: 10px 20px;
     border-radius: 10px;
     cursor: pointer;
@@ -159,7 +161,7 @@
 }
 
 .music-player-button-disabled{
-    background-color: rgb(156 156 156);
+    background-color: rgba(0, 43, 1, 0.799);
     color: black;
     padding: 10px 20px;
     border-radius: 10px;
