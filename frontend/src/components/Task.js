@@ -14,11 +14,13 @@ const Task = () => {
       );
       const tasks = response.data.data.tasks;
       setTasklist(tasks);
-    } catch (err) {
-      if (err.response.data.errCode === 112) {
-        // Handle when session expired
-        console.log("Handle when session expired");
-      }
+    } 
+    catch (err) {
+        if (err.response.data.errCode === 112) {
+          // Handle when session expired
+          alert("ERROR: Session expired!");
+          window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
+        }
     }
   };
 
@@ -60,10 +62,6 @@ const Task = () => {
       const response = await axios.delete(
         `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/task/deleteTask/${index}`
       );
-
-  
-      // Handle delete tasks success -> Update tasks on UI
-      console.log("Handle update tasks");
       await getTasks();
     } catch (err) {
       if (err.response.data.errCode === 112) {
@@ -100,25 +98,20 @@ const Task = () => {
     if (opacity === "1") {
       document.getElementById("task-setting-outer").style.visibility = "hidden";
       document.getElementById("task-setting-outer").style.opacity = "0";
-    } else {
-      document.getElementById("task-setting-outer").style.visibility =
-        "visible";
+    } 
+    else {
+      document.getElementById("task-setting-outer").style.visibility ="visible";
       document.getElementById("task-setting-outer").style.opacity = "1";
     }
   };
 
   const handleAddTask = () => {
-    var newTask = {
-      name: taskname.current.value,
-      isDone: false,
-    };
-    setTasklist((tasklist) => [...tasklist, newTask]);
+    updateTasks(tasklist.length, taskname.current.value, false);
     handleCloseAndOpen();
   };
 
   const handleDeleteTask = (id) => {
-    console.log(tasklist.filter((task, index) => index !== id));
-    setTasklist(tasklist.filter((task, index) => index !== id));
+    deleteTask(id);
   };
 
   return (

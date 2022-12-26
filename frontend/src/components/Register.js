@@ -73,7 +73,8 @@ const Register = () => {
         username.current.value,
         password.current.value
       );
-      console.log(status);
+      sessionStorage.setItem("username", username.current.value);
+      window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + "/login";
     }
     // end handle submit
   };
@@ -125,7 +126,13 @@ const Register = () => {
   return (
     <>
       <div className="register-background">
-        <div className="login-register-container register-container">
+        <div className="login-register-container register-container" onKeyDown={
+          (e) => {
+            if (e.key === "Enter") {
+              handleSubmit()
+            }
+          }}
+        >
           <div className="form-head">
             <div className="form-title-bold">Get started in minutes</div>
             <div className="form-title-sm">
