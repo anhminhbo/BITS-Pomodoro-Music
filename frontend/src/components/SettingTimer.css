@@ -184,11 +184,11 @@ ul{
   align-self: center;
   justify-content: center;
   text-align: center;
-  color: white;
+  color: rgb(213, 213, 213);
   border: none;
   font-size: 20px;
   border-radius: 10px;
-  background: #7dbd07;
+  background: #456804;
   outline: none;
   padding: 10px 5px;
   cursor: pointer;
