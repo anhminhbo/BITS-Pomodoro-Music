@@ -4,14 +4,15 @@
     "fix": "eslint --fix src",
     "startDebugSession": "DEBUG=express-session node src/server.js",
     "serverDebugSession": "DEBUG=express-session nodemon src/server.js",
-    "start":"node src/server.js",
-    "server":"nodemon src/server.js",
+    "start": "node src/server.js",
+    "server": "nodemon src/server.js",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"cd ..\" \"cd frontend\" \"npm run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "connect-mongo": "^4.6.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
