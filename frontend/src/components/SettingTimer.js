@@ -3,6 +3,8 @@
 import React, { useState } from 'react'
 import'./SettingTimer.css'
 import { useRef, useEffect } from 'react';
+import { CountdownCircleTimer } from 'react-countdown-circle-timer'
+import ReactDOM from "react-dom";
 const formatTime = (num) => {
     if (num<10) return '0'+num;
     return num;
@@ -149,23 +151,23 @@ const SettingTimer = () => {
 
     function calculateTimeFraction(){
         var CurrentTimeLeft = 0
-        var CurrentLimit = (isFocused ? focusLengthMin : breakLengthMin);
+        var CurrentLimit = (isFocused ? focusLengthMin : breakLengthMin); //static) the amount of time the user first entered currently in minutes
 
-        var ConvertedCurrentLimit = (CurrentLimit * 60)
+        var ConvertedCurrentLimit = (CurrentLimit * 60) //convert to second
 
         console.log(ConvertedCurrentLimit)
         
         console.log(TimerMin)
         console.log(Min)
 
-        const TimeFraction = 180 //placeholder
+        const TimeFraction = 180 //placeholder  TimmeFraction = TimeLeft/TimeLimit
         return TimeFraction
 
     }
 
     function SetCircleAnimation(){
-        const fullLoading = 283
-        const CountDownAnimation = `${(calculateTimeFraction() * fullLoading).toFixed(0)} 283`;
+        const fullLoading = 283 //full circle
+        const CountDownAnimation = `${(calculateTimeFraction() * fullLoading).toFixed(0)/* this changes everytime a seccond go down */} 283`;
         document.getElementById("timmer-path_left").setAttribute("stroke-dasharray", CountDownAnimation);
             
     }
@@ -174,7 +176,21 @@ const SettingTimer = () => {
   return (
     <div>
         <div className='timer-base' id='Countdown'>
-
+            <svg className="timer-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <g className="timer-circle">
+                <circle className="timer-path_elapsed" cx="50" cy="50" r="45" />
+                <path
+                id='timer-path_left'
+                strokeDasharray="283 283"
+                className="timer-path_remaining "
+                d='
+                M 50, 50
+                m -45, 0
+                a 45,45 0 1,0 90,0
+                a 45,45 0 1,0 -90,0
+                ' />
+                </g>
+            </svg>  
             <div className='timer-label'>
                 <div id="timer-time">{formatTime(TimerMin)}:{formatTime(TimerSec)}</div>
             </div>
