@@ -116,3 +116,62 @@ html, body {
 .landing-page-btn-label a:hover {
     font-weight: 700;
 }
+
+/* Making the page responsive */
+
+/* Tablet */
+@media (min-width: 741px) and (max-width: 1023px) {
+
+    .landing-page-content {
+        height: calc(70px + 45vh);
+        width: calc(12px + 60vw);
+    }
+
+    .landing-page-title h1 {
+        font-size: calc(20px + 5vw);
+    }
+
+    .landing-page-title h3 {
+        font-size: calc(12px + 1.9vw);
+    }
+
+    .landing-page-button .started-btn {
+        min-width: 250px;
+        max-width: 320px;
+        font-size: calc(13px + 1.2vmax);
+        padding: calc(8px + 0.3vw) calc(3px + 0.7vh);
+    }
+
+    .landing-page-btn-label {
+        font-size: calc(13px + 0.5vw);
+    }
+}
+
+/* Mobile */
+@media (max-width: 740px) {
+
+    .landing-page-content {
+        min-height: calc(70px + 70vh);
+        max-height: calc(70px + 80vh);
+        min-width: calc(12px + 78vw);
+    }
+
+    .landing-page-title h1 {
+        font-size: calc(20px + 7.9vw);
+    }
+
+    .landing-page-title h3 {
+        font-size: calc(12px + 1.8vw);
+    }
+
+    .landing-page-button .started-btn {
+        min-width: 200px;
+        max-width: 280px;
+        font-size: calc(13px + 0.8vmax);
+        padding: calc(8px + 0.3vw) calc(3px + 0.7vh);
+    }
+
+    .landing-page-btn-label {
+        font-size: calc(13px + 0.4vw);
+    }
+}
