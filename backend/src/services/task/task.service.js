@@ -55,7 +55,7 @@ const deleteTask = async (username, taskIndex) => {
   const { tasks } = user;
 
   // Check if deletedSong exists
-  const isDeletedTaskExists = tasks.some((task) => task.index === taskIndex);
+  const isDeletedTaskExists = tasks.some((task, index) => index == taskIndex);
   if (!isDeletedTaskExists) {
     throw ResponseService.newError(
       Error.DeletedTaskNotExists.errCode,
@@ -64,7 +64,7 @@ const deleteTask = async (username, taskIndex) => {
   }
 
   // Filter playlist to exclude the deletedSong
-  const newTasks = tasks.filter((task) => task.index !== taskIndex);
+  const newTasks = tasks.filter((task, index) => index != taskIndex);
 
   const filter = { username };
   const update = { tasks: newTasks };

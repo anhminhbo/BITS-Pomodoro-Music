@@ -13,14 +13,17 @@ const LogIn = () => {
         username,
         password,
       };
-      const response = await axios.post(
+
+      await axios.post(
         `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/auth/login`,
         payload
       );
-      console.log(response);
+
+      window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + "/main";
     } catch (err) {
       if (err.response.data.errCode === 103) {
         // Handle when user not found
+        console.log(err);
         console.log("Handle when user not found");
       } else if (err.response.data.errCode === 102) {
         // Handle when Password is invalid
@@ -32,7 +35,14 @@ const LogIn = () => {
   return (
     <>
       <div className="login-background">
-        <div className="login-register-container login-container">
+        <div
+          className="login-register-container login-container"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              login(username.current.value, password.current.value);
+            }
+          }}
+        >
           <div className="form-head login-head">Login</div>
           <form className="pure-form" method="post">
             <div className="username login-register-input">
@@ -48,6 +58,11 @@ const LogIn = () => {
                 maxlength="150"
                 placeholder="Enter Username"
                 ref={username}
+                defaultValue={
+                  sessionStorage.getItem("username")
+                    ? sessionStorage.getItem("username")
+                    : ""
+                }
               />
             </div>
             <div className="password login-register-input">
@@ -69,9 +84,7 @@ const LogIn = () => {
           <button
             className="form-btn"
             onClick={() => {
-              console.log(username.current.value);
-              console.log(password.current.value);
-              login();
+              login(username.current.value, password.current.value);
             }}
           >
             Login

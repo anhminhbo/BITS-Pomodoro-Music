@@ -77,8 +77,8 @@ app.use(
 // set limit request from same API in timePeroid from same ip
 // set this limit to API calls only
 const limiter = rateLimit({
-  max: 100, //   max number of limits
-  windowMs: 5 * 60 * 1000, // 5 minutes
+  max: 60, // max number of limits
+  windowMs: 5 * 60 * 1000, // Banned 5 minutes
   message: " Too many req from this IP , please Try  again in 5 minutes!",
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
@@ -129,7 +129,7 @@ app.use("*", (req, res, next) => {
 // error handling middleware
 app.use(globalErrorHandler);
 
-// running
+// Init db
 // Connect to Mongoose
 require("./config/init.mongo");
 
@@ -139,7 +139,7 @@ require("./config/init.redis");
 const port = PORT || 8080;
 
 app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+  console.log(`Server listening on port ${port}.`);
 });
 
 // handle Globaly the unhandle Rejection Error which is  outside the express

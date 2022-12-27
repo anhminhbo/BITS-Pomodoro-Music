@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema(
     ],
     tasks: [
       {
-        index: { type: String, required: true, unique: true },
+        index: { type: String, required: true },
         name: { type: String, required: true },
         isDone: { type: Boolean },
       },
