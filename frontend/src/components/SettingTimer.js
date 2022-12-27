@@ -3,7 +3,8 @@
 import React, { useState } from 'react'
 import'./SettingTimer.css'
 import { useRef, useEffect } from 'react';
-
+import { CountdownCircleTimer } from 'react-countdown-circle-timer'
+import ReactDOM from "react-dom";
 const formatTime = (num) => {
     if (num<10) return '0'+num;
     return num;
@@ -50,7 +51,7 @@ const SettingTimer = () => {
                     // Set interval to 1 to prevent pressing button while time runs out
                     Interval.current = 1;
                     console.log("Stop");
-                    setAction("Start");
+                    setAction("Start");                     
                 }
                 // If time doesn't run out but second equals to zero
                 else if (Sec.current == 0) {
