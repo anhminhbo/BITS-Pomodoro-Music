@@ -142,30 +142,36 @@ const SettingTimer = () => {
 
     return (
         <div>
-            <div className='timer-base'>
-                <svg className="timer-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <g className="timer-circle">
-                    <circle className="timer-path-elapsed" cx="50" cy="50" r="45" />
-                    <path
-                    id='timer-path-left'
-                    strokeDasharray="283 283"
-                    className="timer-path-remaining"
-                    d='
-                    M 50, 50
-                    m -45, 0
-                    a 45,45 0 1,0 90,0
-                    a 45,45 0 1,0 -90,0
-                    ' />
-                    </g>
-                </svg>
-                <div className='timer-label'>
-                    <div id="timer-time">{formatTime(TimerMin)}:{formatTime(TimerSec)}</div>
+            <div className='timer-container'>
+                <div className='timer-base'>
+                    <svg className="timer-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <g className="timer-circle">
+                        <circle className="timer-path-elapsed" cx="50" cy="50" r="45" />
+                        <path
+                        id='timer-path-left'
+                        strokeDasharray="283 283"
+                        className="timer-path-remaining"
+                        d='
+                        M 50, 50
+                        m -45, 0
+                        a 45,45 0 1,0 90,0
+                        a 45,45 0 1,0 -90,0
+                        ' />
+                        </g>
+                    </svg>
+                    <div className='timer-label'>
+                        <div id="timer-time">{formatTime(TimerMin)}:{formatTime(TimerSec)}</div>
+                    </div>
+
+                    <input className='timer-start-btn' id="timer-btn" type="button" value={Action} style={{display: "block"}} onClick={startAndStopTimer}/>
+                    
                 </div>
-                    <input id="timer-btn" type="button" value={Action} style={{display: "block"}} onClick={startAndStopTimer}/>
-            </div>
-            <button className='setting-button' onClick={() => handleCloseAndOpen()}>
+                <button className='setting-button' onClick={() => handleCloseAndOpen()}>
                 Setting
-            </button>
+                </button>
+            </div>
+            <br/>
+            
             <div id="setting-outer" style={style}>
                 <div className='setting-container'>
                     <div className="setting-header">
@@ -179,9 +185,9 @@ const SettingTimer = () => {
                             <span className='setting-item-name'  style={{transform: "translateY(5px)"}} >
                                 Focus length
                             </span>
-                            <hstack>
+                            
                                 <input id='setting-focus-length-min' placeholder="Minutes" type="number" maxLength='4'  min="1" max="60" className="setting-numbox" defaultValue={focusLengthMin} />
-                            </hstack>
+                            
                             
                         </li>
 
@@ -189,9 +195,9 @@ const SettingTimer = () => {
                             <span className='setting-item-name' style={{transform: "translateY(5px)"}} >
                                 Break length
                             </span>
-                            <hstack>
+                            
                                 <input id='setting-break-length-min' placeholder="Minutes" type="number" step="1"  min="1" className="setting-numbox" defaultValue={breakLengthMin}/>
-                            </hstack>
+                            
                             
                         </li>
 
@@ -208,7 +214,7 @@ const SettingTimer = () => {
 
                     
                     <div className='form-head'>
-                        <button className='setting-button' onClick={() => handleSave()}>
+                        <button className='setting-save-button' onClick={() => handleSave()}>
                             Save
                         </button>
                     </div>
