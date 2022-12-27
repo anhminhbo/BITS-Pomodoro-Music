@@ -3,7 +3,8 @@
 import React, { useState } from 'react'
 import'./SettingTimer.css'
 import { useRef, useEffect } from 'react';
-
+import { CountdownCircleTimer } from 'react-countdown-circle-timer'
+import ReactDOM from "react-dom";
 const formatTime = (num) => {
     if (num<10) return '0'+num;
     return num;
@@ -11,14 +12,14 @@ const formatTime = (num) => {
 
 const SettingTimer = () => {
     const [focusLengthMin, setFocusLengthMin] = useState(0);
-    const [focusLengthSec, setFocusLengthSec] = useState(0);
     const [breakLengthMin, setBreakLengthMin] = useState(0);
-    const [breakLengthSec, setBreakLengthSec] = useState(0);
     const [isFocused, setIsFocused] = useState(true);
     const [noti, setNoti] = useState(false);
     const [temp, setTemp] = useState(noti);
     var Min = (isFocused ? focusLengthMin : breakLengthMin);
-    var Sec = (isFocused ? focusLengthSec : breakLengthSec);
+    var Sec = 0
+    var CurrentTimeLeft = (isFocused ? focusLengthMin : breakLengthMin);
+
     const [TimerMin, setTimerMin] = useState(Min);
     const [TimerSec, setTimerSec] = useState(Sec);
     const [Action, setAction] = useState("Start");
@@ -26,10 +27,9 @@ const SettingTimer = () => {
 
     useEffect(() => {
         Min = (isFocused ? focusLengthMin : breakLengthMin);
-        Sec = (isFocused ? focusLengthSec : breakLengthSec);
         setTimerMin(Min);
         setTimerSec(Sec);
-    }, [focusLengthMin, focusLengthSec, breakLengthMin, breakLengthSec, isFocused]);
+    }, [focusLengthMin, breakLengthMin, isFocused]);
 
     // NOTE: THE TIMER ONLY RUN IF INTERVAL EQUALS ZERO
 
@@ -45,18 +45,21 @@ const SettingTimer = () => {
                     // Set interval to 1 to prevent pressing button while time runs out
                     Interval.current = 0;
                     console.log("Stop");
-                    setAction("Start");
+                    setAction("Start");                     
                 }
                 // If time doesn't run out but second equals to zero
                 else if (Sec == 0) {
                     Sec = 59;
-                    Min--; 
+                    Min--;                   
                 }
                 // Go normally by reducing second by one
-                else Sec--;
+                else{
+                    Sec--
+                };
                 // Update value for re-render
                 setTimerMin(Min);
                 setTimerSec(Sec);
+                SetCircleAnimation()
             }, 1000);
         }
         else {
@@ -111,18 +114,16 @@ const SettingTimer = () => {
 
     useEffect(() => {
         console.log(focusLengthMin);
-        console.log(focusLengthSec);
+
         console.log(breakLengthMin);
-        console.log(breakLengthSec);
+
         console.log(noti);
-    }, [focusLengthMin, breakLengthMin, focusLengthSec, breakLengthSec, noti])
+    }, [focusLengthMin, breakLengthMin, noti])
 
     // Handle save properties in Setting
     const handleSave = () => {
         setFocusLengthMin(document.getElementById('setting-focus-length-min').value);
-        setFocusLengthSec(document.getElementById('setting-focus-length-sec').value);
         setBreakLengthMin(document.getElementById('setting-break-length-min').value);
-        setBreakLengthSec(document.getElementById('setting-break-length-sec').value);
         if (noti !== temp) setNoti(temp);
         handleCloseAndOpen();
     }
@@ -130,9 +131,7 @@ const SettingTimer = () => {
     const handleCancel = () => {
         handleCloseAndOpen();
         document.getElementById('setting-focus-length-min').value = focusLengthMin;
-        document.getElementById('setting-focus-length-sec').value = focusLengthSec;
         document.getElementById('setting-break-length-min').value = breakLengthMin;
-        document.getElementById('setting-break-length-sec').value = breakLengthMin;
         document.getElementById('setting-noti').checked = noti;
     }
     
@@ -149,14 +148,34 @@ const SettingTimer = () => {
 
 
     // },[])
-    
-    
 
+    function calculateTimeFraction(){
+        var CurrentTimeLeft = 0
+        var CurrentLimit = (isFocused ? focusLengthMin : breakLengthMin); //static) the amount of time the user first entered currently in minutes
+
+        var ConvertedCurrentLimit = (CurrentLimit * 60) //convert to second
+
+        console.log(ConvertedCurrentLimit)
+        
+        console.log(TimerMin)
+        console.log(Min)
+
+        const TimeFraction = 180 //placeholder  TimmeFraction = TimeLeft/TimeLimit
+        return TimeFraction
+
+    }
+
+    function SetCircleAnimation(){
+        const fullLoading = 283 //full circle
+        const CountDownAnimation = `${(calculateTimeFraction() * fullLoading).toFixed(0)/* this changes everytime a seccond go down */} 283`;
+        document.getElementById("timmer-path_left").setAttribute("stroke-dasharray", CountDownAnimation);
+            
+    }
 
 
   return (
     <div>
-        <div className='timer-base'>
+        <div className='timer-base' id='Countdown'>
             <svg className="timer-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <g className="timer-circle">
                 <circle className="timer-path_elapsed" cx="50" cy="50" r="45" />
@@ -171,7 +190,7 @@ const SettingTimer = () => {
                 a 45,45 0 1,0 -90,0
                 ' />
                 </g>
-            </svg>
+            </svg>  
             <div className='timer-label'>
                 <div id="timer-time">{formatTime(TimerMin)}:{formatTime(TimerSec)}</div>
             </div>
@@ -191,22 +210,22 @@ const SettingTimer = () => {
                 <ul>
                     <li className='setting-li'>
                         <span className='setting-item-name'  style={{transform: "translateY(5px)"}} >
-                            Focus length
+                            Focus length(Minutes)
                         </span>
                         <hstack>
                             <input id='setting-focus-length-min' placeholder="Minutes" type="number" maxLength='4'  min="1" max="60" className="setting-numbox" defaultValue={focusLengthMin} />
-                            <input id='setting-focus-length-sec' placeholder="Seconds" type="number" min="0" max="60" className="setting-numbox" defaultValue={focusLengthSec}/>
+
                         </hstack>
                         
                     </li>
 
                     <li className='setting-li'>
                         <span className='setting-item-name' style={{transform: "translateY(5px)"}} >
-                            Break length
+                            Break length(Minutes)
                         </span>
                         <hstack>
                             <input id='setting-break-length-min' placeholder="Minutes" type="number" step="1"  min="1" className="setting-numbox" defaultValue={breakLengthMin}/>
-                            <input id='setting-break-length-sec' placeholder="Seconds" type="number" step="1"  min="1" className="setting-numbox" defaultValue={breakLengthSec}/>
+
                         </hstack>
                         
                     </li>
