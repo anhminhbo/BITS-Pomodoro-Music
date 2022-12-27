@@ -3,7 +3,6 @@
 import React, { useState } from 'react'
 import'./SettingTimer.css'
 import { useRef, useEffect } from 'react';
-import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import ReactDOM from "react-dom";
 const formatTime = (num) => {
     if (num<10) return '0'+num;
@@ -30,6 +29,7 @@ const SettingTimer = () => {
         Min.current = (isFocused ? focusLengthMin : breakLengthMin);
         Sec.current = 0;
         totalTime.current = Min.current * 60;
+        document.getElementsByClassName("timer-path-remaining")[0].setAttribute("stroke-dasharray", "283 283");
         setTimerMin(Min.current);
         setTimerSec(Sec.current);
     }, [focusLengthMin, breakLengthMin, isFocused]);
@@ -50,6 +50,7 @@ const SettingTimer = () => {
                     clearInterval(Interval.current);
                     // Set interval to 1 to prevent pressing button while time runs out
                     Interval.current = 1;
+                    setIsFocused(!isFocused);
                     console.log("Stop");
                     setAction("Start");                     
                 }
