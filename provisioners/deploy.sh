@@ -20,7 +20,7 @@ if [ "$currentFrontendTag" == "$dockerHubFrontendTag" ] && [ "$currentBackendTag
 fi
     # Backup files before new deploy
     timeSufix=$(date +%d-%m-%Y-time-%H-%M-%S)
-    cp $PROJ_DIR/docker-compose.yaml $PROJ_DIR/backups/docker-compose.backup-${timeSuffix}.yaml
+    cp $PROJ_DIR/docker-compose.yaml $PROJ_DIR/backups/docker-compose.backup-${timeSufix}.yaml
 
     # Make a new docker compose file based on new tag
     cat $PROJ_DIR/docker-compose.yaml.template | \
