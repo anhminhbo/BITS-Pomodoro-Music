@@ -243,17 +243,12 @@ input::-webkit-inner-spin-button {
   font-size: 44px;
 }
 
-.timer-path_remaining{
-
+.timer-path-remaining{
   stroke-width: 7px;
-
   stroke-linecap: round;
-
   transform: rotate(90);
   transform-origin: center;
-
   transition: 1s linear all;
-
   stroke: green;
 }
 
