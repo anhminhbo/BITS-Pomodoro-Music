@@ -246,8 +246,9 @@ input::-webkit-inner-spin-button {
 .timer-path-remaining{
   stroke-width: 7px;
   stroke-linecap: round;
-  transform: rotate(90);
   transform-origin: center;
+  /* -webkit-transform: scaleX(-1); */
+  transform: rotate(-90deg) scaleX(-1);
   transition: 1s linear all;
   stroke: green;
 }
