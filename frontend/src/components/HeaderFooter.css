@@ -36,9 +36,10 @@ div img {
 
 #header-menu {
     outline: none !important;
+    box-shadow: 5px 5px rgba(202, 202, 202, 0.5);
     position: absolute;
     background: white;
-    width: 200px;
+    width: 230px;
     height: max-content;
     z-index: 10;
     top: 66px;
@@ -62,8 +63,14 @@ div img {
     transition: all .2s ease;
 }
 
+#header-menu li #header-username {
+    color: rgb(32, 137, 36);
+    font-weight: 500;
+    text-decoration: underline;
+}
+
 #header-menu li.btn:hover {
-    background-color: rgb(123, 123, 123);
+    background-color: rgb(32, 137, 36);
     color: white;
 }
 
