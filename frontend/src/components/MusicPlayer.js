@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import axios from "axios";
-import YouTube, { YouTubeProps } from 'react-youtube';
+import YouTube from 'react-youtube';
 import './MusicPlayer.css'
 
 const MusicPlayer = () => {
@@ -23,7 +23,6 @@ const MusicPlayer = () => {
     }, []);
 
     useEffect(() => {
-        console.log(playlist);
         if (playlist.length == 0) {
             setCurIndex(0);
             setRandom(0);
@@ -191,24 +190,21 @@ const MusicPlayer = () => {
         else if (index === curIndex) setCurIndex(curIndex => (curIndex === (playlist.length - 1) ? (curIndex - 1 >= 0 ? curIndex - 1 : 0) : curIndex));
     }
 
-    const Player = () => {
-        if (playlist.length === 0) return (
-            <div id='music-player-current-track-placeholder'>
-                Pumidoro Music Player
-            </div>
-        )
-        else return (
-            <div id="music-player-current-track">
-                <YouTube videoId={playlist[curIndex].songId} opts={opts} onStateChange={ (e) => { if (e.data == 0) { setCurIndex(playNext()); } } }/>
-            </div>
-        );
-    };
-
     return (
         <div id="music-player">
             {/* Input field */}
             <div id='music-player-display'>
-                <Player />
+                {
+                    playlist.length === 0 
+                    ?
+                    <div id='music-player-current-track-placeholder'>
+                        Pumidoro Music Player
+                    </div>
+                    :
+                    <div id="music-player-current-track">
+                        <YouTube videoId={playlist[curIndex].songId} opts={opts} onStateChange={(e) => { if (e.data == 0) { setCurIndex(playNext()); } } }/>
+                    </div>
+                }
                 <div id="music-player-right">
                     <div id="music-player-input">
                         <input id="music-player-input-url" type="text" placeholder='Enter a YouTube URL here, press "Add" and enjoy!' onChange={(e) => youtubeURL.current = e.target.value}/>
