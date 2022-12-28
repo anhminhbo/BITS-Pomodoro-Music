@@ -3,7 +3,8 @@
 import React, { useState } from 'react'
 import'./SettingTimer.css'
 import { useRef, useEffect } from 'react';
-import ReactDOM from "react-dom";
+import MusicPlayer from './MusicPlayer';
+
 const formatTime = (num) => {
     if (num<10) return '0'+num;
     return num;
@@ -49,7 +50,7 @@ const SettingTimer = () => {
                 if (Min.current == 0 && Sec.current == 0) {
                     clearInterval(Interval.current);
                     // Set interval to 1 to prevent pressing button while time runs out
-                    Interval.current = 1;
+                    Interval.current = 0;
                     setIsFocused(!isFocused);
                     console.log("Stop");
                     setAction("Start");                     
@@ -129,8 +130,8 @@ const SettingTimer = () => {
 
     // Handle save properties in Setting
     const handleSave = () => {
-        setFocusLengthMin(document.getElementById('setting-focus-length-min').value);
-        setBreakLengthMin(document.getElementById('setting-break-length-min').value);
+        setFocusLengthMin(document.getElementById('setting-focus-length-min').value ? document.getElementById('setting-focus-length-min').value : 0);
+        setBreakLengthMin(document.getElementById('setting-break-length-min').value ? document.getElementById('setting-break-length-min').value : 0);
         if (noti !== temp) setNoti(temp);
         handleCloseAndOpen();
     }
@@ -218,6 +219,7 @@ const SettingTimer = () => {
                     </div>
                 </div>
             </div>  
+            {(isFocused ? <MusicPlayer /> : <></>)}
         </>
     )
 }

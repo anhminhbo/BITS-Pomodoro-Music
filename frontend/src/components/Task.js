@@ -18,7 +18,7 @@ const Task = () => {
     catch (err) {
         if (err.response.data.errCode === 112) {
           // Handle when session expired
-          alert("ERROR: Session expired!");
+          alert("ERROR: Please login first!");
           window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
         }
     }
