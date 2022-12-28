@@ -38,4 +38,12 @@ const logout = catchAsync(async (req, res) => {
   res.status(200).json(res.body);
 });
 
-module.exports = { login, logout, register };
+const changePassword = catchAsync(async (req, res) => {
+  const { username } = req.session;
+  const { oldPassword, newPassword } = req.body;
+  await AuthService.changePassword(username, oldPassword, newPassword);
+
+  res.status(200).json(ResponseService.newSucess());
+});
+
+module.exports = { login, logout, register, changePassword };
