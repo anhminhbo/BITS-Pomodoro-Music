@@ -5,16 +5,16 @@ const ResponseService = require("../response/response.service");
 const Error = require("../../config/constant/Error");
 
 const getTasks = async (username) => {
-  // Get playlist
+  // Get task
   const user = await UserService.getUserByUsername(username);
 
-  const { playlist, timerSettings, tasks } = user;
+  const { task, timerSettings, tasks } = user;
 
-  //  Handle to cached user playlist and timerSettings and tasks
+  //  Handle to cached user task and timerSettings and tasks
   const cachedData = await RedisService.getValue(username);
   await RedisService.setValue(username, {
     ...cachedData,
-    playlist,
+    task,
     timerSettings,
     tasks,
   });
@@ -23,22 +23,33 @@ const getTasks = async (username) => {
 };
 
 const updateTask = async (username, task) => {
-  // Get playlist
+  // Get task
   const user = await UserService.getUserByUsername(username);
 
   const { tasks } = user;
 
-  const newTasks = tasks.length === 0 ? [task] : [...tasks, task];
+  // Handle when task is new or just updated
+  const isNeedUpdate = tasks.some(
+    (t, index) => index == task.index && t.isDone != task.isDone
+  );
+
+  let newTasks;
+  if (isNeedUpdate) {
+    if (tasks.length !== 0) tasks[task.index] = task;
+    newTasks = tasks;
+  } else {
+    newTasks = tasks.length === 0 ? [task] : [...tasks, task];
+  }
 
   const filter = { username };
   const update = { tasks: newTasks };
 
-  // Get new playlist after update
+  // Get new task after update
   await UserModel.findOneAndUpdate(filter, update, {
     new: true,
   });
 
-  //  Handle to cached user new playlist
+  //  Handle to cached user new task
   const cachedData = await RedisService.getValue(username);
   await RedisService.setValue(username, {
     ...cachedData,
@@ -49,7 +60,7 @@ const updateTask = async (username, task) => {
 };
 
 const deleteTask = async (username, taskIndex) => {
-  // Get playlist
+  // Get task
   const user = await UserService.getUserByUsername(username);
 
   const { tasks } = user;
@@ -63,18 +74,18 @@ const deleteTask = async (username, taskIndex) => {
     );
   }
 
-  // Filter playlist to exclude the deletedSong
+  // Filter task to exclude the deletedSong
   const newTasks = tasks.filter((task, index) => index != taskIndex);
 
   const filter = { username };
   const update = { tasks: newTasks };
 
-  // Get new playlist after update
+  // Get new task after update
   await UserModel.findOneAndUpdate(filter, update, {
     new: true,
   });
 
-  //  Handle to cached user new playlist
+  //  Handle to cached user new task
   const cachedData = await RedisService.getValue(username);
   await RedisService.setValue(username, {
     ...cachedData,
