@@ -14,12 +14,15 @@ const userSchema = new mongoose.Schema(
     timerSettings: {
       focusLength: {
         type: Number,
+        default: 25
       },
       breakLength: {
         type: Number,
+        default: 5
       },
       isNotified: {
         type: Boolean,
+        default: false
       },
     },
     playlist: [
