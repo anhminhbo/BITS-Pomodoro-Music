@@ -23,8 +23,8 @@ const MusicPlayer = () => {
     }, []);
 
     useEffect(() => {
+        console.log(playlist);
         if (playlist.length == 0) {
-            console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             setCurIndex(0);
             setRandom(0);
         }
@@ -82,8 +82,8 @@ const MusicPlayer = () => {
 
     // Cut down the song title 
     const title_parser = (title) => {
-        if (title.length > 55){
-            title = title.slice(0, 55);
+        if (title.length > 60){
+            title = title.slice(0, 60);
             return title+"..."
         }
         return title;
@@ -199,7 +199,7 @@ const MusicPlayer = () => {
         )
         else return (
             <div id="music-player-current-track">
-                <YouTube videoId={curIndex > 0 ? 0 : playlist[curIndex].songId} opts={opts} onStateChange={ (e) => { if (e.data == 0) { setCurIndex(playNext()); } } }/>
+                <YouTube videoId={playlist[curIndex].songId} opts={opts} onStateChange={ (e) => { if (e.data == 0) { setCurIndex(playNext()); } } }/>
             </div>
         );
     };
@@ -211,7 +211,7 @@ const MusicPlayer = () => {
                 <Player />
                 <div id="music-player-right">
                     <div id="music-player-input">
-                        <input id="music-player-input-url" type="text" onChange={(e) => youtubeURL.current = e.target.value}/>
+                        <input id="music-player-input-url" type="text" placeholder='Enter a YouTube URL here, press "Add" and enjoy!' onChange={(e) => youtubeURL.current = e.target.value}/>
                         <input id="music-player-input-button" type="button" value="Add" onClick={() => {document.getElementById("music-player-input-url").value=""; getData(youtubeURL.current)}}/>
                     </div>
                     <div id="music-player-button-container">
