@@ -48,15 +48,6 @@ function App() {
 
   return (
     <div className="App">
-      {/* {backend} */}
-      {/* <Header /> */}
-      {/* <LandingPage/> */}
-      {/* <LogIn /> */}
-      {/* <Register /> */}
-      {/* <SettingTimer /> */}
-      {/* <MusicPlayer /> */}
-      {/* <Task /> */}
-      {/* <Footer /> */}
       <Routes>
         <Route path="/main" element={
           <>
