@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100;8..144,200;8..144,300;8..144,400;8..144,500;8..144,600;8..144,700;8..144,800;8..144,900;8..144,1000&display=swap');
 
+.setting-timer-container {
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 95%;
+  margin: 30px auto;
+  border-radius: 10px;
+  height: max-content;
+  padding: 15px;
+}
+
 .setting-container {
   font-family: 'Roboto Flex', sans-serif;
   position: fixed;
@@ -87,6 +96,7 @@ ul{
     bottom: 0;
     width: 100%;
     height: 100%;
+    z-index: 99;
 }
 
 
@@ -175,15 +185,25 @@ ul{
     border-color: rgba(0, 0, 0, 0);
   }
 
+  .setting-numbox:focus{
+    border: none;
+    outline: none;
+    padding-left: 4px;
+  }
+
+  .setting-numbox::placeholder{
+    color: rgba(0, 0, 0, 0.8);
+    font-weight: bold;
+  }
+
   .setting-numbox::-webkit-inner-spin-button {
     opacity: 1;
   }
 
 .setting-button{
   position: relative;
-  top: 30px;
-  left: 80px;
   color: rgb(255, 255, 255);
+  height: 45px;
   border: none;
   font-size: 20px;
   border-radius: 12px;
@@ -259,29 +279,34 @@ input::-webkit-inner-spin-button {
 
 
 .timer-container{
+  min-width: 456px;
+  width: calc(10px + 40%);
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  transform: translateX(-132px);
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.timer-btn{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100px;
 }
 
 .timer-start-btn{
   background-color: #04AA6D;
-  display: flex;
-  padding: 9px 33px ;
+  padding: 10px 25px;
   border-radius: 12px;
-  margin: auto;
-  left: 380px;
-  top: 100px;
-  position: absolute;
+  height: 45px;
   font-size: 20px;
   cursor: pointer;
   font-family: "Roboto Flex", sans-serif;
   font-weight:lighter;
   color: white;
   outline: none;
-  border-color: rgba(0, 0, 0, 0);
+  border: none;
 }
 .timer-start-btn:hover{
   transform: translateY(-2px);

@@ -151,7 +151,6 @@ html, body {
 @media (max-width: 740px) {
 
     .landing-page-content {
-        min-height: calc(70px + 70vh);
         max-height: calc(70px + 80vh);
         min-width: calc(12px + 78vw);
     }
