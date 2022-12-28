@@ -7,7 +7,7 @@ const MusicPlayer = () => {
     // Initialize
     const youtubeURL = useRef();
     const [playlist, setPlaylist] = useState([]);
-    const [curIndex, setCurIndex] = useState(-1);
+    const [curIndex, setCurIndex] = useState(0);
     const [random, setRandom] = useState(0);
     const cardinalNum = [ "st", "nd", "rd" ];
     const opts = {
@@ -17,6 +17,36 @@ const MusicPlayer = () => {
           autoplay: 1,
         },
     }
+
+    useEffect(() => {
+        getPlaylist();
+    }, []);
+
+    useEffect(() => {
+        if (playlist.length == 0) {
+            console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            setCurIndex(0);
+            setRandom(0);
+        }
+    }, [playlist])
+
+    const getPlaylist = async () => {
+        try {
+          const response = await axios.get(
+            `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/playlist/getPlaylist`
+          );
+          const temp = response.data.data.playlist;
+          console.log(temp);
+          setPlaylist(temp);
+        } 
+        catch (err) {
+            if (err.response.data.errCode === 112) {
+                //   Handle when session expired
+                //   alert("ERROR: Please login first!");
+                window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
+            }
+        }
+      };
 
     // Function to get ID from a youtube URL
     const youtube_parser = (url) => {
@@ -30,14 +60,14 @@ const MusicPlayer = () => {
         var regExp = /\d+/g;
         var match = time.match(regExp);
         let hour = 0, min = 0, sec = 0;
-        if (match.length == 1){
+        if (match.length === 1){
             sec = match[0];
         }
-        if (match.length == 2){
+        if (match.length === 2){
             sec = match[1];
             min = match[0];
         }
-        if (match.length == 3){
+        if (match.length === 3){
             sec = match[2];
             min = match[1];
             hour = match[0];
@@ -66,31 +96,50 @@ const MusicPlayer = () => {
         fetch(url)
         .then(response => response.json())
         .then(response => {
-            if (playlist.find(element => element.id === youtube_parser(link)) == undefined) { // Check if a track existed or not
-                setPlaylist([...playlist, {
-                    title: title_parser(response.items[0].snippet.title),
-                    channelTitle: title_parser(response.items[0].snippet.channelTitle),
-                    url: link,
-                    id: youtube_parser(link),
-                    duration: duration_parser(response.items[0].contentDetails.duration)
-                }])
+            if (playlist.find(element => element.songId === youtube_parser(link)) === undefined) { // Check if a track existed or not
+                const newSong = {
+                    song: {
+                        songTitle: title_parser(response.items[0].snippet.title),
+                        songChannelTitle: title_parser(response.items[0].snippet.channelTitle),
+                        songUrl: link,
+                        songId: youtube_parser(link),
+                        songDuration: duration_parser(response.items[0].contentDetails.duration),
+                    }
+                }
+                updatePlaylist(newSong);
                 if (curIndex === -1) setCurIndex(playlist.length); // avoid default state
             }
         })
         .catch();
     }
 
-    useEffect(() => {
-        if (playlist == 0) {
-            setRandom(0);
+    const updatePlaylist = async (song) => {
+        try {
+          const response = await axios.put(
+            `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/playlist/updatePlaylist`,
+            song
+          );
+    
+          // Handle update playlist
+          console.log("Handle update playlist");
+          await getPlaylist();
+          return response;
+        } 
+        catch (err) {
+          if (err.response.data.errCode === 112) {
+            // Handle when session expired
+            console.log("Handle when session expired");
+          }
+          console.log(err.response.data);
         }
-    }, [playlist])
+      };
     
     // Show the index of playing track
     useEffect(() => { 
         if (curIndex < 0) return;
         var firstTrackAdd = document.getElementsByClassName(`track-0`);
         var newAdd = document.getElementsByClassName(`track-${curIndex}`);
+        if (newAdd.length === 0) return;
         newAdd = newAdd[0].offsetTop - firstTrackAdd[0].offsetTop;
         document.getElementById("music-player-playlist").scrollTo({top: newAdd, behavior: 'smooth'});
         const curCarNum = (((curIndex % 10) < 3 && (curIndex < 9 || curIndex > 19))? cardinalNum[curIndex % 10] : "th");
@@ -111,30 +160,55 @@ const MusicPlayer = () => {
         return getRandomNumber(curIndex);
     }
 
-    // Delete song from playlist
-    const deleteSong = (id, index) => {
-        youtubeURL.current = undefined;
-        setPlaylist(playlist => playlist.filter(track => track.id !== id));
-        if (index < curIndex) setCurIndex(curIndex => curIndex - 1)
-        else if (index === curIndex) setCurIndex(curIndex => (curIndex >= playlist.filter(track => track.id !== id).length ? 0 : curIndex));
+    const deleteSong = async (id) => {
+        try {
+            const response = await axios.delete(
+              `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/playlist/deleteSong/${id}`
+            );
+            await getPlaylist();
+        } 
+        catch (err) {
+            if (err.response.data.errCode === 112) {
+              // Handle when session expired
+              console.log("Handle when session expired");
+            } else if (err.response.data.errCode === 120) {
+              // Handle when task index empty
+              console.log("Handle when task index empty");
+            } else if (err.response.data.errCode === 121) {
+              // Handle when task index not existed
+              console.log("Handle when task index not existed");
+            }
+      
+            console.log(err.response.data);
+        }
     }
+
+    // Delete song from playlist
+    const handleDeleteSong = (id, index) => {
+        youtubeURL.current = undefined;
+        deleteSong(id);
+        if (index < curIndex) setCurIndex(curIndex => curIndex - 1)
+        else if (index === curIndex) setCurIndex(curIndex => (curIndex === (playlist.length - 1) ? (curIndex - 1 >= 0 ? curIndex - 1 : 0) : curIndex));
+    }
+
+    const Player = () => {
+        if (playlist.length === 0) return (
+            <div id='music-player-current-track-placeholder'>
+                Pumidoro Music Player
+            </div>
+        )
+        else return (
+            <div id="music-player-current-track">
+                <YouTube videoId={curIndex > 0 ? 0 : playlist[curIndex].songId} opts={opts} onStateChange={ (e) => { if (e.data == 0) { setCurIndex(playNext()); } } }/>
+            </div>
+        );
+    };
 
     return (
         <div id="music-player">
             {/* Input field */}
             <div id='music-player-display'>
-                {
-                    playlist.length == 0 // Check if the playlist empty
-                    ? 
-                    <div id='music-player-current-track-placeholder'>
-                        Pumidoro Music Player
-                    </div>
-                    : 
-                    // else
-                    <div id="music-player-current-track">
-                        <YouTube videoId={playlist[curIndex].id} opts={opts} onStateChange={ (e) => { if (e.data == 0) { setCurIndex(playNext()); } } }/>
-                    </div>
-                }
+                <Player />
                 <div id="music-player-right">
                     <div id="music-player-input">
                         <input id="music-player-input-url" type="text" onChange={(e) => youtubeURL.current = e.target.value}/>
@@ -166,44 +240,44 @@ const MusicPlayer = () => {
                         {playlist.map((track, index) => (
                             <li id={`music-player-track${playlist.length > 0 ? (index == curIndex ? "-active" : "") : ""}`} key={index} className={`track-${index}`}>
                                 <div id="music-player-track-flex">
-                                    <div id="music-player-track-title" onClick={() => {setCurIndex(index);}}>{track.title}</div>
-                                    <svg id="music-player-close-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-x-square-fill" viewBox="0 0 16 16" onClick={(e) => deleteSong(track.id, index)}>
+                                    <div id="music-player-track-title" onClick={() => {setCurIndex(index);}}>{track.songTitle}</div>
+                                    <svg id="music-player-close-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-x-square-fill" viewBox="0 0 16 16" onClick={(e) => handleDeleteSong(track.songId, index)}>
                                         <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z"/>
                                     </svg>
                                 </div>
                                 <div id='music-player-info'>
-                                    <div id="music-player-track-channel">{track.channelTitle}</div>
+                                    <div id="music-player-track-channel">{track.songChannelTitle}</div>
                                     <div id="music-player-duration">
                                         {
-                                            (track.duration.hour != 0 
+                                            (track.songDuration.hour != 0 
                                                 ? 
-                                                    track.duration.hour < 10 
+                                                    track.songDuration.hour < 10 
                                                     ?
-                                                        "0"+track.duration.hour+":"
+                                                        "0"+track.songDuration.hour+":"
                                                     :
-                                                        track.duration.hour+":"
+                                                        track.songDuration.hour+":"
                                                 : 
                                                     ""
                                             )
                                             +
-                                            (track.duration.min != 0 || track.duration.hour != 0
+                                            (track.songDuration.min != 0 || track.songDuration.hour != 0
                                                 ? 
-                                                    track.duration.min < 10 
+                                                    track.songDuration.min < 10 
                                                     ?
-                                                        "0"+track.duration.min+":"
+                                                        "0"+track.songDuration.min+":"
                                                     :
-                                                        track.duration.min+":"
+                                                        track.songDuration.min+":"
                                                 : 
                                                     ""
                                             )
                                             +
-                                            (track.duration.sec != 0 || track.duration.min != 0 || track.duration.hour != 0
+                                            (track.songDuration.sec != 0 || track.songDuration.min != 0 || track.songDuration.hour != 0
                                                 ? 
-                                                    track.duration.sec < 10 
+                                                    track.songDuration.sec < 10 
                                                     ?
-                                                        "0"+track.duration.sec
+                                                        "0"+track.songDuration.sec
                                                     :
-                                                        track.duration.sec
+                                                        track.songDuration.sec
                                                 : 
                                                     ""
                                             )
