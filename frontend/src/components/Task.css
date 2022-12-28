@@ -144,7 +144,7 @@
     margin: auto;
     width: 90%;
     height: max-content !important;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(47, 95, 75);
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -185,6 +185,7 @@
     border: 1px solid gray;
     font-size: 17px;
     margin-bottom: 20px;
+    background-color: rgba(122, 224, 129, 0.993)
 }
 
 #task-setting-input:focus {

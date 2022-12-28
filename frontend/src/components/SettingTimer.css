@@ -10,7 +10,7 @@
   margin: auto;
   width: 90%;
   height: max-content !important;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(47, 95, 75);
 
   display: flex;
   justify-content: space-between;
@@ -51,7 +51,7 @@
   width: 77%;
   margin: auto;
   text-align: left;
-  color: #7dbd07;
+  color: #8acd0f;
   margin: 0;
   font-weight: bold;
   margin-bottom: 15px;
@@ -102,6 +102,7 @@ ul{
 
 .setting-item-name{
   font-size: 16px;
+  color: white;
 }
 
 .setting-switch{
@@ -138,7 +139,7 @@ ul{
     aspect-ratio: 1 / 1;
     left: 4px;
     bottom: 3.5px;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     -webkit-transition: .4s;
     transition: .4s;
   }
@@ -166,10 +167,12 @@ ul{
   }
 
   .setting-numbox{
-    width: 50px;
-    height: 19.5px;
+    width: 60px;
+    height: 22px;
     border-radius: 7px;
+    background-color: #5dff47;
     opacity: 50%;
+    border-color: rgba(0, 0, 0, 0);
   }
 
   .setting-numbox::-webkit-inner-spin-button {
@@ -177,23 +180,19 @@ ul{
   }
 
 .setting-button{
-  width: 85%;
-  margin: auto;
-  transition: all .2s ease;
-  display: flex;
-  align-self: center;
-  justify-content: center;
-  text-align: center;
-  color: rgb(213, 213, 213);
+  position: relative;
+  top: 30px;
+  left: 80px;
+  color: rgb(255, 255, 255);
   border: none;
   font-size: 20px;
-  border-radius: 10px;
-  background: #456804;
+  border-radius: 12px;
+  background: #5c8a07;
   outline: none;
-  padding: 10px 5px;
+  padding: 10px 25px;
   cursor: pointer;
   font-family: "Roboto Flex", sans-serif;
-  font-weight: bold;
+  font-weight: lighter;
 }
 
 .setting-button:hover{
@@ -229,7 +228,7 @@ input::-webkit-inner-spin-button {
 
 .timer-path_elapsed{
   stroke-width: 7px;
-  stroke: rgba(159, 159, 159, 0.422);
+  stroke: rgb(253, 3, 3);
 }
 
 .timer-label{
@@ -255,4 +254,62 @@ input::-webkit-inner-spin-button {
 
 .timer-svg{
   transform: scaleX(-1);
+  position: center;
 }
+
+
+.timer-container{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-132px);
+}
+
+.timer-start-btn{
+  background-color: #04AA6D;
+  display: flex;
+  padding: 9px 33px ;
+  border-radius: 12px;
+  margin: auto;
+  left: 380px;
+  top: 100px;
+  position: absolute;
+  font-size: 20px;
+  cursor: pointer;
+  font-family: "Roboto Flex", sans-serif;
+  font-weight:lighter;
+  color: white;
+  outline: none;
+  border-color: rgba(0, 0, 0, 0);
+}
+.timer-start-btn:hover{
+  transform: translateY(-2px);
+}
+
+.setting-save-button{
+  width: 85%;
+  margin: auto;
+  transition: all .2s ease;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  border: none;
+  font-size: 20px;
+  border-radius: 10px;
+  background: #1d8c03;
+  outline: none;
+  padding: 10px 5px;
+  cursor: pointer;
+  font-family: "Roboto Flex", sans-serif;
+  font-weight: lighter;
+}
+
+
+.focusMode{
+
+}
+
+
