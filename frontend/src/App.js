@@ -62,7 +62,6 @@ function App() {
           <>
             <Header />
             <SettingTimer />
-            <MusicPlayer />
             <Task />
             <Footer />
           </>
