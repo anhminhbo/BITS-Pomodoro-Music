@@ -45,7 +45,7 @@ const userSchema = new mongoose.Schema(
   },
   { minimize: false }
 );
-# Set default timer settings for user
+// Set default timer settings for user
  userSchema.pre('save', function(next) {
     if (this.timerSettings === null) {
         this.timerSettings.focusLength = 25;
