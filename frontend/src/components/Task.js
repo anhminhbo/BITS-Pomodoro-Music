@@ -108,6 +108,7 @@ const Task = () => {
   const handleAddTask = () => {
     updateTasks(tasklist.length, taskname.current.value, false);
     handleCloseAndOpen();
+    taskname.current.value = "";
   };
 
   const handleDeleteTask = (id) => {
