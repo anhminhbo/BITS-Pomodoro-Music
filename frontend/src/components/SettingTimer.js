@@ -15,7 +15,7 @@ const FULL_DASH_ARRAY = 283;
 const SettingTimer = () => {
     const [focusLengthMin, setFocusLengthMin] = useState(0);
     const [breakLengthMin, setBreakLengthMin] = useState(0);
-    const [isFocused, setIsFocused] = useState(true);
+    const [isFocused, setIsFocused] = useState(false);
     const [noti, setNoti] = useState(false);
     const [temp, setTemp] = useState(noti);
     const Min = useRef(isFocused ? focusLengthMin : breakLengthMin);
@@ -25,6 +25,8 @@ const SettingTimer = () => {
     const [Action, setAction] = useState("Start");
     const Interval = useRef(0);
     const totalTime = useRef();
+
+    // const 
 
     useEffect(() => {
         Min.current = (isFocused ? focusLengthMin : breakLengthMin);
@@ -153,10 +155,12 @@ const SettingTimer = () => {
                             m -45, 0
                             a 45,45 0 1,0 90,0
                             a 45,45 0 1,0 -90,0
-                            ' />
+                            ' 
+                            style={{stroke : (isFocused ? "#04AA6D" : "#5c8a07")}}/>
                             </g>
                         </svg>
                         <div className='timer-label'>
+                            <div className="timer-mode" style={{color : (isFocused ? "#04AA6D" : "#5c8a07"), fontWeight: "bold"}}>{isFocused ? "Focus Mode" : "Break Mode"}</div>
                             <div id="timer-time">{formatTime(TimerMin)}:{formatTime(TimerSec)}</div>
                         </div>
                         
@@ -184,20 +188,13 @@ const SettingTimer = () => {
                             <span className='setting-item-name'  style={{transform: "translateY(5px)"}} >
                                 Focus length
                             </span>
-                            
-                                <input id='setting-focus-length-min' placeholder="Minutes" type="number" maxLength='4'  min="1" max="60" className="setting-numbox"/>
-                            
-                            
+                            <input id='setting-focus-length-min' placeholder="Minutes" type="number" maxLength='4'  min="1" max="60" className="setting-numbox"/>
                         </li>
-
                         <li className='setting-li'>
                             <span className='setting-item-name' style={{transform: "translateY(5px)"}} >
                                 Break length
                             </span>
-                            
-                                <input id='setting-break-length-min' placeholder="Minutes" type="number" step="1"  min="1" className="setting-numbox"/>
-                            
-                            
+                            <input id='setting-break-length-min' placeholder="Minutes" type="number" step="1"  min="1" className="setting-numbox"/>
                         </li>
 
                         <li className='setting-li'>
@@ -219,7 +216,7 @@ const SettingTimer = () => {
                     </div>
                 </div>
             </div>  
-            {(isFocused ? <MusicPlayer /> : <></>)}
+            {(isFocused ? <></> : <MusicPlayer />)}
         </>
     )
 }

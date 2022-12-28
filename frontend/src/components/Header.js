@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import LOGO from '../img/LOGO.png';
 import TEXT from '../img/TEXT.png';
 import './HeaderFooter.css';
 import axios from "axios";
+import './ChangePassword.css'
 
 const Header = () => {
-  const name = "Temp";
+  const [username, setUsername] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const oldPassword = useRef();
+  const newPassword = useRef();
+  const confirmPassword = useRef();
 
   const handleCloseAndOpen = () => {
     setIsOpen(!isOpen);
@@ -18,6 +22,68 @@ const Header = () => {
     else {
       document.getElementById("header-menu").style.visibility ="visible";
       document.getElementById("header-menu").style.opacity = "1";
+    }
+  }
+
+  const handleCloseAndOpenChangePass = () => {
+    const opacity = document.getElementById("changePass-outer").style.opacity;
+    if (opacity === "1") {
+      document.getElementById("changePass-outer").style.visibility = "hidden";
+      document.getElementById("changePass-outer").style.opacity = "0";
+    } 
+    else {
+      document.getElementById("changePass-outer").style.visibility ="visible";
+      document.getElementById("changePass-outer").style.opacity = "1";
+    }
+  }
+
+  const changePass = async (oldPassword, newPassword) => {
+    try {
+      const payload = {
+        oldPassword,
+        newPassword
+      };
+      const response = await axios.put(
+        `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/auth/changePassword`,
+        payload
+      );
+
+      // Handle change pass
+      console.log("Handle change pass");
+      return response;
+    } 
+    catch (err) {
+      if (err.response.data.errCode === 112) {
+        // Handle when session expired
+        console.log("Handle when session expired");
+      }
+      console.log(err.response.data);
+    }
+  }
+
+  const handleChangePass = () => {
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+    changePass(oldPassword.current.value, newPassword.current.value);
+    handleCloseAndOpenChangePass();
+  }
+
+  useEffect(() => {
+    if (window.location.href === window.__RUNTIME_CONFIG__.FRONTEND_URL + '/main') getUsername();
+  }, [])
+
+  const getUsername = async () => {
+    try {
+      const response = await axios.get(
+        `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/user/getUsername`
+      );
+      setUsername(response.data.data);
+    } 
+    catch (err) {
+        if (err.response.data.errCode === 112) {
+          // Handle when session expired
+          alert("ERROR: Please login first!");
+          window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
+        }
     }
   }
 
@@ -40,6 +106,23 @@ const Header = () => {
 
   return (
     <>
+      <div id="changePass-outer">
+          <div className="changePass-container">
+              <div className="changePass-header">
+                  <h1 className='changePass-title'>Change Password</h1> 
+                  <svg className='bi bi-x changePass-close-icon' xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" onClick={() => handleCloseAndOpenChangePass()}>
+                      <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                  </svg>
+              </div>
+              <div className="changePass-label">Current Password</div>
+              <input type="password" id="changePass-current-pass" className='changePass-input' ref={oldPassword}/>
+              <div className="changePass-label">New Password</div>
+              <input type="password" id="changePass-new-pass" className='changePass-input' ref={newPassword}/>
+              <div className="changePass-label">Confirm Password</div>
+              <input type="password" id="changePass-confirm-new-pass" className='changePass-input' ref={confirmPassword}/>
+              <input type="button" id="changePass-btn" value="Submit" />
+          </div>
+      </div>
       <div className='header-container'>
         <img src={LOGO} alt='Pumidoro Logo'/>
         <img src={TEXT} alt='Pumidoro'/>
@@ -61,8 +144,10 @@ const Header = () => {
               }
             </div>
             <div id="header-menu">
-              <li>{`Hello, ${name}`}</li>
-              <li className="btn">Change Password</li>
+              <li>{`Hello, `}
+                <div id="header-username" style={{display: "inline"}}>{username}</div>
+              </li>
+              <li className="btn" onClick={() => handleCloseAndOpenChangePass()}>Change Password</li>
               <li className='btn' onClick={() => logOut()}>Logout</li>
             </div>
           </>
