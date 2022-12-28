@@ -5,7 +5,7 @@ import './HeaderFooter.css';
 import axios from "axios";
 
 const Header = () => {
-  const name = "Temp";
+  const [username, setUsername] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
   const handleCloseAndOpen = () => {
@@ -18,6 +18,23 @@ const Header = () => {
     else {
       document.getElementById("header-menu").style.visibility ="visible";
       document.getElementById("header-menu").style.opacity = "1";
+    }
+  }
+
+  const getUsername = async () => {
+    try {
+      const response = await axios.get(
+        `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/user/getUsername`
+      );
+      console.log(response.data.message);
+      window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
+    } 
+    catch (err) {
+        if (err.response.data.errCode === 112) {
+          // Handle when session expired
+          alert("ERROR: Please login first!");
+          window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
+        }
     }
   }
 
@@ -61,7 +78,7 @@ const Header = () => {
               }
             </div>
             <div id="header-menu">
-              <li>{`Hello, ${name}`}</li>
+              <li>{`Hello, ${username}`}</li>
               <li className="btn">Change Password</li>
               <li className='btn' onClick={() => logOut()}>Logout</li>
             </div>
