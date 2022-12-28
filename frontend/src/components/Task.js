@@ -134,17 +134,7 @@ const Task = () => {
                   className="task-checkbox-custom"
                   for={`task-checkbox-${index}`}
                   onClick={() => {
-                    const temp = tasklist.map((Task, Index) => {
-                      if (Index === index) {
-                        return {
-                          name: Task.name,
-                          isDone: !Task.isDone,
-                        };
-                      } else {
-                        return Task;
-                      }
-                    });
-                    setTasklist(temp);
+                    updateTasks(index, task.name, !task.isDone);
                   }}
                 ></label>
               </div>
