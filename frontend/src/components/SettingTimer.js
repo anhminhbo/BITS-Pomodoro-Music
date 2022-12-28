@@ -188,20 +188,13 @@ const SettingTimer = () => {
                             <span className='setting-item-name'  style={{transform: "translateY(5px)"}} >
                                 Focus length
                             </span>
-                            
-                                <input id='setting-focus-length-min' placeholder="Minutes" type="number" maxLength='4'  min="1" max="60" className="setting-numbox"/>
-                            
-                            
+                            <input id='setting-focus-length-min' placeholder="Minutes" type="number" maxLength='4'  min="1" max="60" className="setting-numbox"/>
                         </li>
-
                         <li className='setting-li'>
                             <span className='setting-item-name' style={{transform: "translateY(5px)"}} >
                                 Break length
                             </span>
-                            
-                                <input id='setting-break-length-min' placeholder="Minutes" type="number" step="1"  min="1" className="setting-numbox"/>
-                            
-                            
+                            <input id='setting-break-length-min' placeholder="Minutes" type="number" step="1"  min="1" className="setting-numbox"/>
                         </li>
 
                         <li className='setting-li'>

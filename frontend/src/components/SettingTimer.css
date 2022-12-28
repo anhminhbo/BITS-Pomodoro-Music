@@ -20,7 +20,6 @@
   width: 90%;
   height: max-content !important;
   background-color: rgb(47, 95, 75);
-
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -88,7 +87,7 @@ ul{
 }
 
 #setting-outer{
-    background-color: rgba(128, 128, 128, 0.4);
+    background-color: rgba(128, 128, 128, 0.6);
     position: fixed;
     top: 0;
     left: 0;
@@ -98,7 +97,6 @@ ul{
     height: 100%;
     z-index: 99;
 }
-
 
 .setting-li{
     text-decoration: none;
@@ -334,11 +332,6 @@ input::-webkit-inner-spin-button {
   cursor: pointer;
   font-family: "Roboto Flex", sans-serif;
   font-weight: lighter;
-}
-
-
-.focusMode{
-
 }
 
 
