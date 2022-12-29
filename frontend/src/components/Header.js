@@ -35,6 +35,13 @@ const Header = () => {
       document.getElementById("changePass-outer").style.visibility ="visible";
       document.getElementById("changePass-outer").style.opacity = "1";
     }
+    oldPassword.current.value = "";
+    newPassword.current.value = "";
+    confirmPassword.current.value = "";
+    document.getElementById("changePass-old-password-message").style.display = "none";
+    document.getElementById("changePass-new-password-message").style.display = "none";
+    document.getElementById("changePass-con-password-message").style.display = "none";
+    document.getElementById("changePass-new-password-message-2").style.display = "none";
   }
 
   const changePass = async (oldPassword, newPassword) => {
@@ -48,14 +55,25 @@ const Header = () => {
         payload
       );
 
-      // Handle change pass
-      console.log("Handle change pass");
+      // Han"dle change pass
+      alert("Your password has been changed!!!");
+      handleCloseAndOpenChangePass();
       return response;
     } 
     catch (err) {
       if (err.response.data.errCode === 112) {
         // Handle when session expired
-        console.log("Handle when session expired");
+        window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + "/login";
+      } 
+      else {
+        if (err.response.data.errCode === 102) {
+          document.getElementById("changePass-old-password-message").style.display = "block";
+        }
+        else {document.getElementById("changePass-old-password-message").style.display = "none";}
+        if (err.response.data.errCode === 122) {
+          document.getElementById("changePass-new-password-message-2").style.display = "block";
+        }
+        else {document.getElementById("changePass-new-password-message-2").style.display = "none";}
       }
       console.log(err.response.data);
     }
@@ -63,8 +81,25 @@ const Header = () => {
 
   const handleChangePass = () => {
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
-    changePass(oldPassword.current.value, newPassword.current.value);
-    handleCloseAndOpenChangePass();
+    let checkNewPassword = false;
+    let checkSamePassword = false;
+    if (newPassword.current.value.match(passwordRegex)) {
+      checkNewPassword = true;
+      document.getElementById("changePass-new-password-message").style.display = "none";
+    } 
+    else {
+      document.getElementById("changePass-new-password-message").style.display = "block";
+    }
+    if (newPassword.current.value === confirmPassword.current.value){
+      checkSamePassword = true;
+      document.getElementById("changePass-con-password-message").style.display = "none";
+    } 
+    else {
+      document.getElementById("changePass-con-password-message").style.display = "block";
+    }
+    if (checkNewPassword && checkSamePassword) {
+      changePass(oldPassword.current.value, newPassword.current.value);
+    }
   }
 
   useEffect(() => {
@@ -81,7 +116,6 @@ const Header = () => {
     catch (err) {
         if (err.response.data.errCode === 112) {
           // Handle when session expired
-          alert("ERROR: Please login first!");
           window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
         }
     }
@@ -98,7 +132,6 @@ const Header = () => {
     catch (err) {
         if (err.response.data.errCode === 112) {
           // Handle when session expired
-          alert("ERROR: Please login first!");
           window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
         }
     }
@@ -116,11 +149,68 @@ const Header = () => {
               </div>
               <div className="changePass-label">Current Password</div>
               <input type="password" id="changePass-current-pass" className='changePass-input' ref={oldPassword}/>
+              <div id="changePass-old-password-message" className="changePass-message">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="13"
+                  height="13"
+                  fill="currentColor"
+                  class="bi bi-exclamation-circle-fill"
+                  viewBox="0 0 16 16"
+                  className="changePass-message-icon"
+                >
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                </svg>
+                Your password was not updated, since the provided current password does not match.
+              </div>
               <div className="changePass-label">New Password</div>
               <input type="password" id="changePass-new-pass" className='changePass-input' ref={newPassword}/>
+              <div id="changePass-new-password-message" className="changePass-message">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="13"
+                  height="13"
+                  fill="currentColor"
+                  class="bi bi-exclamation-circle-fill"
+                  viewBox="0 0 16 16"
+                  className="changePass-message-icon"
+                >
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                </svg>
+                Password must be at least 8 characters and contains at least ONE
+                number, ONE lowercase character, ONE uppercase character and NO special characters.
+              </div>
+              <div id="changePass-new-password-message-2" className="changePass-message">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="13"
+                  height="13"
+                  fill="currentColor"
+                  class="bi bi-exclamation-circle-fill"
+                  viewBox="0 0 16 16"
+                  className="changePass-message-icon"
+                >
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                </svg>
+                Your new password is the same as your old password. Please enter again.
+              </div>
               <div className="changePass-label">Confirm Password</div>
               <input type="password" id="changePass-confirm-new-pass" className='changePass-input' ref={confirmPassword}/>
-              <input type="button" id="changePass-btn" value="Submit" />
+              <div id="changePass-con-password-message" className="changePass-message">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="13"
+                  height="13"
+                  fill="currentColor"
+                  class="bi bi-exclamation-circle-fill"
+                  viewBox="0 0 16 16"
+                  className="changePass-message-icon"
+                >
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                </svg>
+                Unmatched password.
+              </div>
+              <input type="button" id="changePass-btn" value="Submit" onClick={() => handleChangePass()}/>
           </div>
       </div>
       <div className='header-container'>

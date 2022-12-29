@@ -40,8 +40,6 @@ const MusicPlayer = () => {
         } 
         catch (err) {
             if (err.response.data.errCode === 112) {
-                //   Handle when session expired
-                  alert("ERROR: Please login first!");
                 window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
             }
         }
@@ -127,7 +125,7 @@ const MusicPlayer = () => {
         catch (err) {
           if (err.response.data.errCode === 112) {
             // Handle when session expired
-            console.log("Handle when session expired");
+            window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
           }
           console.log(err.response.data);
         }
@@ -169,7 +167,7 @@ const MusicPlayer = () => {
         catch (err) {
             if (err.response.data.errCode === 112) {
               // Handle when session expired
-              console.log("Handle when session expired");
+              window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
             } else if (err.response.data.errCode === 120) {
               // Handle when task index empty
               console.log("Handle when task index empty");
