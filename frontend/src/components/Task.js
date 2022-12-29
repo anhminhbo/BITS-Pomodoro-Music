@@ -14,13 +14,12 @@ const Task = () => {
       );
       const tasks = response.data.data.tasks;
       setTasklist(tasks);
-    } 
-    catch (err) {
-        if (err.response.data.errCode === 112) {
-          // Handle when session expired
-          alert("ERROR: Please login first!");
-          window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
-        }
+    } catch (err) {
+      if (err.response.data.errCode === 112) {
+        // Handle when session expired
+        window.location.href =
+          window.__RUNTIME_CONFIG__.FRONTEND_URL + "/login";
+      }
     }
   };
 
@@ -98,9 +97,9 @@ const Task = () => {
     if (opacity === "1") {
       document.getElementById("task-setting-outer").style.visibility = "hidden";
       document.getElementById("task-setting-outer").style.opacity = "0";
-    } 
-    else {
-      document.getElementById("task-setting-outer").style.visibility ="visible";
+    } else {
+      document.getElementById("task-setting-outer").style.visibility =
+        "visible";
       document.getElementById("task-setting-outer").style.opacity = "1";
     }
   };
