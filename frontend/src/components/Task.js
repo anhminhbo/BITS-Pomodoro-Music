@@ -98,9 +98,9 @@ const Task = () => {
     if (opacity === "1") {
       document.getElementById("task-setting-outer").style.visibility = "hidden";
       document.getElementById("task-setting-outer").style.opacity = "0";
-    } 
-    else {
-      document.getElementById("task-setting-outer").style.visibility ="visible";
+    } else {
+      document.getElementById("task-setting-outer").style.visibility =
+        "visible";
       document.getElementById("task-setting-outer").style.opacity = "1";
     }
   };
