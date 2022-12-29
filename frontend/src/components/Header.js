@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
-import LOGO from "../img/LOGO.png";
-import TEXT from "../img/TEXT.png";
-import "./HeaderFooter.css";
+import React, { useEffect, useRef, useState } from 'react';
+import LOGO from '../img/LOGO.png';
+import TEXT from '../img/TEXT.png';
+import './HeaderFooter.css';
 import axios from "axios";
-import "./ChangePassword.css";
+import './ChangePassword.css'
 
 const Header = () => {
   const [username, setUsername] = useState("");
@@ -18,19 +18,21 @@ const Header = () => {
     if (opacity === "1") {
       document.getElementById("header-menu").style.visibility = "hidden";
       document.getElementById("header-menu").style.opacity = "0";
-    } else {
-      document.getElementById("header-menu").style.visibility = "visible";
+    } 
+    else {
+      document.getElementById("header-menu").style.visibility ="visible";
       document.getElementById("header-menu").style.opacity = "1";
     }
-  };
+  }
 
   const handleCloseAndOpenChangePass = () => {
     const opacity = document.getElementById("changePass-outer").style.opacity;
     if (opacity === "1") {
       document.getElementById("changePass-outer").style.visibility = "hidden";
       document.getElementById("changePass-outer").style.opacity = "0";
-    } else {
-      document.getElementById("changePass-outer").style.visibility = "visible";
+    } 
+    else {
+      document.getElementById("changePass-outer").style.visibility ="visible";
       document.getElementById("changePass-outer").style.opacity = "1";
     }
     oldPassword.current.value = "";
@@ -46,7 +48,7 @@ const Header = () => {
     try {
       const payload = {
         oldPassword,
-        newPassword,
+        newPassword
       };
       const response = await axios.put(
         `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/auth/changePassword`,
@@ -57,7 +59,8 @@ const Header = () => {
       alert("Your password has been changed!!!");
       handleCloseAndOpenChangePass();
       return response;
-    } catch (err) {
+    } 
+    catch (err) {
       if (err.response.data.errCode === 112) {
         // Handle when session expired
         window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + "/login";
@@ -74,7 +77,7 @@ const Header = () => {
       }
       console.log(err.response.data);
     }
-  };
+  }
 
   const handleChangePass = () => {
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
@@ -100,12 +103,8 @@ const Header = () => {
   }
 
   useEffect(() => {
-    if (
-      window.location.href ===
-      window.__RUNTIME_CONFIG__.FRONTEND_URL + "/main"
-    )
-      getUsername();
-  }, []);
+    if (window.location.href === window.__RUNTIME_CONFIG__.FRONTEND_URL + '/main') getUsername();
+  }, [])
 
   const getUsername = async () => {
     try {
@@ -120,7 +119,7 @@ const Header = () => {
           window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
         }
     }
-  };
+  }
 
   const logOut = async () => {
     try {
@@ -213,85 +212,40 @@ const Header = () => {
               </div>
               <input type="button" id="changePass-btn" value="Submit" onClick={() => handleChangePass()}/>
           </div>
-          <div className="changePass-label">Current Password</div>
-          <input
-            type="password"
-            id="changePass-current-pass"
-            className="changePass-input"
-            ref={oldPassword}
-          />
-          <div className="changePass-label">New Password</div>
-          <input
-            type="password"
-            id="changePass-new-pass"
-            className="changePass-input"
-            ref={newPassword}
-          />
-          <div className="changePass-label">Confirm Password</div>
-          <input
-            type="password"
-            id="changePass-confirm-new-pass"
-            className="changePass-input"
-            ref={confirmPassword}
-          />
-          <input type="button" id="changePass-btn" value="Submit" />
-        </div>
       </div>
-      <div className="header-container">
-        <img src={LOGO} alt="Pumidoro Logo" />
-        <img src={TEXT} alt="Pumidoro" />
+      <div className='header-container'>
+        <img src={LOGO} alt='Pumidoro Logo'/>
+        <img src={TEXT} alt='Pumidoro'/>
       </div>
-      {window.location.href ==
-      window.__RUNTIME_CONFIG__.FRONTEND_URL + "/main" ? (
-        <>
-          <div id="header-menu-btn" onClick={() => handleCloseAndOpen()}>
-            {isOpen ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="25"
-                height="25"
-                fill="currentColor"
-                class="bi bi-x-lg"
-                viewBox="0 0 16 16"
-              >
-                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
-                fill="currentColor"
-                class="bi bi-list"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
-                />
-              </svg>
-            )}
-          </div>
-          <div id="header-menu">
-            <li>
-              {`Hello, `}
-              <div id="header-username" style={{ display: "inline" }}>
-                {username}
-              </div>
-            </li>
-            <li className="btn" onClick={() => handleCloseAndOpenChangePass()}>
-              Change Password
-            </li>
-            <li className="btn" onClick={() => logOut()}>
-              Logout
-            </li>
-          </div>
-        </>
-      ) : (
+      {
+        window.location.href == window.__RUNTIME_CONFIG__.FRONTEND_URL + '/main' 
+        ?
+          <>
+            <div id="header-menu-btn" onClick={() => handleCloseAndOpen()}>
+              {
+                isOpen ?
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                  <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                </svg>
+                :
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+              }
+            </div>
+            <div id="header-menu">
+              <li>{`Hello, `}
+                <div id="header-username" style={{display: "inline"}}>{username}</div>
+              </li>
+              <li className="btn" onClick={() => handleCloseAndOpenChangePass()}>Change Password</li>
+              <li className='btn' onClick={() => logOut()}>Logout</li>
+            </div>
+          </>
+        :
         <></>
-      )}
+      }
     </>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
