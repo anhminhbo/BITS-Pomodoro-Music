@@ -185,7 +185,7 @@
     border-radius: 10px;
     border: 1px solid gray;
     font-size: 17px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     background-color: rgba(122, 224, 129, 0.993)
 }
 
@@ -193,7 +193,7 @@
     outline: none !important;
     border: 1.5px solid #7dbd07;
     /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.4); */
-  }
+}
 
 #task-setting-btn{
     font-family: 'Quicksand', sans-serif;

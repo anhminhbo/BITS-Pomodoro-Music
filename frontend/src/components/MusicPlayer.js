@@ -22,10 +22,27 @@ const MusicPlayer = () => {
     getPlaylist();
   }, []);
 
-  useEffect(() => {
-    if (playlist.length == 0) {
-      setCurIndex(0);
-      setRandom(0);
+    const getPlaylist = async () => {
+        try {
+          const response = await axios.get(
+            `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/playlist/getPlaylist`
+          );
+          const temp = response.data.data.playlist;
+          console.log(temp);
+          setPlaylist(temp);
+        } 
+        catch (err) {
+            if (err.response.data.errCode === 112) {
+                window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
+            }
+        }
+    };
+
+    // Function to get ID from a youtube URL
+    const youtube_parser = (url) => {
+        var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+        var match = url.match(regExp);
+        return (match&&match[7].length==11)? match[7] : false;
     }
   }, [playlist]);
 
@@ -90,41 +107,38 @@ const MusicPlayer = () => {
     return title;
   };
 
-  // Get data from API
-  const getData = (link) => {
-    const id = youtube_parser(link);
-    const url =
-      "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=" +
-      id +
-      `&key=${window.__RUNTIME_CONFIG__.API_KEY}`;
-    fetch(url)
-      .then((response) => response.json())
-      .then((response) => {
-        if (
-          playlist.find(
-            (element) => element.songId === youtube_parser(link)
-          ) === undefined
-        ) {
-          // Check if a track existed or not
-          const newSong = {
-            song: {
-              songTitle: title_parser(response.items[0].snippet.title),
-              songChannelTitle: title_parser(
-                response.items[0].snippet.channelTitle
-              ),
-              songUrl: link,
-              songId: youtube_parser(link),
-              songDuration: duration_parser(
-                response.items[0].contentDetails.duration
-              ),
-            },
-          };
-          updatePlaylist(newSong);
-          if (curIndex === -1) setCurIndex(playlist.length); // avoid default state
+    const updatePlaylist = async (song) => {
+        try {
+          const response = await axios.put(
+            `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/playlist/updatePlaylist`,
+            song
+          );
+    
+          // Handle update playlist
+          console.log("Handle update playlist");
+          await getPlaylist();
+          return response;
+        } 
+        catch (err) {
+          if (err.response.data.errCode === 112) {
+            // Handle when session expired
+            window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
+          }
+          console.log(err.response.data);
         }
-      })
-      .catch();
-  };
+    };
+    
+    // Show the index of playing track
+    useEffect(() => { 
+        if (curIndex < 0) return;
+        var firstTrackAdd = document.getElementsByClassName(`track-0`);
+        var newAdd = document.getElementsByClassName(`track-${curIndex}`);
+        if (newAdd.length === 0) return;
+        newAdd = newAdd[0].offsetTop - firstTrackAdd[0].offsetTop;
+        document.getElementById("music-player-playlist").scrollTo({top: newAdd, behavior: 'smooth'});
+        const curCarNum = (((curIndex % 10) < 3 && (curIndex < 9 || curIndex > 19))? cardinalNum[curIndex % 10] : "th");
+        console.log("Playing track " + (curIndex + 1) + curCarNum);
+    }, [curIndex]);
 
   const updatePlaylist = async (song) => {
     try {
@@ -146,30 +160,28 @@ const MusicPlayer = () => {
     }
   };
 
-  // Show the index of playing track
-  useEffect(() => {
-    if (curIndex < 0) return;
-    var firstTrackAdd = document.getElementsByClassName(`track-0`);
-    var newAdd = document.getElementsByClassName(`track-${curIndex}`);
-    if (newAdd.length === 0) return;
-    newAdd = newAdd[0].offsetTop - firstTrackAdd[0].offsetTop;
-    document
-      .getElementById("music-player-playlist")
-      .scrollTo({ top: newAdd, behavior: "smooth" });
-    const curCarNum =
-      curIndex % 10 < 3 && (curIndex < 9 || curIndex > 19)
-        ? cardinalNum[curIndex % 10]
-        : "th";
-    console.log("Playing track " + (curIndex + 1) + curCarNum);
-  }, [curIndex]);
-
-  // Randomize
-  const getRandomNumber = (block) => {
-    var temp = Math.floor(Math.random() * playlist.length);
-    if (playlist.length === 1) return block;
-    while (temp === block) temp = Math.floor(Math.random() * playlist.length);
-    return temp;
-  };
+    const deleteSong = async (id) => {
+        try {
+            const response = await axios.delete(
+              `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/playlist/deleteSong/${id}`
+            );
+            await getPlaylist();
+        } 
+        catch (err) {
+            if (err.response.data.errCode === 112) {
+              // Handle when session expired
+              window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
+            } else if (err.response.data.errCode === 120) {
+              // Handle when task index empty
+              console.log("Handle when task index empty");
+            } else if (err.response.data.errCode === 121) {
+              // Handle when task index not existed
+              console.log("Handle when task index not existed");
+            }
+      
+            console.log(err.response.data);
+        }
+    }
 
   // Play next
   const playNext = () => {
