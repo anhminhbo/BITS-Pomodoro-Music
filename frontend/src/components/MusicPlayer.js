@@ -43,7 +43,7 @@ const MusicPlayer = () => {
                 window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
             }
         }
-      };
+    };
 
     // Function to get ID from a youtube URL
     const youtube_parser = (url) => {
@@ -129,7 +129,7 @@ const MusicPlayer = () => {
           }
           console.log(err.response.data);
         }
-      };
+    };
     
     // Show the index of playing track
     useEffect(() => { 
