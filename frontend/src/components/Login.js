@@ -95,16 +95,7 @@ const LogIn = () => {
                 ref={password}
               />
             </div>
-          </form>
-          <button
-            className="form-btn"
-            onClick={() => {
-              login(username.current.value, password.current.value);
-            }}
-          >
-            Login
-          </button>
-          <div id="login-usernotfound-message" className="register-message">
+            <div id="login-usernotfound-message" className="register-message">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="13"
@@ -132,6 +123,16 @@ const LogIn = () => {
               </svg>
               Password is invalid.
             </div>
+          </form>
+          <button
+            className="form-btn"
+            onClick={() => {
+              login(username.current.value, password.current.value);
+            }}
+          >
+            Login
+          </button>
+
           <div className="form-foot">
             Don't have an account?{` `}
             <strong>
