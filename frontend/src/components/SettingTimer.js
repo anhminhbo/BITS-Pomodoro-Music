@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import'./SettingTimer.css'
 import { useRef, useEffect } from 'react';
 import MusicPlayer from './MusicPlayer';
+import axios from "axios";
 
 const formatTime = (num) => {
     if (num<10) return '0'+num;
@@ -26,16 +27,51 @@ const SettingTimer = () => {
     const Interval = useRef(0);
     const totalTime = useRef();
 
-    // const 
+    const getSettings = async () => {
+        try {
+            const response = await axios.get(
+                `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/timer/getSettings`
+            );
+            const data = response.data.data.timerSettings;
+            setFocusLengthMin(data.focusLength);
+            setBreakLengthMin(data.breakLength);
+            setNoti(data.noti);
+            Min.current = (isFocused ? focusLengthMin : breakLengthMin);
+            setTimerMin(Min.current);
+        } 
+        catch (err) {
+            if (err.response.data.errCode === 112) {
+                window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
+            }
+        }
+    };
 
-    useEffect(() => {
-        Min.current = (isFocused ? focusLengthMin : breakLengthMin);
-        Sec.current = 0;
-        totalTime.current = Min.current * 60;
-        document.getElementsByClassName("timer-path-remaining")[0].setAttribute("stroke-dasharray", "283 283");
-        setTimerMin(Min.current);
-        setTimerSec(Sec.current);
-    }, [focusLengthMin, breakLengthMin, isFocused]);
+    const updateSettings = async (focusLength, breakLength, noti) => {
+        const payload = {
+            timerSettings: {
+                focusLength,
+                breakLength,
+                isNotified: noti,
+            }
+        }
+        try {
+          const response = await axios.put(
+            `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/timer/updateSettings`,
+            payload
+          );
+          // Handle update settings
+          console.log("Handle update settings");
+          await getSettings();
+          return response;
+        } 
+        catch (err) {
+          if (err.response.data.errCode === 112) {
+            // Handle when session expired
+            window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
+          }
+          console.log(err.response.data);
+        }
+    };
 
     const setCircleDashArray = (timeFraction) => {
         const circleDashArray = `${(timeFraction * FULL_DASH_ARRAY).toFixed(0)} 283`;
@@ -107,6 +143,15 @@ const SettingTimer = () => {
         document.getElementById('setting-break-length-min').value = null;
         document.getElementById('setting-noti').checked = noti;
     }
+    
+    // Handle save properties in Setting
+    const handleSave = () => {
+        const focusLength = (document.getElementById('setting-focus-length-min').value ? document.getElementById('setting-focus-length-min').value : 0);
+        const breakLength = (document.getElementById('setting-break-length-min').value ? document.getElementById('setting-break-length-min').value : 0);
+        const noti = temp;
+        updateSettings(focusLength, breakLength, noti);
+        handleCloseAndOpen();
+    }
 
     // prevent user from entering special characters
     useEffect(() => {
@@ -122,22 +167,24 @@ const SettingTimer = () => {
                 }
             });
         }
-    },[])
-
+        getSettings();
+    }, []);
+    
     useEffect(() => {
         console.log(focusLengthMin);
         console.log(breakLengthMin);
         console.log(noti);
-    }, [focusLengthMin, breakLengthMin, noti])
+    }, [focusLengthMin, breakLengthMin, noti]);
 
-    // Handle save properties in Setting
-    const handleSave = () => {
-        setFocusLengthMin(document.getElementById('setting-focus-length-min').value ? document.getElementById('setting-focus-length-min').value : 0);
-        setBreakLengthMin(document.getElementById('setting-break-length-min').value ? document.getElementById('setting-break-length-min').value : 0);
-        if (noti !== temp) setNoti(temp);
-        handleCloseAndOpen();
-    }
-    
+    useEffect(() => {
+        Min.current = (isFocused ? focusLengthMin : breakLengthMin);
+        Sec.current = 0;
+        totalTime.current = Min.current * 60;
+        document.getElementsByClassName("timer-path-remaining")[0].setAttribute("stroke-dasharray", "283 283");
+        setTimerMin(Min.current);
+        setTimerSec(Sec.current);
+    }, [focusLengthMin, breakLengthMin, isFocused]);
+
     return (
         <>
             <div className='setting-timer-container'>

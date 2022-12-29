@@ -14,12 +14,12 @@ const Task = () => {
       );
       const tasks = response.data.data.tasks;
       setTasklist(tasks);
-    } catch (err) {
-      if (err.response.data.errCode === 112) {
-        // Handle when session expired
-        window.location.href =
-          window.__RUNTIME_CONFIG__.FRONTEND_URL + "/login";
-      }
+    } 
+    catch (err) {
+        if (err.response.data.errCode === 112) {
+          // Handle when session expired
+          window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
+        }
     }
   };
 
@@ -46,8 +46,9 @@ const Task = () => {
     } catch (err) {
       if (err.response.data.errCode === 112) {
         // Handle when session expired
-        console.log("Handle when session expired");
-      } else if (err.response.data.errCode === 119) {
+        window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
+      } 
+      else if (err.response.data.errCode === 119) {
         // Handle when task name empty
         console.log("Handle when task name empty");
       }
@@ -65,7 +66,7 @@ const Task = () => {
     } catch (err) {
       if (err.response.data.errCode === 112) {
         // Handle when session expired
-        console.log("Handle when session expired");
+        window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
       } else if (err.response.data.errCode === 120) {
         // Handle when task index empty
         console.log("Handle when task index empty");
@@ -105,6 +106,10 @@ const Task = () => {
   };
 
   const handleAddTask = () => {
+    if (taskname.current.value == "") {
+      alert("Please enter a task name");
+      return;
+    }
     updateTasks(tasklist.length, taskname.current.value, false);
     handleCloseAndOpen();
     taskname.current.value = "";
@@ -206,6 +211,7 @@ const Task = () => {
             id="task-setting-input"
             type="text"
             placeholder="Task Name"
+            required
           />
           <input
             id="task-setting-btn"

@@ -48,6 +48,9 @@ const changePassword = async (username, oldPassword, newPassword) => {
 
   // check user password with hashed password stored in the database
   const validPassword = await bcrypt.compare(oldPassword, user.password);
+  
+  // check new password with hashed password stored in the database
+  const validNewPassword = await bcrypt.compare(newPassword, user.password);
 
   if (!validPassword) {
     throw ResponseService.newError(
@@ -55,6 +58,14 @@ const changePassword = async (username, oldPassword, newPassword) => {
       Error.PasswordInvalid.errMessage
     );
   }
+
+  if (validNewPassword) {
+    throw ResponseService.newError(
+      Error.NewPasswordInvalid.errCode,
+      Error.NewPasswordInvalid.errMessage
+    );
+  }
+  
 
   // Filter username to update password
   // generate salt to hash password

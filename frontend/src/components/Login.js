@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "./Form.css";
 import axios from "axios";
 
@@ -7,6 +7,14 @@ const background = require("../img/BG.jpg");
 const LogIn = () => {
   const username = useRef();
   const password = useRef();
+  const userSession = useRef("");
+
+  useEffect(() => {
+    if (sessionStorage.getItem("username")){
+      userSession.current = sessionStorage.getItem("username");
+      sessionStorage.removeItem("username");
+    }
+  }, [])
 
   const login = async (username, password) => {
     document.getElementById("login-usernotfound-message").style.display =
@@ -69,11 +77,7 @@ const LogIn = () => {
                 maxlength="150"
                 placeholder="Enter Username"
                 ref={username}
-                defaultValue={
-                  sessionStorage.getItem("username")
-                    ? sessionStorage.getItem("username")
-                    : ""
-                }
+                defaultValue={userSession.current}
               />
             </div>
             <div className="password login-register-input">
