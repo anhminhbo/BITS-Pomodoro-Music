@@ -140,7 +140,12 @@ const Header = () => {
   return (
     <>
       <div id="changePass-outer">
-          <div className="changePass-container">
+          <div className="changePass-container" 
+               onKeyDown={(e) => {
+               if (e.key === "Enter") {
+                 handleChangePass();
+               }
+          }}>
               <div className="changePass-header">
                   <h1 className='changePass-title'>Change Password</h1> 
                   <svg className='bi bi-x changePass-close-icon' xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" onClick={() => handleCloseAndOpenChangePass()}>
