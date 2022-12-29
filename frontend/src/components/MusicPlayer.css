@@ -107,7 +107,6 @@
     align-items: center;
     background-color: rgba(0, 0, 0, 0.7);
     border-radius: 10px;
-    margin-bottom: 25px;
 }
 
 #music-player-info{
@@ -150,7 +149,7 @@
 }
 
 #music-player-button-container{
-    width: 250px;
+    width: 370px;
     display: flex;
     flex-direction: row;
     justify-self: center;
@@ -230,6 +229,10 @@
     }
     
     iframe {
+        margin-bottom: 25px;
+    }
+
+    #music-player-current-track-placeholder {
         margin-bottom: 25px;
     }
 }
