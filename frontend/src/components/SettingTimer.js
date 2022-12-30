@@ -3,7 +3,9 @@
 import React, { useState } from 'react'
 import'./SettingTimer.css'
 import { useRef, useEffect } from 'react';
-import ReactDOM from "react-dom";
+import MusicPlayer from './MusicPlayer';
+import axios from "axios";
+
 const formatTime = (num) => {
     if (num<10) return '0'+num;
     return num;
@@ -15,6 +17,7 @@ const SettingTimer = () => {
     const [focusLengthMin, setFocusLengthMin] = useState(0);
     const [breakLengthMin, setBreakLengthMin] = useState(0);
     const [isFocused, setIsFocused] = useState(true);
+    const [isMusicOn, setIsMusicOn] = useState(true);
     const [noti, setNoti] = useState(false);
     const [temp, setTemp] = useState(noti);
     const Min = useRef(isFocused ? focusLengthMin : breakLengthMin);
@@ -25,14 +28,51 @@ const SettingTimer = () => {
     const Interval = useRef(0);
     const totalTime = useRef();
 
-    useEffect(() => {
-        Min.current = (isFocused ? focusLengthMin : breakLengthMin);
-        Sec.current = 0;
-        totalTime.current = Min.current * 60;
-        document.getElementsByClassName("timer-path-remaining")[0].setAttribute("stroke-dasharray", "283 283");
-        setTimerMin(Min.current);
-        setTimerSec(Sec.current);
-    }, [focusLengthMin, breakLengthMin, isFocused]);
+    const getSettings = async () => {
+        try {
+            const response = await axios.get(
+                `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/timer/getSettings`
+            );
+            const data = response.data.data.timerSettings;
+            setFocusLengthMin(data.focusLength);
+            setBreakLengthMin(data.breakLength);
+            setNoti(data.noti);
+            Min.current = (isFocused ? focusLengthMin : breakLengthMin);
+            setTimerMin(Min.current);
+        } 
+        catch (err) {
+            if (err.response.data.errCode === 112) {
+                window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
+            }
+        }
+    };
+
+    const updateSettings = async (focusLength, breakLength, noti) => {
+        const payload = {
+            timerSettings: {
+                focusLength,
+                breakLength,
+                isNotified: noti,
+            }
+        }
+        try {
+          const response = await axios.put(
+            `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/timer/updateSettings`,
+            payload
+          );
+          // Handle update settings
+          console.log("Handle update settings");
+          await getSettings();
+          return response;
+        } 
+        catch (err) {
+          if (err.response.data.errCode === 112) {
+            // Handle when session expired
+            window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
+          }
+          console.log(err.response.data);
+        }
+    };
 
     const setCircleDashArray = (timeFraction) => {
         const circleDashArray = `${(timeFraction * FULL_DASH_ARRAY).toFixed(0)} 283`;
@@ -49,7 +89,7 @@ const SettingTimer = () => {
                 if (Min.current == 0 && Sec.current == 0) {
                     clearInterval(Interval.current);
                     // Set interval to 1 to prevent pressing button while time runs out
-                    Interval.current = 1;
+                    Interval.current = 0;
                     setIsFocused(!isFocused);
                     console.log("Stop");
                     setAction("Start");                     
@@ -100,6 +140,18 @@ const SettingTimer = () => {
             document.getElementById("setting-outer").style.visibility = "visible";
             document.getElementById("setting-outer").style.opacity = "1";
         }
+        document.getElementById('setting-focus-length-min').value = null;
+        document.getElementById('setting-break-length-min').value = null;
+        document.getElementById('setting-noti').checked = noti;
+    }
+    
+    // Handle save properties in Setting
+    const handleSave = () => {
+        const focusLength = (document.getElementById('setting-focus-length-min').value ? document.getElementById('setting-focus-length-min').value : 0);
+        const breakLength = (document.getElementById('setting-break-length-min').value ? document.getElementById('setting-break-length-min').value : 0);
+        const noti = temp;
+        updateSettings(focusLength, breakLength, noti);
+        handleCloseAndOpen();
     }
 
     // prevent user from entering special characters
@@ -116,61 +168,75 @@ const SettingTimer = () => {
                 }
             });
         }
-    },[])
-
+        getSettings();
+    }, []);
+    
     useEffect(() => {
         console.log(focusLengthMin);
         console.log(breakLengthMin);
         console.log(noti);
-    }, [focusLengthMin, breakLengthMin, noti])
+    }, [focusLengthMin, breakLengthMin, noti]);
 
-    // Handle save properties in Setting
-    const handleSave = () => {
-        setFocusLengthMin(document.getElementById('setting-focus-length-min').value);
-        setBreakLengthMin(document.getElementById('setting-break-length-min').value);
-        if (noti !== temp) setNoti(temp);
-        handleCloseAndOpen();
-    }
-
-    const handleCancel = () => {
-        handleCloseAndOpen();
-        document.getElementById('setting-focus-length-min').value = focusLengthMin;
-        document.getElementById('setting-break-length-min').value = breakLengthMin;
-        document.getElementById('setting-noti').checked = noti;
-    }
-    
+    useEffect(() => {
+        Min.current = (isFocused ? focusLengthMin : breakLengthMin);
+        Sec.current = 0;
+        totalTime.current = Min.current * 60;
+        document.getElementsByClassName("timer-path-remaining")[0].setAttribute("stroke-dasharray", "283 283");
+        setTimerMin(Min.current);
+        setTimerSec(Sec.current);
+    }, [focusLengthMin, breakLengthMin, isFocused]);
 
     return (
-        <div>
-            <div className='timer-base'>
-                <svg className="timer-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <g className="timer-circle">
-                    <circle className="timer-path-elapsed" cx="50" cy="50" r="45" />
-                    <path
-                    id='timer-path-left'
-                    strokeDasharray="283 283"
-                    className="timer-path-remaining"
-                    d='
-                    M 50, 50
-                    m -45, 0
-                    a 45,45 0 1,0 90,0
-                    a 45,45 0 1,0 -90,0
-                    ' />
-                    </g>
-                </svg>
-                <div className='timer-label'>
-                    <div id="timer-time">{formatTime(TimerMin)}:{formatTime(TimerSec)}</div>
+        <>
+            <div className='setting-timer-container'>
+                <div className='timer-container'>
+                    <div className='timer-base'>
+                        <svg className="timer-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <g className="timer-circle">
+                            <circle className="timer-path-elapsed" cx="50" cy="50" r="45" />
+                            <path
+                            id='timer-path-left'
+                            strokeDasharray="283 283"
+                            className="timer-path-remaining"
+                            d='
+                            M 50, 50
+                            m -45, 0
+                            a 45,45 0 1,0 90,0
+                            a 45,45 0 1,0 -90,0
+                            ' 
+                            style={{stroke : (isFocused ? "#04AA6D" : "#5c8a07")}}/>
+                            </g>
+                        </svg>
+                        <div className='timer-label'>
+                            <div className="timer-mode" style={{color : (isFocused ? "#04AA6D" : "#5c8a07"), fontWeight: "bold"}}>{isFocused ? "Focus Mode" : "Break Mode"}</div>
+                            <div id="timer-time">{formatTime(TimerMin)}:{formatTime(TimerSec)}</div>
+                        </div>
+                        
+                    </div>
+                    <div className="timer-btn" style={{height: (isFocused ? "156px" : "104px")}}>
+                        {
+                            isFocused ?
+                            <button className="music-player-status" onClick={() => setIsMusicOn(!isMusicOn)}>
+                                Music:
+                                {isMusicOn? " ON" : " OFF"}
+                            </button>
+                            : 
+                            <></>
+                        }
+                        <button className="timer-start-btn" id="timer-btn" onClick={() => startAndStopTimer()}>
+                            {Action}
+                        </button>
+                        <button className='setting-button' onClick={() => handleCloseAndOpen()}>
+                            Setting
+                        </button>
+                    </div>
                 </div>
-                    <input id="timer-btn" type="button" value={Action} style={{display: "block"}} onClick={startAndStopTimer}/>
             </div>
-            <button className='setting-button' onClick={() => handleCloseAndOpen()}>
-                Setting
-            </button>
             <div id="setting-outer" style={style}>
                 <div className='setting-container'>
                     <div className="setting-header">
                         <h1 className='setting-title'>Setting</h1> 
-                        <svg className='bi bi-x setting-close-icon' xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" onClick={() => handleCancel()}>
+                        <svg className='bi bi-x setting-close-icon' xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" onClick={() => handleCloseAndOpen()}>
                             <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                         </svg>
                     </div>
@@ -179,20 +245,13 @@ const SettingTimer = () => {
                             <span className='setting-item-name'  style={{transform: "translateY(5px)"}} >
                                 Focus length
                             </span>
-                            <hstack>
-                                <input id='setting-focus-length-min' placeholder="Minutes" type="number" maxLength='4'  min="1" max="60" className="setting-numbox" defaultValue={focusLengthMin} />
-                            </hstack>
-                            
+                            <input id='setting-focus-length-min' placeholder="Minutes" type="number" maxLength='4'  min="1" max="60" className="setting-numbox"/>
                         </li>
-
                         <li className='setting-li'>
                             <span className='setting-item-name' style={{transform: "translateY(5px)"}} >
                                 Break length
                             </span>
-                            <hstack>
-                                <input id='setting-break-length-min' placeholder="Minutes" type="number" step="1"  min="1" className="setting-numbox" defaultValue={breakLengthMin}/>
-                            </hstack>
-                            
+                            <input id='setting-break-length-min' placeholder="Minutes" type="number" step="1"  min="1" className="setting-numbox"/>
                         </li>
 
                         <li className='setting-li'>
@@ -205,16 +264,15 @@ const SettingTimer = () => {
                             </label>
                         </li>
                     </ul>
-
-                    
                     <div className='form-head'>
-                        <button className='setting-button' onClick={() => handleSave()}>
+                        <button className='setting-save-button' onClick={() => handleSave()}>
                             Save
                         </button>
                     </div>
                 </div>
             </div>  
-        </div>
+            {(isFocused && !isMusicOn ? <></> : <MusicPlayer />)}
+        </>
     )
 }
 

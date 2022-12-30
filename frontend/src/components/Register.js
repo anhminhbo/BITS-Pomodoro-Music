@@ -190,8 +190,8 @@ const Register = () => {
               >
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
               </svg>
-              Password must be at least 8 characters and contains at least one
-              number, one lowercase character and one uppercase character.
+              Password must be at least 8 characters and contains at least ONE
+              number, ONE lowercase character, ONE uppercase character and NO special characters.
             </div>
             <div className="confirm-password login-register-input">
               <div className="formlabel" for="confirmPassword">
@@ -220,7 +220,7 @@ const Register = () => {
               >
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
               </svg>
-              Unmatched password
+              Unmatched password.
             </div>
             <div className="tos">
               <div id="tos-inform">

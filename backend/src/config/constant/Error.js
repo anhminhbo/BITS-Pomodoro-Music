@@ -98,6 +98,10 @@ const Error = {
     errCode: 121,
     errMessage: "Deleted tasks not existed to delete",
   },
+  NewPasswordInvalid: {
+    errCode: 122,
+    errMessage: "New password is the same as the current password",
+  },
 
   // 200++ Error from Db
   CastError: {

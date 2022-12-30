@@ -18,7 +18,6 @@ const Task = () => {
     catch (err) {
         if (err.response.data.errCode === 112) {
           // Handle when session expired
-          alert("ERROR: Session expired!");
           window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
         }
     }
@@ -47,8 +46,9 @@ const Task = () => {
     } catch (err) {
       if (err.response.data.errCode === 112) {
         // Handle when session expired
-        console.log("Handle when session expired");
-      } else if (err.response.data.errCode === 119) {
+        window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
+      } 
+      else if (err.response.data.errCode === 119) {
         // Handle when task name empty
         console.log("Handle when task name empty");
       }
@@ -66,7 +66,7 @@ const Task = () => {
     } catch (err) {
       if (err.response.data.errCode === 112) {
         // Handle when session expired
-        console.log("Handle when session expired");
+        window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
       } else if (err.response.data.errCode === 120) {
         // Handle when task index empty
         console.log("Handle when task index empty");
@@ -98,16 +98,21 @@ const Task = () => {
     if (opacity === "1") {
       document.getElementById("task-setting-outer").style.visibility = "hidden";
       document.getElementById("task-setting-outer").style.opacity = "0";
-    } 
-    else {
-      document.getElementById("task-setting-outer").style.visibility ="visible";
+    } else {
+      document.getElementById("task-setting-outer").style.visibility =
+        "visible";
       document.getElementById("task-setting-outer").style.opacity = "1";
     }
   };
 
   const handleAddTask = () => {
+    if (taskname.current.value == "") {
+      alert("Please enter a task name");
+      return;
+    }
     updateTasks(tasklist.length, taskname.current.value, false);
     handleCloseAndOpen();
+    taskname.current.value = "";
   };
 
   const handleDeleteTask = (id) => {
@@ -133,17 +138,7 @@ const Task = () => {
                   className="task-checkbox-custom"
                   for={`task-checkbox-${index}`}
                   onClick={() => {
-                    const temp = tasklist.map((Task, Index) => {
-                      if (Index === index) {
-                        return {
-                          name: Task.name,
-                          isDone: !Task.isDone,
-                        };
-                      } else {
-                        return Task;
-                      }
-                    });
-                    setTasklist(temp);
+                    updateTasks(index, task.name, !task.isDone);
                   }}
                 ></label>
               </div>
@@ -216,6 +211,7 @@ const Task = () => {
             id="task-setting-input"
             type="text"
             placeholder="Task Name"
+            required
           />
           <input
             id="task-setting-btn"

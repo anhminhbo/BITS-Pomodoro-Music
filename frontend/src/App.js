@@ -15,20 +15,20 @@ import LandingPage from "./components/LandingPage";
 axios.defaults.withCredentials = true;
 
 function App() {
-  const [backend, setBackend] = useState("No Backend connection");
-  const backendURL = `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/test`;
-  console.log(backendURL);
-  useEffect(() => {
-    axios.get(backendURL).then((response) => {
-      console.log(response.data.data);
-      setBackend(
-        response.data.data === "Test Success"
-          ? "Connected to Backend Successfully."
-          : "Unable to connect to Backend. Check now!"
-      );
-    });
-  });
-  console.log(backend);
+  // const [backend, setBackend] = useState("No Backend connection");
+  // const backendURL = `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/test`;
+  // console.log(backendURL);
+  // useEffect(() => {
+  //   axios.get(backendURL).then((response) => {
+  //     console.log(response.data.data);
+  //     setBackend(
+  //       response.data.data === "Test Success"
+  //         ? "Connected to Backend Successfully."
+  //         : "Unable to connect to Backend. Check now!"
+  //     );
+  //   });
+  // });
+  // console.log(backend);
 
   // //Sample haha
   // const register = async (username, password) => {
@@ -48,21 +48,11 @@ function App() {
 
   return (
     <div className="App">
-      {/* {backend} */}
-      {/* <Header /> */}
-      {/* <LandingPage/> */}
-      {/* <LogIn /> */}
-      {/* <Register /> */}
-      {/* <SettingTimer /> */}
-      {/* <MusicPlayer /> */}
-      {/* <Task /> */}
-      {/* <Footer /> */}
       <Routes>
         <Route path="/main" element={
           <>
             <Header />
             <SettingTimer />
-            <MusicPlayer />
             <Task />
             <Footer />
           </>

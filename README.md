@@ -103,9 +103,11 @@ bash push_current_and_merge.sh main ""
 ```
 
 ## Integrate Github action for automation to create PR
-- Whenever a dev using the push_current_and_merge.sh script, it will automatically trigger Github action to create a PR to minh-dev
+- Whenever a dev using the push_current_and_merge.sh script, it will automatically trigger Github action to create a PR to mirror(Master Frontend Leader)
+- Whenever mirrorusing the push_current_and_merge.sh script, it will automatically trigger Github action to create a PR to minh-dev(Team Leader)
 - Whenever minh-dev has new codes, github action trigger to create a new PR to main for review
 - (New) Add new github action to automated build and push Docker image instead of old costly Jenkins
+- (New) Add new github action to deploy production after build and push Docker images success
 
 ## Integrate Jenkins for automation of build, push and deploy(deprecated due to high cost VM)
 - After main branch has new codes, it trigger Jenkins pipeline on Jenkins VM to automate build, push and deploy to production.

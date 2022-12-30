@@ -4,7 +4,7 @@ import './HeaderFooter.css'
 const Footer = () => {
   return (
     <div className='footer-container'>
-        ©2022 BUG FIX SQUAD - RMIT University
+        © 2022 BUG FIX SQUAD - RMIT University
     </div>
   )
 }

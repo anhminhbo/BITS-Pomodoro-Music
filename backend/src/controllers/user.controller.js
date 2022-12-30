@@ -1,6 +1,7 @@
 const { ResponseService, UserService, RedisService } = require("../services");
 const Error = require("../config/constant/Error");
 const { catchAsync } = require("../utils");
+const bcrypt = require("bcrypt");
 
 const getUserById = catchAsync(async (req, res) => {
   const { userId } = req.params;
@@ -28,4 +29,10 @@ const createNewUser = catchAsync(async (req, res) => {
   res.status(200).json(ResponseService.newSucess(newUser));
 });
 
-module.exports = { getUserById, createNewUser };
+const getUsername = catchAsync(async (req, res) => {
+  const { username } = req.session;
+  res.status(200).json(ResponseService.newSucess(username));
+});
+
+
+module.exports = { getUserById, createNewUser, getUsername };
