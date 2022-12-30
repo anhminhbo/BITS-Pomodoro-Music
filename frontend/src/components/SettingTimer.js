@@ -307,7 +307,7 @@ const SettingTimer = () => {
                             </span>
                             <label className='setting-switch'>
                                 <input id='setting-noti' className='setting-checkbox' type="checkbox" defaultChecked={noti.current}/>
-                                <span className="setting-slider setting-round" onClick={() => noti.current}></span>
+                                <span className="setting-slider setting-round" ></span>
                             </label>
                         </li>
                     </ul>
