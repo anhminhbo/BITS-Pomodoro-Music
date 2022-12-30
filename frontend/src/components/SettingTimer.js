@@ -5,6 +5,7 @@ import "./SettingTimer.css";
 import { useRef, useEffect } from "react";
 import MusicPlayer from "./MusicPlayer";
 import axios from "axios";
+const sound = require('../sound/noti-sound.wav');
 
 const formatTime = (num) => {
   if (num < 10) return "0" + num;
@@ -14,37 +15,39 @@ const formatTime = (num) => {
 const FULL_DASH_ARRAY = 283;
 
 const SettingTimer = () => {
-  const [focusLengthMin, setFocusLengthMin] = useState(0);
-  const [breakLengthMin, setBreakLengthMin] = useState(0);
-  const [isFocused, setIsFocused] = useState(true);
-  const [isMusicOn, setIsMusicOn] = useState(true);
-  const [noti, setNoti] = useState(false);
-  const Min = useRef(isFocused ? focusLengthMin : breakLengthMin);
-  const Sec = useRef(0);
-  const [TimerMin, setTimerMin] = useState(Min.current);
-  const [TimerSec, setTimerSec] = useState(Sec.current);
-  const [Action, setAction] = useState("Start");
-  const Interval = useRef(0);
-  const totalTime = useRef();
+    const [focusLengthMin, setFocusLengthMin] = useState(0);
+    const [breakLengthMin, setBreakLengthMin] = useState(0);
+    const [isFocused, setIsFocused] = useState(true);
+    const [isMusicOn, setIsMusicOn] = useState(true);
+    const noti = useRef(false);
+    const [temp, setTemp] = useState(noti.current);
+    const Min = useRef(isFocused ? focusLengthMin : breakLengthMin);
+    const Sec = useRef(0);
+    const [TimerMin, setTimerMin] = useState(Min.current);
+    const [TimerSec, setTimerSec] = useState(Sec.current);
+    const [Action, setAction] = useState("Start");
+    const Interval = useRef(0);
+    const totalTime = useRef();
 
-  const getSettings = async () => {
-    try {
-      const response = await axios.get(
-        `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/timer/getSettings`
-      );
-      const data = response.data.data.timerSettings;
-      setFocusLengthMin(data.focusLength);
-      setBreakLengthMin(data.breakLength);
-      setNoti(data.isNotified);
-      Min.current = isFocused ? focusLengthMin : breakLengthMin;
-      setTimerMin(Min.current);
-    } catch (err) {
-      if (err.response.data.errCode === 112) {
-        window.location.href =
-          window.__RUNTIME_CONFIG__.FRONTEND_URL + "/login";
-      }
-    }
-  };
+    const getSettings = async () => {
+        try {
+            const response = await axios.get(
+                `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/timer/getSettings`
+            );
+            const data = response.data.data.timerSettings;
+            setFocusLengthMin(data.focusLength);
+            setBreakLengthMin(data.breakLength);
+            noti.current = data.isNotified;
+            Min.current = (isFocused ? focusLengthMin : breakLengthMin);
+            Sec.current = 0;
+            setTimerMin(Min.current);
+        } 
+        catch (err) {
+            if (err.response.data.errCode === 112) {
+                window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
+            }
+        }
+    };
 
   const updateSettings = async (focusLength, breakLength, noti) => {
     const payload = {
@@ -73,29 +76,40 @@ const SettingTimer = () => {
     }
   };
 
-  const setCircleDashArray = (timeFraction) => {
-    const circleDashArray = `${(timeFraction * FULL_DASH_ARRAY).toFixed(
-      0
-    )} 283`;
-    document
-      .getElementsByClassName("timer-path-remaining")[0]
-      .setAttribute("stroke-dasharray", circleDashArray);
-  };
-
-  // NOTE: THE TIMER ONLY RUN IF INTERVAL EQUALS ZERO
-  const startAndStopTimer = () => {
-    if (Interval.current == 0) {
-      setAction("Stop");
-      // Start a Timer
-      Interval.current = setInterval(() => {
-        // If time runs out
-        if (Min.current == 0 && Sec.current == 0) {
-          clearInterval(Interval.current);
-          // Set interval to 1 to prevent pressing button while time runs out
-          Interval.current = 0;
-          setIsFocused(!isFocused);
-          console.log("Stop");
-          setAction("Start");
+    // NOTE: THE TIMER ONLY RUN IF INTERVAL EQUALS ZERO
+    const startAndStopTimer = () => {
+        if (Interval.current == 0) {
+            setAction("Stop");
+            // Start a Timer
+            Interval.current = setInterval(() => {
+                console.log(noti.current);
+                // If time runs out
+                if (Min.current == 0 && Sec.current == 0) {
+                    clearInterval(Interval.current);
+                    // Set interval to 1 to prevent pressing button while time runs out
+                    Interval.current = 0;
+                    console.log(noti.current);
+                    if (noti.current) {
+                        document.getElementById("timer-noti-sound").muted = false;
+                        document.getElementById("timer-noti-sound").play();
+                    }
+                    setIsFocused(!isFocused);
+                    console.log("Stop");
+                    setAction("Start");                     
+                }
+                // If time doesn't run out but second equals to zero
+                else if (Sec.current == 0) {
+                    Sec.current = 59;
+                    Min.current--; 
+                }
+                // Go normally by reducing second by one
+                else Sec.current--;
+                // Update value for re-render
+                let timeInSec = Min.current*60 + Sec.current;
+                setCircleDashArray(timeInSec / totalTime.current);
+                setTimerMin(Min.current);
+                setTimerSec(Sec.current);
+            }, 1000);
         }
         // If time doesn't run out but second equals to zero
         else if (Sec.current == 0) {
@@ -174,45 +188,86 @@ const SettingTimer = () => {
         if (invalidChars.includes(e.key)) {
           e.preventDefault();
         }
-      });
+        document.getElementById('setting-focus-length-min').value = null;
+        document.getElementById('setting-break-length-min').value = null;
+        document.getElementById('setting-noti').checked = noti.current;
+    }
+    
+    // Handle save properties in Setting
+    const handleSave = () => {
+        const focusLength = (document.getElementById('setting-focus-length-min').value !== "" ? document.getElementById('setting-focus-length-min').value : focusLengthMin);
+        const breakLength = (document.getElementById('setting-break-length-min').value !== "" ? document.getElementById('setting-break-length-min').value : breakLengthMin);
+        if (focusLength <= 0 || focusLength > 59 || breakLength <= 0 || breakLength > 59) {
+            document.getElementById('setting-focus-length-min').value = "";
+            document.getElementById('setting-break-length-min').value = "";
+            alert("Invalid input value. Please enter a value between 0 and 59");
+            return;
+        }
+        if (focusLength === focusLengthMin && breakLength === breakLengthMin && noti.current === temp) {
+            reset();
+        }
+        updateSettings(focusLength, breakLength, temp);
+        handleCloseAndOpen();
     }
     getSettings();
   }, []);
 
-  useEffect(() => {
-    console.log(focusLengthMin);
-    console.log(breakLengthMin);
-    console.log(noti);
-  }, [focusLengthMin, breakLengthMin, noti]);
+    // prevent user from entering special characters
+    useEffect(() => {
+        getSettings();
+        var NumBoxes= document.querySelectorAll(".setting-numbox");
+        var invalidChars = ["+","-","e"];
+        for (const NumBox of NumBoxes) {
+            NumBox.addEventListener("input", function(){
+                this.value = this.value.replace(/[e\+\-]/gi, "")
+            });
+            NumBox.addEventListener("keydown", function(e) {
+                if (invalidChars.includes(e.key)) {
+                    e.preventDefault()
+                }
+            });
+        }
+    }, []);
+    
+    useEffect(() => {
+        console.log(focusLengthMin);
+        console.log(breakLengthMin);
+        console.log(noti.current);
+    }, [focusLengthMin, breakLengthMin, noti.current]);
 
-  useEffect(() => {
-    Min.current = isFocused ? focusLengthMin : breakLengthMin;
-    Sec.current = 0;
-    totalTime.current = Min.current * 60;
-    document
-      .getElementsByClassName("timer-path-remaining")[0]
-      .setAttribute("stroke-dasharray", "283 283");
-    setTimerMin(Min.current);
-    setTimerSec(Sec.current);
-  }, [focusLengthMin, breakLengthMin, isFocused]);
+    const reset = () => {
+        Min.current = (isFocused ? focusLengthMin : breakLengthMin);
+        Sec.current = 0;
+        totalTime.current = Min.current * 60;
+        document.getElementsByClassName("timer-path-remaining")[0].setAttribute("stroke-dasharray", "283 283");
+        setTimerMin(Min.current);
+        setTimerSec(Sec.current);
+    }
 
-  return (
-    <>
-      <div className="setting-timer-container">
-        <div className="timer-container">
-          <div className="timer-base">
-            <svg
-              className="timer-svg"
-              viewBox="0 0 100 100"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g className="timer-circle">
-                <circle className="timer-path-elapsed" cx="50" cy="50" r="45" />
-                <path
-                  id="timer-path-left"
-                  strokeDasharray="283 283"
-                  className="timer-path-remaining"
-                  d="
+    useEffect(() => {
+        reset();
+    }, [focusLengthMin, breakLengthMin, noti.current, isFocused]);
+
+    useEffect(() => {
+        document.querySelector(".timer-start-btn").click();
+    }, [isFocused])
+
+    return (
+        <>
+            <audio id="timer-noti-sound" muted={true}>
+                <source src={sound} type="audio/wav"/>
+            </audio>
+            <div className='setting-timer-container'>
+                <div className='timer-container'>
+                    <div className='timer-base'>
+                        <svg className="timer-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <g className="timer-circle">
+                            <circle className="timer-path-elapsed" cx="50" cy="50" r="45" />
+                            <path
+                            id='timer-path-left'
+                            strokeDasharray="283 283"
+                            className="timer-path-remaining"
+                            d='
                             M 50, 50
                             m -45, 0
                             a 45,45 0 1,0 90,0
@@ -316,38 +371,26 @@ const SettingTimer = () => {
                 className="setting-numbox"
               />
             </li>
-
-            <li className="setting-li">
-              <span className="setting-item-name">Notifications Sound</span>
-              <label className="setting-switch">
-                <input
-                  id="setting-noti"
-                  className="setting-checkbox"
-                  type="checkbox"
-                  defaultChecked={noti}
-                />
-                <span
-                  className="setting-slider setting-round"
-                  onClick={() => {
-                    setNoti(!noti);
-                  }}
-                ></span>
-              </label>
-            </li>
-          </ul>
-          <div className="form-head">
-            <button
-              className="setting-save-button"
-              onClick={() => handleSave()}
-            >
-              Save
-            </button>
-          </div>
-        </div>
-      </div>
-      {isFocused && !isMusicOn ? <></> : <MusicPlayer />}
-    </>
-  );
-};
+                        <li className='setting-li'>
+                            <span className='setting-item-name'>
+                                Notifications Sound
+                            </span>
+                            <label className='setting-switch'>
+                                <input id='setting-noti' className='setting-checkbox' type="checkbox" defaultChecked={noti.current}/>
+                                <span className="setting-slider setting-round" onClick={() => {setTemp(!temp)}}></span>
+                            </label>
+                        </li>
+                    </ul>
+                    <div className='form-head'>
+                        <button className='setting-save-button' onClick={() => handleSave()}>
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>  
+            {(isFocused && !isMusicOn ? <></> : <MusicPlayer />)}
+        </>
+    )
+}
 
 export default SettingTimer;
