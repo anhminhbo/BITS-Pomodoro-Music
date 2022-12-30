@@ -291,10 +291,11 @@ input::-webkit-inner-spin-button {
 }
 
 .timer-btn{
+  min-width: 173px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100px;
+  height: 150px;
 }
 
 .timer-start-btn{
@@ -332,6 +333,24 @@ input::-webkit-inner-spin-button {
   cursor: pointer;
   font-family: "Roboto Flex", sans-serif;
   font-weight: lighter;
+}
+
+.music-player-status {
+  background-color: #7DBD07;
+  padding: 10px 25px;
+  border-radius: 12px;
+  height: 45px;
+  font-size: 20px;
+  cursor: pointer;
+  font-family: "Roboto Flex", sans-serif;
+  font-weight:lighter;
+  color: white;
+  outline: none;
+  border: none;
+}
+
+.music-player-status:hover{
+  transform: translateY(-2px);
 }
 
 
