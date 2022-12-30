@@ -16,7 +16,8 @@ const FULL_DASH_ARRAY = 283;
 const SettingTimer = () => {
     const [focusLengthMin, setFocusLengthMin] = useState(0);
     const [breakLengthMin, setBreakLengthMin] = useState(0);
-    const [isFocused, setIsFocused] = useState(false);
+    const [isFocused, setIsFocused] = useState(true);
+    const [isMusicOn, setIsMusicOn] = useState(true);
     const [noti, setNoti] = useState(false);
     const [temp, setTemp] = useState(noti);
     const Min = useRef(isFocused ? focusLengthMin : breakLengthMin);
@@ -212,7 +213,16 @@ const SettingTimer = () => {
                         </div>
                         
                     </div>
-                    <div className="timer-btn">
+                    <div className="timer-btn" style={{height: (isFocused ? "156px" : "104px")}}>
+                        {
+                            isFocused ?
+                            <button className="music-player-status" onClick={() => setIsMusicOn(!isMusicOn)}>
+                                Music:
+                                {isMusicOn? " ON" : " OFF"}
+                            </button>
+                            : 
+                            <></>
+                        }
                         <button className="timer-start-btn" id="timer-btn" onClick={() => startAndStopTimer()}>
                             {Action}
                         </button>
@@ -254,8 +264,6 @@ const SettingTimer = () => {
                             </label>
                         </li>
                     </ul>
-
-                    
                     <div className='form-head'>
                         <button className='setting-save-button' onClick={() => handleSave()}>
                             Save
@@ -263,7 +271,7 @@ const SettingTimer = () => {
                     </div>
                 </div>
             </div>  
-            {(isFocused ? <></> : <MusicPlayer />)}
+            {(isFocused && !isMusicOn ? <></> : <MusicPlayer />)}
         </>
     )
 }
