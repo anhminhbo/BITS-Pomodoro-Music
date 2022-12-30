@@ -19,8 +19,7 @@ const SettingTimer = () => {
     const [breakLengthMin, setBreakLengthMin] = useState(0);
     const [isFocused, setIsFocused] = useState(true);
     const [isMusicOn, setIsMusicOn] = useState(true);
-    const noti = useRef(false);
-    const [temp, setTemp] = useState(noti.current);
+    const noti = useRef(true);
     const Min = useRef(isFocused ? focusLengthMin : breakLengthMin);
     const Sec = useRef(0);
     const [TimerMin, setTimerMin] = useState(Min.current);
@@ -30,21 +29,21 @@ const SettingTimer = () => {
     const totalTime = useRef();
     let isFirstTime = true;
 
-    const logOut = async () => {
-        try {
-          const response = await axios.get(
-            `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/auth/logout`
-          );
-          console.log(response.data.message);
-          window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
-        } 
-        catch (err) {
-            if (err.response.data.errCode === 112) {
-              // Handle when session expired
-              window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
-            }
-        }
-      };
+    // const logOut = async () => {
+    //     try {
+    //       const response = await axios.get(
+    //         `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/auth/logout`
+    //       );
+    //       console.log(response.data.message);
+    //       window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
+    //     } 
+    //     catch (err) {
+    //         if (err.response.data.errCode === 112) {
+    //           // Handle when session expired
+    //           window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
+    //         }
+    //     }
+    //   };
 
     const getSettings = async () => {
         try {
@@ -175,16 +174,17 @@ const SettingTimer = () => {
     const handleSave = () => {
         const focusLength = (document.getElementById('setting-focus-length-min').value !== "" ? document.getElementById('setting-focus-length-min').value : focusLengthMin);
         const breakLength = (document.getElementById('setting-break-length-min').value !== "" ? document.getElementById('setting-break-length-min').value : breakLengthMin);
+        noti.current = !noti.current;
         if (focusLength <= 1 || focusLength > 120 || breakLength <= 1 || breakLength > 30) {
             document.getElementById('setting-focus-length-min').value = "";
             document.getElementById('setting-break-length-min').value = "";
             alert("Invalid input value. Please enter a value between 1~120 for Focus and 1~30 for Break.");
             return;
         }
-        if (focusLength === focusLengthMin && breakLength === breakLengthMin && noti.current === temp) {
+        if (focusLength === focusLengthMin && breakLength === breakLengthMin) {
             reset();
         }
-        updateSettings(focusLength, breakLength, temp);
+        updateSettings(focusLength, breakLength, noti.current);
         handleCloseAndOpen();
     }
 
@@ -209,7 +209,7 @@ const SettingTimer = () => {
         console.log(focusLengthMin);
         console.log(breakLengthMin);
         console.log(noti.current);
-    }, [focusLengthMin, breakLengthMin, noti.current]);
+    }, [focusLengthMin,breakLengthMin,noti.current]);
 
     const reset = () => {
         Min.current = (isFocused ? focusLengthMin : breakLengthMin);
@@ -307,7 +307,7 @@ const SettingTimer = () => {
                             </span>
                             <label className='setting-switch'>
                                 <input id='setting-noti' className='setting-checkbox' type="checkbox" defaultChecked={noti.current}/>
-                                <span className="setting-slider setting-round" onClick={() => {setTemp(!temp)}}></span>
+                                <span className="setting-slider setting-round" onClick={() => noti.current}></span>
                             </label>
                         </li>
                     </ul>
