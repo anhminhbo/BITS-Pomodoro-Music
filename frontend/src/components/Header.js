@@ -55,7 +55,7 @@ const Header = () => {
         payload
       );
 
-      // Han"dle change pass
+      // Handle change pass
       alert("Your password has been changed!!!");
       handleCloseAndOpenChangePass();
       return response;
