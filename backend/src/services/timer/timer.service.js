@@ -3,7 +3,6 @@ const UserService = require("../user/user.service");
 const RedisService = require("../redis/redis.service");
 
 const getSettings = async (username) => {
-  // Get playlist
   const user = await UserService.getUserByUsername(username);
 
   const { timerSettings, playlist, tasks } = user;
@@ -20,8 +19,18 @@ const getSettings = async (username) => {
   return timerSettings;
 };
 
-const updateSettings = async (username, newTimerSettings) => {
-  // Get playlist
+const updateSettings = async (username, reqTimerSettings) => {
+  // Get timerSettings
+  const user = await UserService.getUserByUsername(username);
+
+  // Handle to check if any value changed to set new settings
+
+  const newTimerSettings = JSON.parse(JSON.stringify(reqTimerSettings));
+
+  if (!newTimerSettings.focusLength)
+    newTimerSettings.focusLength = user.timerSettings.focusLength;
+  if (!newTimerSettings.breakLength)
+    newTimerSettings.breakLength = user.timerSettings.breakLength;
 
   const filter = { username };
   const update = { timerSettings: newTimerSettings };
