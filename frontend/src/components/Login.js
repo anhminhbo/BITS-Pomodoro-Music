@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Form.css";
 import axios from "axios";
 
@@ -7,11 +7,12 @@ const background = require("../img/BG.jpg");
 const LogIn = () => {
   const username = useRef();
   const password = useRef();
-  const userSession = useRef("");
+  const [userSession, setUserSession] = useState("");
 
   useEffect(() => {
     if (sessionStorage.getItem("username")){
-      userSession.current = sessionStorage.getItem("username");
+      console.log(sessionStorage.getItem("username"));
+      setUserSession(sessionStorage.getItem("username"));
       sessionStorage.removeItem("username");
     }
   }, [])
@@ -77,7 +78,7 @@ const LogIn = () => {
                 maxlength="150"
                 placeholder="Enter Username"
                 ref={username}
-                defaultValue={userSession.current}
+                defaultValue={userSession}
               />
             </div>
             <div className="password login-register-input">

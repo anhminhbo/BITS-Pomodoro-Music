@@ -5,6 +5,7 @@ import'./SettingTimer.css'
 import { useRef, useEffect } from 'react';
 import MusicPlayer from './MusicPlayer';
 import axios from "axios";
+const sound = require('../sound/noti-sound.wav');
 
 const formatTime = (num) => {
     if (num<10) return '0'+num;
@@ -18,8 +19,8 @@ const SettingTimer = () => {
     const [breakLengthMin, setBreakLengthMin] = useState(0);
     const [isFocused, setIsFocused] = useState(true);
     const [isMusicOn, setIsMusicOn] = useState(true);
-    const [noti, setNoti] = useState(false);
-    const [temp, setTemp] = useState(noti);
+    const noti = useRef(false);
+    const [temp, setTemp] = useState(noti.current);
     const Min = useRef(isFocused ? focusLengthMin : breakLengthMin);
     const Sec = useRef(0);
     const [TimerMin, setTimerMin] = useState(Min.current);
@@ -36,8 +37,9 @@ const SettingTimer = () => {
             const data = response.data.data.timerSettings;
             setFocusLengthMin(data.focusLength);
             setBreakLengthMin(data.breakLength);
-            setNoti(data.noti);
+            noti.current = data.isNotified;
             Min.current = (isFocused ? focusLengthMin : breakLengthMin);
+            Sec.current = 0;
             setTimerMin(Min.current);
         } 
         catch (err) {
@@ -85,11 +87,17 @@ const SettingTimer = () => {
             setAction("Stop");
             // Start a Timer
             Interval.current = setInterval(() => {
+                console.log(noti.current);
                 // If time runs out
                 if (Min.current == 0 && Sec.current == 0) {
                     clearInterval(Interval.current);
                     // Set interval to 1 to prevent pressing button while time runs out
                     Interval.current = 0;
+                    console.log(noti.current);
+                    if (noti.current) {
+                        document.getElementById("timer-noti-sound").muted = false;
+                        document.getElementById("timer-noti-sound").play();
+                    }
                     setIsFocused(!isFocused);
                     console.log("Stop");
                     setAction("Start");                     
@@ -142,20 +150,29 @@ const SettingTimer = () => {
         }
         document.getElementById('setting-focus-length-min').value = null;
         document.getElementById('setting-break-length-min').value = null;
-        document.getElementById('setting-noti').checked = noti;
+        document.getElementById('setting-noti').checked = noti.current;
     }
     
     // Handle save properties in Setting
     const handleSave = () => {
-        const focusLength = (document.getElementById('setting-focus-length-min').value ? document.getElementById('setting-focus-length-min').value : 0);
-        const breakLength = (document.getElementById('setting-break-length-min').value ? document.getElementById('setting-break-length-min').value : 0);
-        const noti = temp;
-        updateSettings(focusLength, breakLength, noti);
+        const focusLength = (document.getElementById('setting-focus-length-min').value !== "" ? document.getElementById('setting-focus-length-min').value : focusLengthMin);
+        const breakLength = (document.getElementById('setting-break-length-min').value !== "" ? document.getElementById('setting-break-length-min').value : breakLengthMin);
+        if (focusLength <= 0 || focusLength > 59 || breakLength <= 0 || breakLength > 59) {
+            document.getElementById('setting-focus-length-min').value = "";
+            document.getElementById('setting-break-length-min').value = "";
+            alert("Invalid input value. Please enter a value between 0 and 59");
+            return;
+        }
+        if (focusLength === focusLengthMin && breakLength === breakLengthMin && noti.current === temp) {
+            reset();
+        }
+        updateSettings(focusLength, breakLength, temp);
         handleCloseAndOpen();
     }
 
     // prevent user from entering special characters
     useEffect(() => {
+        getSettings();
         var NumBoxes= document.querySelectorAll(".setting-numbox");
         var invalidChars = ["+","-","e"];
         for (const NumBox of NumBoxes) {
@@ -168,26 +185,36 @@ const SettingTimer = () => {
                 }
             });
         }
-        getSettings();
     }, []);
     
     useEffect(() => {
         console.log(focusLengthMin);
         console.log(breakLengthMin);
-        console.log(noti);
-    }, [focusLengthMin, breakLengthMin, noti]);
+        console.log(noti.current);
+    }, [focusLengthMin, breakLengthMin, noti.current]);
 
-    useEffect(() => {
+    const reset = () => {
         Min.current = (isFocused ? focusLengthMin : breakLengthMin);
         Sec.current = 0;
         totalTime.current = Min.current * 60;
         document.getElementsByClassName("timer-path-remaining")[0].setAttribute("stroke-dasharray", "283 283");
         setTimerMin(Min.current);
         setTimerSec(Sec.current);
-    }, [focusLengthMin, breakLengthMin, isFocused]);
+    }
+
+    useEffect(() => {
+        reset();
+    }, [focusLengthMin, breakLengthMin, noti.current, isFocused]);
+
+    useEffect(() => {
+        document.querySelector(".timer-start-btn").click();
+    }, [isFocused])
 
     return (
         <>
+            <audio id="timer-noti-sound" muted={true}>
+                <source src={sound} type="audio/wav"/>
+            </audio>
             <div className='setting-timer-container'>
                 <div className='timer-container'>
                     <div className='timer-base'>
@@ -259,7 +286,7 @@ const SettingTimer = () => {
                                 Notifications Sound
                             </span>
                             <label className='setting-switch'>
-                                <input id='setting-noti' className='setting-checkbox' type="checkbox" defaultChecked={noti}/>
+                                <input id='setting-noti' className='setting-checkbox' type="checkbox" defaultChecked={noti.current}/>
                                 <span className="setting-slider setting-round" onClick={() => {setTemp(!temp)}}></span>
                             </label>
                         </li>
