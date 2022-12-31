@@ -28,7 +28,7 @@ const SettingTimer = () => {
     const [Action, setAction] = useState("Start");
     const Interval = useRef(0);
     const totalTime = useRef();
-    let isFirstTime = true;
+    const isFirstTime = useRef(true);
 
     const getSettings = async () => {
         try {
@@ -162,7 +162,7 @@ const SettingTimer = () => {
         if (focusLength < 1 || focusLength > 120 || breakLength < 1 || breakLength > 30) {
             document.getElementById('setting-focus-length-min').value = "";
             document.getElementById('setting-break-length-min').value = "";
-            alert("Invalid input value. Please enter a value between 2~120 for Focus and 2~30 for Break.");;
+            alert("Invalid input value. Please enter a value between 1~120 for Focus and 1~30 for Break.");;
             return;
         }
         if (focusLength === focusLengthMin && breakLength === breakLengthMin && noti.current === temp) {
@@ -209,7 +209,7 @@ const SettingTimer = () => {
     }, [focusLengthMin, breakLengthMin, noti.current, isFocused]);
 
     useEffect(() => {
-        if (isFirstTime) {isFirstTime = false}
+        if (isFirstTime.current) {isFirstTime.current = false}
         else startAndStopTimer();
         document.getElementById("timer-noti-sound").volume = 1;
     }, [isFocused])

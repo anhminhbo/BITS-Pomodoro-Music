@@ -28,3 +28,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@media screen and (max-width: 484px) {
+  html {
+    overflow-x: hidden;
+  }
+}
