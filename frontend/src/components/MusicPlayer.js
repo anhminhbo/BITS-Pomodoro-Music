@@ -79,10 +79,10 @@ const MusicPlayer = () => {
 
     // Cut down the song title 
     const title_parser = (title) => {
-        if (title.length > 45){
-            title = title.slice(0, 45);
-            return title+"..."
-        }
+        // if (title.length > 45){
+        //     title = title.slice(0, 45);
+        //     return title+"..."
+        // }
         return title;
     }
 
