@@ -19,7 +19,7 @@ const SettingTimer = () => {
     const [breakLengthMin, setBreakLengthMin] = useState(0);
     const [isFocused, setIsFocused] = useState(true);
     const [isMusicOn, setIsMusicOn] = useState(true);
-    const noti = useRef(false);
+    const noti = useRef(true);
     const [temp, setTemp] = useState(noti.current);
     const Min = useRef(isFocused ? focusLengthMin : breakLengthMin);
     const Sec = useRef(0);
@@ -276,13 +276,13 @@ const SettingTimer = () => {
                             <span className='setting-item-name'  style={{transform: "translateY(5px)"}} >
                                 Focus length
                             </span>
-                            <input id='setting-focus-length-min' placeholder="Minutes" type="number" maxLength='4'  min="1" max="60" className="setting-numbox"/>
+                            <input id='setting-focus-length-min' placeholder="Minutes" type="number" maxLength='4'  min="1" max="60" className="setting-numbox" defaultValue={focusLengthMin}/>
                         </li>
                         <li className='setting-li'>
                             <span className='setting-item-name' style={{transform: "translateY(5px)"}} >
                                 Break length
                             </span>
-                            <input id='setting-break-length-min' placeholder="Minutes" type="number" step="1"  min="1" className="setting-numbox"/>
+                            <input id='setting-break-length-min' placeholder="Minutes" type="number" step="1"  min="1" className="setting-numbox" defaultValue={breakLengthMin}/>
                         </li>
 
                         <li className='setting-li'>
