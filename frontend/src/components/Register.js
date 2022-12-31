@@ -15,6 +15,8 @@ const Register = () => {
   let confirmpasswordIsValid = false;
 
   const handleSubmit = async () => {
+    document.getElementById("register-username-existed-message").style.display =
+    "none";
     // Initialize
     const usernameRegex = /^[a-zA-Z0-9]+$/;
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
@@ -105,7 +107,6 @@ const Register = () => {
         payload
       );
       console.log(response);
-
       // Caches username, password *Advanced for UI/UX*
       // Redirect to login
       console.log("Redirect to login");
@@ -115,8 +116,9 @@ const Register = () => {
       if (err.response.data.errCode === 111) {
         // Handle when user already existed
         console.log("Handle when user already existed");
+        document.getElementById("register-username-existed-message").style.display =
+    "block";
       }
-
       console.log(err.response.data);
     }
   };
@@ -165,6 +167,20 @@ const Register = () => {
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
               </svg>
               Username contains only numeric and alphabetic characters.
+            </div>
+            <div id="register-username-existed-message" className="register-message">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="13"
+                height="13"
+                fill="currentColor"
+                class="bi bi-exclamation-circle-fill"
+                viewBox="0 0 16 16"
+                className="register-message-icon"
+              >
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+              </svg>
+              Username already existed.
             </div>
             <div className="password login-register-input">
               <div className="formlabel" for="passwbash -x local_startup.shord">
