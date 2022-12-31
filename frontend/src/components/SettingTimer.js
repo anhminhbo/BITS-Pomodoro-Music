@@ -28,7 +28,7 @@ const SettingTimer = () => {
     const [Action, setAction] = useState("Start");
     const Interval = useRef(0);
     const totalTime = useRef();
-    let isFirstTime = true;
+    const isFirstTime = useRef(true);
 
     const getSettings = async () => {
         try {
@@ -209,7 +209,7 @@ const SettingTimer = () => {
     }, [focusLengthMin, breakLengthMin, noti.current, isFocused]);
 
     useEffect(() => {
-        if (isFirstTime) {isFirstTime = false}
+        if (isFirstTime.current) {isFirstTime.current = false}
         else startAndStopTimer();
         document.getElementById("timer-noti-sound").volume = 1;
     }, [isFocused])
