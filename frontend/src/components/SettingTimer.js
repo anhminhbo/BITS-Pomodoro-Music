@@ -150,8 +150,8 @@ const SettingTimer = () => {
             document.getElementById("setting-outer").style.visibility = "visible";
             document.getElementById("setting-outer").style.opacity = "1";
         }
-        document.getElementById('setting-focus-length-min').value = null;
-        document.getElementById('setting-break-length-min').value = null;
+        document.getElementById('setting-focus-length-min').value = focusLengthMin;
+        document.getElementById('setting-break-length-min').value = breakLengthMin;
         document.getElementById('setting-noti').checked = noti.current;
     }
     
