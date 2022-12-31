@@ -285,7 +285,7 @@ input::-webkit-inner-spin-button {
 
 
 .timer-container{
-  min-width: 456px;
+  min-width: auto;
   width: calc(15px + 45%);
   position: relative;
   display: flex;
