@@ -20,7 +20,7 @@
 #music-player-input{
     display: flex;
     justify-content: space-between;
-    width: 85%;
+    width: 100%;
     align-self: center;
     margin-bottom: 25px;
 }
@@ -29,9 +29,8 @@
     font-family: 'Quicksand', sans-serif;
     padding: 5px 10px;
     font-size: 17px;
+    width: 85%;
     height: 39px;
-    width: 80%;
-    max-width: 435px;
     border-radius: 10px;
     border: 0px;
     background-color: rgb(32, 137, 36);
@@ -68,7 +67,7 @@
     background-color: rgba(94, 94, 94, 0.7);
     color: white;
     list-style-type: none;
-    width: 85%;
+    width: 100%;
     padding: 10px 20px 10px 20px;
     border-radius: 5px;
     margin-bottom: 15px;
@@ -79,7 +78,7 @@
     background-color: rgb(32, 137, 36);
     color: white;
     list-style-type: none;
-    width: 85%;
+    width: 100%;
     padding: 10px 20px 10px 20px;
     border-radius: 5px;
     margin-bottom: 15px;
@@ -253,7 +252,20 @@
     }
 
     #music-player-input{
+        width: 85%;
         margin-top: 25px;
+    }
+
+    #music-player-input-url {
+        width: 80%;
+    }
+
+    #music-player-track{
+        width: 85%;
+    }
+    
+    #music-player-track-active{
+        width: 85%;
     }
 }
 
