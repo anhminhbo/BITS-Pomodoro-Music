@@ -8,6 +8,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 #root {
@@ -21,7 +22,8 @@ body {
   flex-direction: column;
   min-height: 100vh;
   justify-content: center;
-  background-color: rgb(14, 40, 17) ;
+  background-color: rgb(14, 40, 17);
+  overflow-x: hidden;
 }
 
 code {
@@ -29,8 +31,7 @@ code {
     monospace;
 }
 
-@media screen and (max-width: 484px) {
-  html {
-    overflow-x: hidden;
-  }
+html {
+  overflow-x: hidden;
 }
+
