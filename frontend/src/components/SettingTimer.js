@@ -30,22 +30,6 @@ const SettingTimer = () => {
     const totalTime = useRef();
     let isFirstTime = true;
 
-    const logOut = async () => {
-        try {
-          const response = await axios.get(
-            `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/auth/logout`
-          );
-          console.log(response.data.message);
-          window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
-        } 
-        catch (err) {
-            if (err.response.data.errCode === 112) {
-              // Handle when session expired
-              window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
-            }
-        }
-      };
-
     const getSettings = async () => {
         try {
             const response = await axios.get(
