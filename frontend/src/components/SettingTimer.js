@@ -20,6 +20,7 @@ const SettingTimer = () => {
     const [isFocused, setIsFocused] = useState(true);
     const [isMusicOn, setIsMusicOn] = useState(true);
     const noti = useRef(true);
+    const [temp, setTemp] = useState(noti.current);
     const Min = useRef(isFocused ? focusLengthMin : breakLengthMin);
     const Sec = useRef(0);
     const [TimerMin, setTimerMin] = useState(Min.current);
@@ -28,22 +29,6 @@ const SettingTimer = () => {
     const Interval = useRef(0);
     const totalTime = useRef();
     let isFirstTime = true;
-
-    // const logOut = async () => {
-    //     try {
-    //       const response = await axios.get(
-    //         `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/auth/logout`
-    //       );
-    //       console.log(response.data.message);
-    //       window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
-    //     } 
-    //     catch (err) {
-    //         if (err.response.data.errCode === 112) {
-    //           // Handle when session expired
-    //           window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
-    //         }
-    //     }
-    //   };
 
     const getSettings = async () => {
         try {
@@ -174,17 +159,16 @@ const SettingTimer = () => {
     const handleSave = () => {
         const focusLength = (document.getElementById('setting-focus-length-min').value !== "" ? document.getElementById('setting-focus-length-min').value : focusLengthMin);
         const breakLength = (document.getElementById('setting-break-length-min').value !== "" ? document.getElementById('setting-break-length-min').value : breakLengthMin);
-        noti.current = !noti.current;
         if (focusLength < 1 || focusLength > 120 || breakLength < 1 || breakLength > 30) {
             document.getElementById('setting-focus-length-min').value = "";
             document.getElementById('setting-break-length-min').value = "";
-            alert("Invalid input value. Please enter a value between 1~120 for Focus and 1~30 for Break.");
+            alert("Invalid input value. Please enter a value between 2~120 for Focus and 2~30 for Break.");;
             return;
         }
-        if (focusLength === focusLengthMin && breakLength === breakLengthMin) {
+        if (focusLength === focusLengthMin && breakLength === breakLengthMin && noti.current === temp) {
             reset();
         }
-        updateSettings(focusLength, breakLength, noti.current);
+        updateSettings(focusLength, breakLength, temp);
         handleCloseAndOpen();
     }
 
@@ -209,7 +193,7 @@ const SettingTimer = () => {
         console.log(focusLengthMin);
         console.log(breakLengthMin);
         console.log(noti.current);
-    }, [focusLengthMin,breakLengthMin,noti.current]);
+    }, [focusLengthMin, breakLengthMin, noti.current]);
 
     const reset = () => {
         Min.current = (isFocused ? focusLengthMin : breakLengthMin);
@@ -292,13 +276,13 @@ const SettingTimer = () => {
                             <span className='setting-item-name'  style={{transform: "translateY(5px)"}} >
                                 Focus length
                             </span>
-                            <input id='setting-focus-length-min' placeholder="Minutes" type="number" maxLength='4'  min="1" max="60" className="setting-numbox"/>
+                            <input id='setting-focus-length-min' placeholder="Minutes" type="number" maxLength='4'  min="1" max="60" className="setting-numbox" defaultValue={focusLengthMin}/>
                         </li>
                         <li className='setting-li'>
                             <span className='setting-item-name' style={{transform: "translateY(5px)"}} >
                                 Break length
                             </span>
-                            <input id='setting-break-length-min' placeholder="Minutes" type="number" step="1"  min="1" className="setting-numbox"/>
+                            <input id='setting-break-length-min' placeholder="Minutes" type="number" step="1"  min="1" className="setting-numbox" defaultValue={breakLengthMin}/>
                         </li>
 
                         <li className='setting-li'>
@@ -307,7 +291,7 @@ const SettingTimer = () => {
                             </span>
                             <label className='setting-switch'>
                                 <input id='setting-noti' className='setting-checkbox' type="checkbox" defaultChecked={noti.current}/>
-                                <span className="setting-slider setting-round" ></span>
+                                <span className="setting-slider setting-round" onClick={() => {setTemp(!temp)}}></span>
                             </label>
                         </li>
                     </ul>
