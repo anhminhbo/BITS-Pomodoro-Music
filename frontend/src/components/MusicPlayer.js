@@ -77,15 +77,6 @@ const MusicPlayer = () => {
         return duration;
     }
 
-    // Cut down the song title 
-    const title_parser = (title) => {
-        if (title.length > 60){
-            title = title.slice(0, 60);
-            return title+"..."
-        }
-        return title;
-    }
-
     // Get data from API 
     const getData = (link) => {
         const id = youtube_parser(link);
@@ -96,8 +87,8 @@ const MusicPlayer = () => {
             if (playlist.find(element => element.songId === youtube_parser(link)) === undefined) { // Check if a track existed or not
                 const newSong = {
                     song: {
-                        songTitle: title_parser(response.items[0].snippet.title),
-                        songChannelTitle: title_parser(response.items[0].snippet.channelTitle),
+                        songTitle: response.items[0].snippet.title,
+                        songChannelTitle: response.items[0].snippet.channelTitle,
                         songUrl: link,
                         songId: youtube_parser(link),
                         songDuration: duration_parser(response.items[0].contentDetails.duration),

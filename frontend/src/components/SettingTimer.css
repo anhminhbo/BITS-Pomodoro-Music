@@ -255,8 +255,9 @@ input::-webkit-inner-spin-button {
 
 .timer-label{
   position: absolute;
-  width: 300px;
-  height: 300px;
+  width: 300px !important;
+  aspect-ratio: 1 / 1;
+  min-width: 300px;
   top: 0;
   display: flex;
   flex-direction: column;
@@ -275,6 +276,9 @@ input::-webkit-inner-spin-button {
 }
 
 .timer-svg{
+  width: 300px !important;
+  aspect-ratio: 1 / 1;
+  min-width: 300px;
   transform: scaleX(-1);
   position: center;
 }
@@ -282,7 +286,7 @@ input::-webkit-inner-spin-button {
 
 .timer-container{
   min-width: 456px;
-  width: calc(10px + 40%);
+  width: calc(15px + 45%);
   position: relative;
   display: flex;
   align-items: center;
@@ -351,6 +355,13 @@ input::-webkit-inner-spin-button {
 
 .music-player-status:hover{
   transform: translateY(-2px);
+}
+
+@media screen and (max-width: 1168px) {
+  .timer-container {
+    flex-direction: column;
+    height: 520px;
+  }
 }
 
 

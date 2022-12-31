@@ -15,7 +15,7 @@ const Register = () => {
   let confirmpasswordIsValid = false;
 
   const handleSubmit = async () => {
-    document.getElementById("register-usernameexisted-message").style.display =
+    document.getElementById("register-username-existed-message").style.display =
     "none";
     // Initialize
     const usernameRegex = /^[a-zA-Z0-9]+$/;
@@ -116,7 +116,7 @@ const Register = () => {
       if (err.response.data.errCode === 111) {
         // Handle when user already existed
         console.log("Handle when user already existed");
-        document.getElementById("register-usernameexisted-message").style.display =
+        document.getElementById("register-username-existed-message").style.display =
     "block";
       }
       console.log(err.response.data);
@@ -168,7 +168,7 @@ const Register = () => {
               </svg>
               Username contains only numeric and alphabetic characters.
             </div>
-            <div id="register-usernameexisted-message" className="register-message">
+            <div id="register-username-existed-message" className="register-message">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="13"
