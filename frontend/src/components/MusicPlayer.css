@@ -137,6 +137,13 @@
     text-overflow: ellipsis;
 }
 
+#music-player-track-channel{
+    width: 65%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 #music-player-track-title:hover{
     text-decoration: underline;
 }
