@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema(
       },
       isNotified: {
         type: Boolean,
-        default: false
+        default: true
       },
     },
     playlist: [
@@ -53,7 +53,7 @@ const userSchema = new mongoose.Schema(
     if (this.timerSettings === null) {
         this.timerSettings.focusLength = 25;
         this.timerSettings.breakLength = 5;
-        this.timerSettings.isNotified = false;
+        this.timerSettings.isNotified = true;
     }
 
     next();

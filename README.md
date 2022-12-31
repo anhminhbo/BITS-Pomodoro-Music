@@ -1,5 +1,6 @@
 # Building IT Systems RMIT
 Pomodoro Music player
+Tested on Chrome - Desktop/Laptop - may not work properly on other browsers and mobile platforms
 ## Software Architecture
 <p align="center">
     <img src="https://github.com/anhminhbo/BITS-Pomodoro-Music/blob/minh-dev/readme-3.png" width=900 height=900>
