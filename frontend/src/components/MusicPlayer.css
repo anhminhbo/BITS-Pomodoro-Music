@@ -28,9 +28,9 @@
 #music-player-input-url{
     font-family: 'Quicksand', sans-serif;
     padding: 5px 10px;
-    font-size: larger;
+    font-size: 17px;
+    width: 85%;
     height: 39px;
-    width: 530px;
     border-radius: 10px;
     border: 0px;
     background-color: rgb(32, 137, 36);
@@ -43,7 +43,7 @@
 
 #music-player-input-button{
     font-family: 'Quicksand', sans-serif;
-    font-size: 20px;
+    font-size: 17px;
     border: none;
     background-color: rgb(37, 161, 9);
     padding: 5px 10px;
@@ -130,12 +130,30 @@
     color: #7dbd07;
 }
 
+#music-player-track-title{
+    width: 85%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#music-player-track-channel{
+    width: 65%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 #music-player-track-title:hover{
     text-decoration: underline;
 }
 
 #music-player-playlist{
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     overflow-x: hidden;
     overflow-y: scroll;
 }
@@ -149,7 +167,7 @@
     flex-direction: column;
     align-items: center;
     width: 90vw;
-    aspect-ratio: 640 / 360;
+    height: 360px;
     max-width: 640px;
     max-height: 360px;
     border-radius: 10px;
@@ -236,16 +254,36 @@
     }
     
     iframe {
+        width: 90% !important;
         margin-bottom: 25px;
     }
 
     #music-player-input{
+        width: 85%;
         margin-top: 25px;
+    }
+
+    #music-player-input-url {
+        width: 80%;
+    }
+
+    #music-player-track{
+        width: 85%;
+    }
+    
+    #music-player-track-active{
+        width: 85%;
     }
 }
 
+#music-player-current-track div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 iframe {
-    width: 90vw;
+    width: 100%;
     aspect-ratio: 640 / 360;
     max-width: 640px;
     max-height: 360px;
