@@ -175,7 +175,7 @@ const SettingTimer = () => {
         const focusLength = (document.getElementById('setting-focus-length-min').value !== "" ? document.getElementById('setting-focus-length-min').value : focusLengthMin);
         const breakLength = (document.getElementById('setting-break-length-min').value !== "" ? document.getElementById('setting-break-length-min').value : breakLengthMin);
         noti.current = !noti.current;
-        if (focusLength <= 1 || focusLength > 120 || breakLength <= 1 || breakLength > 30) {
+        if (focusLength < 1 || focusLength > 120 || breakLength < 1 || breakLength > 30) {
             document.getElementById('setting-focus-length-min').value = "";
             document.getElementById('setting-break-length-min').value = "";
             alert("Invalid input value. Please enter a value between 1~120 for Focus and 1~30 for Break.");
