@@ -13,9 +13,9 @@ const MusicPlayer = () => {
     const opts = {
         height: '360',
         width: '640',
-        // playerVars: {
-        //   autoplay: 1,
-        // },
+        playerVars: {
+          autoplay: 1,
+        },
     }
 
     useEffect(() => {
