@@ -153,6 +153,7 @@ const SettingTimer = () => {
         document.getElementById('setting-focus-length-min').value = focusLengthMin;
         document.getElementById('setting-break-length-min').value = breakLengthMin;
         document.getElementById('setting-noti').checked = noti.current;
+        setTemp(noti.current);
     }
     
     // Handle save properties in Setting
@@ -213,10 +214,6 @@ const SettingTimer = () => {
         else startAndStopTimer();
         document.getElementById("timer-noti-sound").volume = 1;
     }, [isFocused])
-
-    useEffect(() => {
-        setTemp(noti.current)
-    },[noti.current]);
 
     return (
         <>
