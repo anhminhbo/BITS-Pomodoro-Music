@@ -214,6 +214,10 @@ const SettingTimer = () => {
         document.getElementById("timer-noti-sound").volume = 1;
     }, [isFocused])
 
+    useEffect(() => {
+        setTemp(noti.current)
+    },[noti.current]);
+
     return (
         <>
             <audio id="timer-noti-sound" muted>
