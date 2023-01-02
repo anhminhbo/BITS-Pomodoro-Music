@@ -236,8 +236,15 @@ const SettingTimer = () => {
                             a 45,45 0 1,0 90,0
                             a 45,45 0 1,0 -90,0
                             ' 
-                            style={{stroke : (isFocused ? "#04AA6D" : "#5c8a07")}}/>
-                            </g>
+                            style={{stroke : (isFocused ? "#04AA6D" : "#5c8a07")}}/> 
+                            </g> 
+                            {/* 
+                            *Title: How to Create an Animated Countdown Timer With HTML, CSS and JavaScript
+                            *Author: Mateusz Rybczonek
+                            *Date: 2 Febuary 2020 
+                            * Code version: V1 
+                            *Availability: https://css-tricks.com/how-to-create-an-animated-countdown-timer-with-html-css-and-javascript/?fbclid=IwAR1taQmzOUiStGsGBe67zdJGDS7mS10jzwDbl_AZLt3kQpMdRYXLcwpFiaA (Accessed 15 November 2022) 
+                            */}  
                         </svg>
                         <div className='timer-label'>
                             <div className="timer-mode" style={{color : (isFocused ? "#04AA6D" : "#5c8a07"), fontWeight: "bold"}}>{isFocused ? "Focus Mode" : "Break Mode"}</div>
