@@ -14,15 +14,15 @@ const userSchema = new mongoose.Schema(
     timerSettings: {
       focusLength: {
         type: Number,
-        default: 25
+        default: 25,
       },
       breakLength: {
         type: Number,
-        default: 5
+        default: 5,
       },
       isNotified: {
         type: Boolean,
-        default: true
+        default: true,
       },
     },
     playlist: [
@@ -46,18 +46,17 @@ const userSchema = new mongoose.Schema(
       },
     ],
   },
-  { minimize: false }
+  { minimize: false, timestamps: true } // for removing empty obj and add time stamp
 );
 // Set default timer settings for user
- userSchema.pre('save', function(next) {
-    if (this.timerSettings === null) {
-        this.timerSettings.focusLength = 25;
-        this.timerSettings.breakLength = 5;
-        this.timerSettings.isNotified = true;
-    }
+userSchema.pre("save", function (next) {
+  if (this.timerSettings === null) {
+    this.timerSettings.focusLength = 25;
+    this.timerSettings.breakLength = 5;
+    this.timerSettings.isNotified = true;
+  }
 
-    next();
+  next();
 });
-
 
 module.exports = mongoose.model("User", userSchema);
