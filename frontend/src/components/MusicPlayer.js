@@ -17,7 +17,7 @@ const MusicPlayer = () => {
           autoplay: 1,
         },
     }
-//
+
     useEffect(() => {
         getPlaylist();
     }, []);
@@ -35,7 +35,6 @@ const MusicPlayer = () => {
             `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/playlist/getPlaylist`
           );
           const temp = response.data.data.playlist;
-          console.log(temp);
           setPlaylist(temp);
         } 
         catch (err) {
@@ -196,7 +195,7 @@ const MusicPlayer = () => {
                     </div>
                     :
                     <div id="music-player-current-track">
-                        <YouTube videoId={playlist[curIndex].songId} opts={opts} onStateChange={(e) => { if (e.data == 0) { setCurIndex(playNext()); } } }/>
+                        <YouTube videoId={playlist[curIndex].songId} opts={opts} onStateChange={(e) => { console.log(e); if (e.data == 0) { setCurIndex(playNext()); } } }/>
                     </div>
                 }
                 <div id="music-player-right">
