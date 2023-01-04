@@ -88,7 +88,6 @@ const SettingTimer = () => {
             setAction("Stop");
             // Start a Timer
             Interval.current = setInterval(() => {
-                console.log(noti.current);
                 // If time runs out
                 if (Min.current == 0 && Sec.current == 0) {
                     clearInterval(Interval.current);
@@ -98,6 +97,8 @@ const SettingTimer = () => {
                     if (noti.current) {
                         document.getElementById("timer-noti-sound").muted = true;
                         document.getElementById("timer-noti-sound").muted = false;
+                        // document.querySelector("iframe").pauseVideo();
+                        document.querySelector("iframe").contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
                         document.getElementById("timer-noti-sound").play();
                     }
                     setIsFocused(!isFocused);
@@ -176,6 +177,7 @@ const SettingTimer = () => {
     // prevent user from entering special characters
     useEffect(() => {
         getSettings();
+        document.getElementById("timer-noti-sound").volume = 1;
         var NumBoxes= document.querySelectorAll(".setting-numbox");
         var invalidChars = ["+","-","e"];
         for (const NumBox of NumBoxes) {
@@ -208,12 +210,6 @@ const SettingTimer = () => {
     useEffect(() => {
         reset();
     }, [focusLengthMin, breakLengthMin, noti.current, isFocused]);
-
-    useEffect(() => {
-        if (isFirstTime.current) {isFirstTime.current = false}
-        else startAndStopTimer();
-        document.getElementById("timer-noti-sound").volume = 1;
-    }, [isFocused])
 
     return (
         <>
