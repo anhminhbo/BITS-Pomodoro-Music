@@ -132,7 +132,7 @@ const Task = () => {
                   name="checkbox"
                   id={`task-checkbox-${index}`}
                   className="task-checkbox"
-                  defaultChecked={task.isDone}
+                  checked={task.isDone}
                 />
                 <label
                   className="task-checkbox-custom"
