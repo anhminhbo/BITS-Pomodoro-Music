@@ -1,0 +1,66 @@
+name: Build and Push Docker images
+run-name: ${{ github.actor }} is triggering Build and Push Docker images 🚀
+on:
+  push:
+    branches:
+      - main
+concurrency: build_and_push_docker
+jobs:
+  build-anh-push-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out current branch
+        uses: actions/checkout@v3
+
+      # Check if backend or frontend src folder has changes
+      - name: Check if backend or frontend src folder has changes
+        uses: dorny/paths-filter@v2
+        id: detect-changes
+        with:
+          filters: |
+            backend:
+              - 'backend/src/**'
+            frontend:
+              - 'frontend/src/**'
+
+      - id: backend-tag
+        run: |
+          current=$(curl -s -S "https://registry.hub.docker.com/v2/repositories/anhminhbo/bits-backend/tags/" |  
+          jq '."results"[]["name"]' | sed -n 1p | cut -d'"' -f2)
+          newBackendTag=`expr $current + 1`
+          echo "::set-output name=newBackendTag::$(echo $newBackendTag)"
+
+      - id: frontend-tag
+        run: |
+          current=$(curl -s -S "https://registry.hub.docker.com/v2/repositories/anhminhbo/bits-frontend/tags/" | 
+          jq '."results"[]["name"]' | sed -n 1p | cut -d'"' -f2)
+          newFrontendTag=`expr $current + 1` 
+          echo "::set-output name=newFrontendTag::$(echo $newFrontendTag)"
+
+      # Login to DockerHub
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      # If backend and frontend both have changes
+      - name: Backend and Frontend both have changes
+        if: steps.detect-changes.outputs.backend == 'true' && steps.detect-changes.outputs.frontend == 'true'
+        run: |
+          bash -x dockerize.sh ${{ steps.frontend-tag.outputs.newFrontendTag }} ${{ steps.backend-tag.outputs.newBackendTag }}
+          exit 0
+
+      # If backend have changes
+      - name: Only Backend has changes
+        if: steps.detect-changes.outputs.backend == 'true' && steps.detect-changes.outputs.frontend != 'true'
+        run: |
+          bash -x dockerize-backend.sh ${{ steps.backend-tag.outputs.newBackendTag }}
+          exit 0
+
+      # If frontend have changes
+      - name: Only Frontend has changes
+        if: steps.detect-changes.outputs.backend != 'true' && steps.detect-changes.outputs.frontend == 'true'
+        run: |
+          bash -x dockerize-frontend.sh ${{ steps.frontend-tag.outputs.newFrontendTag }}
+          exit 0
