@@ -59,6 +59,7 @@ function App() {
         } />
         <Route path="/login" element={
           <>
+            <title>Login</title>
             <Header />
             <LogIn />
             <Footer />
@@ -66,6 +67,7 @@ function App() {
         } />
         <Route path="/register" element={
           <>
+            <title>Register</title>
             <Header />
             <Register />
             <Footer />
@@ -73,6 +75,7 @@ function App() {
         } />
         <Route path="/" element={
           <>
+            <title>Welcome</title>
             <LandingPage/>
           </>
         } />
