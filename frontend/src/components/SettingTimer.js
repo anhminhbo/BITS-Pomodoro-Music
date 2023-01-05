@@ -97,7 +97,12 @@ const SettingTimer = () => {
                     if (noti.current) {
                         document.getElementById("timer-noti-sound").muted = true;
                         document.getElementById("timer-noti-sound").muted = false;
-                        if (isMusicOn) document.querySelector("iframe").contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                        if (isMusicOn) {
+                            if (document.querySelector("iframe"))
+                            {
+                                document.querySelector("iframe").contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                            }
+                        }
                         document.getElementById("timer-noti-sound").play();
                     }
                     setIsFocused(!isFocused);
