@@ -3,8 +3,8 @@ import './LandingPage.css'
 const user_manual = require("../doc/Um.pdf");
 
 function LandingPage() {
-  console.log(window.__RUNTIME_CONFIG__.BACKEND_URL);
-  console.log(window.__RUNTIME_CONFIG__.FRONTEND_URL);
+//   console.log(window.__RUNTIME_CONFIG__.BACKEND_URL);
+//   console.log(window.__RUNTIME_CONFIG__.FRONTEND_URL);
   return (
       <div className = "landing-page-container">
           <div className = "landing-page-content">

@@ -10,18 +10,18 @@ const LogIn = () => {
   const [userSession, setUserSession] = useState("");
 
   useEffect(() => {
-    if (sessionStorage.getItem("username")){
-      console.log(sessionStorage.getItem("username"));
+    if (sessionStorage.getItem("username")) {
+      // console.log(sessionStorage.getItem("username"));
       setUserSession(sessionStorage.getItem("username"));
       sessionStorage.removeItem("username");
     }
-  }, [])
+  }, []);
 
   const login = async (username, password) => {
     document.getElementById("login-usernotfound-message").style.display =
-    "none";
+      "none";
     document.getElementById("login-passwordinvalid-message").style.display =
-    "none";
+      "none";
     try {
       const payload = {
         username,
@@ -37,17 +37,15 @@ const LogIn = () => {
     } catch (err) {
       if (err.response.data.errCode === 103) {
         // Handle when user not found
-        console.log(err);
-        console.log("Handle when user not found");
+        // console.log(err);
+        // console.log("Handle when user not found");
         document.getElementById("login-usernotfound-message").style.display =
-        "block";
-
+          "block";
       } else if (err.response.data.errCode === 102) {
         // Handle when Password is invalid
-        console.log("Handle when Password is invalid");
+        // console.log("Handle when Password is invalid");
         document.getElementById("login-passwordinvalid-message").style.display =
-        "block";
-
+          "block";
       }
     }
   };
@@ -66,7 +64,7 @@ const LogIn = () => {
           <div className="form-head login-head">Login</div>
           <form className="pure-form" method="post">
             <div className="username login-register-input">
-              <div className="formlabel" for="username">
+              <div className="formlabel" htmlFor="username">
                 Username
               </div>
               <input
@@ -75,14 +73,14 @@ const LogIn = () => {
                 id="username"
                 type="text"
                 name="username"
-                maxlength="150"
+                maxLength="150"
                 placeholder="Enter Username"
                 ref={username}
                 defaultValue={userSession}
               />
             </div>
             <div className="password login-register-input">
-              <div className="formlabel" for="password">
+              <div className="formlabel" htmlFor="password">
                 Password
               </div>
               <input
@@ -91,7 +89,7 @@ const LogIn = () => {
                 id="password"
                 type="password"
                 name="password"
-                maxlength="150"
+                maxLength="150"
                 placeholder="Enter Password"
                 ref={password}
               />
@@ -102,23 +100,24 @@ const LogIn = () => {
                 width="13"
                 height="13"
                 fill="currentColor"
-                class="bi bi-exclamation-circle-fill"
+                className="bi bi-exclamation-circle-fill register-message-icon"
                 viewBox="0 0 16 16"
-                className="register-message-icon"
               >
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
               </svg>
               User not found.
             </div>
-            <div id="login-passwordinvalid-message" className="register-message">
+            <div
+              id="login-passwordinvalid-message"
+              className="register-message"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="13"
                 height="13"
                 fill="currentColor"
-                class="bi bi-exclamation-circle-fill"
+                className="bi bi-exclamation-circle-fill register-message-icon"
                 viewBox="0 0 16 16"
-                className="register-message-icon"
               >
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
               </svg>

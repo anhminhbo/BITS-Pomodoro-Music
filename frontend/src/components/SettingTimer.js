@@ -64,7 +64,7 @@ const SettingTimer = () => {
             payload
           );
           // Handle update settings
-          console.log("Handle update settings");
+        //   console.log("Handle update settings");
           await getSettings();
           return response;
         } 
@@ -73,7 +73,7 @@ const SettingTimer = () => {
             // Handle when session expired
             window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
           }
-          console.log(err.response.data);
+        //   console.log(err.response.data);
         }
     };
 
@@ -93,7 +93,7 @@ const SettingTimer = () => {
                     clearInterval(Interval.current);
                     // Set interval to 1 to prevent pressing button while time runs out
                     Interval.current = 0;
-                    console.log(noti.current);
+                    // console.log(noti.current);
                     if (noti.current) {
                         document.getElementById("timer-noti-sound").muted = true;
                         document.getElementById("timer-noti-sound").muted = false;
@@ -104,9 +104,16 @@ const SettingTimer = () => {
                             }
                         }
                         document.getElementById("timer-noti-sound").play();
+                    } else {
+                        if (isMusicOn) {
+                            if (document.querySelector("iframe"))
+                            {
+                                document.querySelector("iframe").contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                            }
+                        }
                     }
                     setIsFocused(!isFocused);
-                    console.log("Stop");
+                    // console.log("Stop");
                     setAction("Start");                     
                 }
                 // If time doesn't run out but second equals to zero
@@ -127,9 +134,9 @@ const SettingTimer = () => {
             // If time doesn't run out, allow restart the timer
             if (Min.current != 0 || Sec.current != 0) {
                 setAction("Start");
-                console.log(Min.current);
-                console.log(Sec.current);
-                console.log("Stop");
+                // console.log(Min.current);
+                // console.log(Sec.current);
+                // console.log("Stop");
                 clearInterval(Interval.current);
                 Interval.current = 0;
             }
@@ -196,11 +203,11 @@ const SettingTimer = () => {
         }
     }, []);
     
-    useEffect(() => {
-        console.log(focusLengthMin);
-        console.log(breakLengthMin);
-        console.log(noti.current);
-    }, [focusLengthMin, breakLengthMin, noti.current]);
+    // useEffect(() => {
+    //     console.log(focusLengthMin);
+    //     console.log(breakLengthMin);
+    //     console.log(noti.current);
+    // }, [focusLengthMin, breakLengthMin, noti.current]);
 
     const reset = () => {
         Min.current = (isFocused ? focusLengthMin : breakLengthMin);
