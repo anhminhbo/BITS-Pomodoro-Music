@@ -104,25 +104,35 @@ const MusicPlayer = () => {
     fetch(url)
       .then((response) => response.json())
       .then((response) => {
-        if (
-          playlist.find(
-            (element) => element.songId === youtube_parser(link)
-          ) === undefined
-        ) {
-          // Check if a track existed or not
-          const newSong = {
-            song: {
-              songTitle: response.items[0].snippet.title,
-              songChannelTitle: response.items[0].snippet.channelTitle,
-              songUrl: link,
-              songId: youtube_parser(link),
-              songDuration: duration_parser(
-                response.items[0].contentDetails.duration
-              ),
-            },
-          };
-          updatePlaylist(newSong);
-          if (curIndex === -1) setCurIndex(playlist.length); // avoid default state
+        if (response.items.length === 0)
+          alert(
+            "ALERT!!!! Your Youtube URL is incorrect. Please retry with a correct one."
+          );
+        else {
+          if (
+            playlist.find(
+              (element) => element.songId === youtube_parser(link)
+            ) === undefined
+          ) {
+            // Check if a track existed or not
+            const newSong = {
+              song: {
+                songTitle: response.items[0].snippet.title,
+                songChannelTitle: response.items[0].snippet.channelTitle,
+                songUrl: link,
+                songId: youtube_parser(link),
+                songDuration: duration_parser(
+                  response.items[0].contentDetails.duration
+                ),
+              },
+            };
+            updatePlaylist(newSong);
+            if (curIndex === -1) setCurIndex(playlist.length); // avoid default state
+          } else {
+            alert(
+              "ALERT!!!! Your Youtube URL is duplicated. Please retry with a correct one."
+            );
+          }
         }
       })
       .catch();
