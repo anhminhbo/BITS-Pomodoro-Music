@@ -14,12 +14,12 @@ const Task = () => {
       );
       const tasks = response.data.data.tasks;
       setTasklist(tasks);
-    } 
-    catch (err) {
-        if (err.response.data.errCode === 112) {
-          // Handle when session expired
-          window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
-        }
+    } catch (err) {
+      if (err.response.data.errCode === 112) {
+        // Handle when session expired
+        window.location.href =
+          window.__RUNTIME_CONFIG__.FRONTEND_URL + "/login";
+      }
     }
   };
 
@@ -39,21 +39,21 @@ const Task = () => {
       );
 
       // Handle update tasks -> Update tasks on UI
-      console.log("Handle update tasks");
+      // console.log("Handle update tasks");
       await getTasks();
 
       return response;
     } catch (err) {
       if (err.response.data.errCode === 112) {
         // Handle when session expired
-        window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
-      } 
-      else if (err.response.data.errCode === 119) {
+        window.location.href =
+          window.__RUNTIME_CONFIG__.FRONTEND_URL + "/login";
+      } else if (err.response.data.errCode === 119) {
         // Handle when task name empty
         console.log("Handle when task name empty");
       }
 
-      console.log(err.response.data);
+      // console.log(err.response.data);
     }
   };
 
@@ -66,7 +66,8 @@ const Task = () => {
     } catch (err) {
       if (err.response.data.errCode === 112) {
         // Handle when session expired
-        window.location.href = window.__RUNTIME_CONFIG__.FRONTEND_URL + '/login';
+        window.location.href =
+          window.__RUNTIME_CONFIG__.FRONTEND_URL + "/login";
       } else if (err.response.data.errCode === 120) {
         // Handle when task index empty
         console.log("Handle when task index empty");
@@ -75,7 +76,7 @@ const Task = () => {
         console.log("Handle when task index not existed");
       }
 
-      console.log(err.response.data);
+      // console.log(err.response.data);
     }
   };
 
@@ -136,7 +137,7 @@ const Task = () => {
                 />
                 <label
                   className="task-checkbox-custom"
-                  for={`task-checkbox-${index}`}
+                  htmlFor={`task-checkbox-${index}`}
                   onClick={() => {
                     updateTasks(index, task.name, !task.isDone);
                   }}
@@ -156,9 +157,8 @@ const Task = () => {
               width="40"
               height="40"
               fill="currentColor"
-              class="bi bi-x"
+              className="bi bi-x task-close-btn"
               viewBox="0 0 16 16"
-              className="task-close-btn"
               onClick={() => handleDeleteTask(index)}
             >
               <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
@@ -172,13 +172,13 @@ const Task = () => {
             width="28"
             height="25"
             fill="currentColor"
-            class="bi bi-plus-lg"
+            className="bi bi-plus-lg"
             viewBox="0 0 16 16"
             style={{ transform: "translateY(2.5px)" }}
           >
             <path
               strokeWidth={1.5}
-              fill-rule="evenodd"
+              fillRule="evenodd"
               d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"
             />
           </svg>

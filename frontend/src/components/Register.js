@@ -16,7 +16,7 @@ const Register = () => {
 
   const handleSubmit = async () => {
     document.getElementById("register-username-existed-message").style.display =
-    "none";
+      "none";
     // Initialize
     const usernameRegex = /^[a-zA-Z0-9]+$/;
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
@@ -85,13 +85,13 @@ const Register = () => {
     let status;
     try {
       const response = await postData(username, password);
-      console.log(response);
-      console.log(response.data.code);
+      // console.log(response);
+      // console.log(response.data.code);
       //transition page
       status = response.status;
     } catch (err) {
       console.log(err);
-      console.log(err.response.data.errMessage);
+      // console.log(err.response.data.errMessage);
     }
     return status;
   };
@@ -106,32 +106,34 @@ const Register = () => {
         `${window.__RUNTIME_CONFIG__.BACKEND_URL}/api/auth/register`,
         payload
       );
-      console.log(response);
+      // console.log(response);
       // Caches username, password *Advanced for UI/UX*
       // Redirect to login
-      console.log("Redirect to login");
+      // console.log("Redirect to login");
 
       return response;
     } catch (err) {
       if (err.response.data.errCode === 111) {
         // Handle when user already existed
-        console.log("Handle when user already existed");
-        document.getElementById("register-username-existed-message").style.display =
-    "block";
+        // console.log("Handle when user already existed");
+        document.getElementById(
+          "register-username-existed-message"
+        ).style.display = "block";
       }
-      console.log(err.response.data);
+      // console.log(err.response.data);
     }
   };
   // postData("anhminhtest", "Anhminh1234*");
-  console.log(window.__RUNTIME_CONFIG__.BACKEND_URL);
+  // console.log(window.__RUNTIME_CONFIG__.BACKEND_URL);
 
   return (
     <>
       <div className="register-background">
-        <div className="login-register-container register-container" onKeyDown={
-          (e) => {
+        <div
+          className="login-register-container register-container"
+          onKeyDown={(e) => {
             if (e.key === "Enter") {
-              handleSubmit()
+              handleSubmit();
             }
           }}
         >
@@ -143,7 +145,7 @@ const Register = () => {
           </div>
           <form className="pure-form">
             <div className="username">
-              <div className="formlabel" for="username">
+              <div className="formlabel" htmlFor="username">
                 Username{" "}
               </div>
               <input
@@ -160,30 +162,31 @@ const Register = () => {
                 width="13"
                 height="13"
                 fill="currentColor"
-                class="bi bi-exclamation-circle-fill"
+                className="bi bi-exclamation-circle-fill register-message-icon"
                 viewBox="0 0 16 16"
-                className="register-message-icon"
               >
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
               </svg>
               Username contains only numeric and alphabetic characters.
             </div>
-            <div id="register-username-existed-message" className="register-message">
+            <div
+              id="register-username-existed-message"
+              className="register-message"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="13"
                 height="13"
                 fill="currentColor"
-                class="bi bi-exclamation-circle-fill"
+                className="bi bi-exclamation-circle-fill register-message-icon"
                 viewBox="0 0 16 16"
-                className="register-message-icon"
               >
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
               </svg>
               Username already existed.
             </div>
             <div className="password login-register-input">
-              <div className="formlabel" for="passwbash -x local_startup.shord">
+              <div className="formlabel" htmlFor="passwbash -x local_startup.shord">
                 Password{" "}
               </div>
               <input
@@ -200,17 +203,17 @@ const Register = () => {
                 width="13"
                 height="13"
                 fill="currentColor"
-                class="bi bi-exclamation-circle-fill"
+                className="bi bi-exclamation-circle-fill register-message-icon"
                 viewBox="0 0 16 16"
-                className="register-message-icon"
               >
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
               </svg>
               Password must be at least 8 characters and contains at least ONE
-              number, ONE lowercase character, ONE uppercase character and NO special characters.
+              number, ONE lowercase character, ONE uppercase character and NO
+              special characters.
             </div>
             <div className="confirm-password login-register-input">
-              <div className="formlabel" for="confirmPassword">
+              <div className="formlabel" htmlFor="confirmPassword">
                 Confirm Password{" "}
               </div>
               <input
@@ -230,9 +233,8 @@ const Register = () => {
                 width="13"
                 height="13"
                 fill="currentColor"
-                class="bi bi-exclamation-circle-fill"
+                className="bi bi-exclamation-circle-fill register-message-icon"
                 viewBox="0 0 16 16"
-                className="register-message-icon"
               >
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
               </svg>
