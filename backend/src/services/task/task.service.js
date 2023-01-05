@@ -30,7 +30,8 @@ const updateTask = async (username, task) => {
 
   // Handle when task is new or just updated
   const isNeedUpdate = tasks.some(
-    (t, index) => index == task.index && t.isDone != task.isDone
+    // (t, index) => index == task.index && t.isDone != task.isDone
+    (t, index) => index == task.index
   );
 
   let newTasks;
