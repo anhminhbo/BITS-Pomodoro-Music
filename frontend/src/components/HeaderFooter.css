@@ -51,6 +51,7 @@ div img {
 }
 
 #header-menu li {
+    right: 0;
     text-align: right;
     cursor: pointer;
     font-family: "Roboto Flex", sans-serif;
@@ -60,12 +61,22 @@ div img {
     text-decoration: none;
     list-style-type: none;
     transition: all .2s ease;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 86%;
+    position: relative;
+    margin-left: auto;
 }
 
 #header-menu li #header-username {
+    width: 70%;
     color: rgb(32, 137, 36);
     font-weight: 500;
     text-decoration: underline;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 #header-menu li.btn:hover {
