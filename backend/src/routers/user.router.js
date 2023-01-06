@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.route("/getUsername").get(isAuthenticated, UserController.getUsername);
 
-router.route("/createNewUser").post(UserController.createNewUser);
+// router.route("/createNewUser").post(UserController.createNewUser);
 
 module.exports = router;
