@@ -7,7 +7,7 @@ const sessionConfig = {
   }),
   cookie: {
     // enable cookies over https
-    secure: NODE_ENV !== "production",
+    secure: NODE_ENV === "production",
 
     // enable to save session to Store,// don't create session until something stored
     resave: false,
@@ -15,8 +15,8 @@ const sessionConfig = {
     // trust the nginx proxy in front of express
     proxy: NODE_ENV === "production",
 
-    // Make this none to testing from local call to production
-    sameSite: 'none',
+    // // Make this none to testing from local call to production
+    // sameSite: 'none',
 
     // The new session to save to store, //don't save session if unmodified
     saveUnitialized: false,
