@@ -7,7 +7,7 @@ const sessionConfig = {
   }),
   cookie: {
     // enable cookies over https
-    secure: NODE_ENV === "production",
+    secure: NODE_ENV !== "production",
 
     // enable to save session to Store,// don't create session until something stored
     resave: false,
