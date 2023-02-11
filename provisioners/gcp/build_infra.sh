@@ -47,7 +47,7 @@ terraform init
 terraform plan -auto-approve
 terraform apply -auto-approve
 
-IP=$(terraform output -raw ec2_elastic_ip)
+IP=$(terraform output -raw instance_ip)
 echo "Your App VM IP: $IP"
 
 ### CREATE ANSIBLE HOSTS FOR ANSIBLE TO ACCESS
@@ -56,7 +56,7 @@ sed "s/\[\[IP\]\]/$IP/g" \
 > ansible_hosts
 
 ### Make sure ansible can connect to the newly created VM
-testConnection=$(ANSIBLE_HOST_KEY_CHECKING=False ansible all -m ping -u ubuntu --key-file aws-ec2-private-key.pem -T 30 -i ansible_hosts | grep "|" | cut -d " " -f3)
+testConnection=$(ANSIBLE_HOST_KEY_CHECKING=False ansible all -m ping -u anhminhansi --key-file ~/.ssh/id_rsa -T 30 -i ansible_hosts | grep "|" | cut -d " " -f3)
 while [ "$testConnection" != "SUCCESS" ]; do
     echo "Check connection from Ansible to App VM..."
     if [ $exitcode -ne 0 ]; then
@@ -67,13 +67,13 @@ while [ "$testConnection" != "SUCCESS" ]; do
         break 
     fi
     echo "Current connection status is: $testConnection"
-    testConnection=$(ANSIBLE_HOST_KEY_CHECKING=False ansible all -m ping -u ubuntu --key-file aws-ec2-private-key.pem -T 30 -i ansible_hosts | grep "|" | cut -d " " -f3)
+    testConnection=$(ANSIBLE_HOST_KEY_CHECKING=False ansible all -m ping -u anhminh --key-file ~/.ssh/id_rsa -T 30 -i ansible_hosts | grep "|" | cut -d " " -f3)
     sleep 2s
 
 done
 
 ### CONFIG THE VM
-ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu --key-file aws-ec2-private-key.pem -T 1000 -i ansible_hosts ansible.config_vm.yaml
+ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u anhminh --key-file ~/.ssh/id_rsa -T 1000 -i ansible_hosts ansible.config_vm.yaml
 
 echo "Waiting to apply cert..."
 sleep 5s
@@ -88,7 +88,7 @@ while [ "$currentIP" != "$IP" ]; do
 
     ### APPLY CERT FOR YOUR WEB APP IF MATCHED
     if [ "$currentIP" == "$IP" ]; then
-        ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu --key-file aws-ec2-private-key.pem -T 1000 -i ansible_hosts ansible.apply_cert.yaml
+        ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u anhminh --key-file ~/.ssh/id_rsa -T 1000 -i ansible_hosts ansible.apply_cert.yaml
         break
         ### If any errors happend --> destroy everything
         if [ $exitcode -ne 0 ]; then
@@ -106,7 +106,7 @@ if [ $exitcode -ne 0 ]; then
 fi
 
 ### DELETE RUNTIME FILES WHEN SUCCESS
-find . -type f -not \( -name 'ansible_hosts' -or -name 'ansible_hosts.template' -or -name 'ansible.apply_cert.yaml' -or -name 'ansible.config_vm.yaml.template' -or -name 'build_infra.sh' -or -name 'create_cert_domain.template.sh' -or -name 'default.conf' -or -name 'deploy.sh' -or -name 'destroy_infra.sh' -or -name 'docker-compose.yaml.runtime' -or -name 'main.tf' -or -name 'terraform.tfstate' -or -name 'aws-ec2-private-key.pem' \) -delete
+find . -type f -not \( -name 'service_account.json' -or -name 'variables.tf' -or -name 'ansible_hosts' -or -name 'ansible_hosts.template' -or -name 'ansible.apply_cert.yaml' -or -name 'ansible.config_vm.yaml.template' -or -name 'build_infra.sh' -or -name 'create_cert_domain.template.sh' -or -name 'default.conf' -or -name 'deploy.sh' -or -name 'destroy_infra.sh' -or -name 'docker-compose.yaml.runtime' -or -name 'main.tf' -or -name 'terraform.tfstate' -or -name '~/.ssh/id_rsa' \) -delete
 
 ### DONE
 echo "Done building infrastructure of your web app. Ref: BugFixWanderer"

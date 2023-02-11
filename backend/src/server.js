@@ -105,7 +105,7 @@ app.use(mongoSanitize()); // filter out the dollar signs protect from  query inj
 app.use(xss()); // protect from molision code coming from html
 
 // Test connection from the outside
-app.use("/api/test", (req, res) => res.json({ data: "Test Success" }));
+app.use("/api/test", (req, res) => res.json({ data: "Test Success?" }));
 
 // Use specific Router to handle each end point
 
