@@ -56,7 +56,7 @@ sed "s/\[\[IP\]\]/$IP/g" \
 > ansible_hosts
 
 ### Make sure ansible can connect to the newly created VM
-testConnection=$(ANSIBLE_HOST_KEY_CHECKING=False ansible all -m ping -u anhminhansi --key-file ~/.ssh/id_rsa -T 30 -i ansible_hosts | grep "|" | cut -d " " -f3)
+testConnection=$(ANSIBLE_HOST_KEY_CHECKING=False ansible all -m ping -u anhminh --key-file ~/.ssh/id_rsa -T 30 -i ansible_hosts | grep "|" | cut -d " " -f3)
 while [ "$testConnection" != "SUCCESS" ]; do
     echo "Check connection from Ansible to App VM..."
     if [ $exitcode -ne 0 ]; then
