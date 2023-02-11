@@ -2,9 +2,19 @@ package-lock.json
 node_modules
 .DS_Store
 
-provisioners/*
-!provisioners/*template*
-!provisioners/terraform.tfstate
-!provisioners/*yaml*
-!provisioners/*.sh
-!provisioners/*.pem
+provisioners/aws/*
+!provisioners/aws/*template*
+!provisioners/aws/*tf*
+!provisioners/aws/*yaml*
+!provisioners/aws/*.sh
+!provisioners/aws/*.pem
+!provisioners/aws/default.conf
+
+provisioners/gcp/*
+!provisioners/gcp/*template*
+!provisioners/gcp/*tf*
+!provisioners/gcp/*yaml*
+!provisioners/gcp/*.sh
+!provisioners/gcp/*.pem
+!provisioners/gcp/default.conf
+

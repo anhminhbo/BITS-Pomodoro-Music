@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "ap-southeast-1" # Singapore
+  region = var.region
 }
 
 # Create ssh key pair
@@ -90,9 +90,9 @@ resource "aws_volume_attachment" "ebs_att" {
 }
 
 resource "aws_ebs_volume" "storage" {
-  availability_zone = "ap-southeast-1c"
-  size              = 100  # Remember to change this for low price
-# size              = 30  # Remember to change this for low price
+  availability_zone = var.zone
+  size              = 100 # Remember to change this for low price
+  # size              = 30  # Remember to change this for low price
 
 }
 
@@ -100,10 +100,10 @@ resource "aws_ebs_volume" "storage" {
 # Create EC2
 ###
 resource "aws_instance" "app-vm" {
-  ami                    = data.aws_ami.ec2-ami.id
-  availability_zone      = "ap-southeast-1c"
-  instance_type          = "t3.2xlarge" # Remember to change this for low price, t2.micro is free tier
-# instance_type          = "t2.micro" # Remember to change this for low price, t2.micro is free tier
+  ami               = data.aws_ami.ec2-ami.id
+  availability_zone = var.zone
+  instance_type     = var.instance_type # Remember to change this for low price, t2.micro is free tier
+  # instance_type          = "t2.micro" # Remember to change this for low price, t2.micro is free tier
   vpc_security_group_ids = [aws_security_group.allow_ports.id]
   key_name               = aws_key_pair.key_pair.key_name
 
